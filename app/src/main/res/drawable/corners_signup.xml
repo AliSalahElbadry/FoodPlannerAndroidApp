@@ -9,7 +9,7 @@
 
         </stroke>
 
-        <gradient android:startColor="#6508491A" android:centerColor="#4D3F6E33" android:endColor="#3E6D8A4A" android:angle="45" android:gradientRadius="2dp">
+        <gradient android:startColor="#A9063513" android:centerColor="#8D3F6E33" android:endColor="#3E6D8A4A" android:angle="45" android:gradientRadius="2dp">
 
         </gradient>
     </shape>
