@@ -10,4 +10,9 @@
     <string name="terms">By Register You Agree On Our Terms Of Use</string>
     <string name="have_an_account">Have An Account ? LOGIN</string>
     <string name="login">LogIn</string>
+    <string name="login_move_page">Login</string>
+    <string name="sinUp_move_page" >Sign Up</string>
+    <string name="text_login_signup" >Food Planner</string>
+    <string name="welcom_back">Welcome Back</string>
+    <string name="have_account_login">Don\'t have an account?Sign up</string>
 </resources>
