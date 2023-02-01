@@ -15,4 +15,11 @@
     <string name="text_login_signup" >Food Planner</string>
     <string name="welcom_back">Welcome Back</string>
     <string name="have_account_login">Don\'t have an account?Sign up</string>
+    <string name="my_favourite">My Favourites</string>
+    <string name="title_favourite_list">Title</string>
+    <string name="des_fav_list">Description</string>
+    <string name="title_fav_list">Title</string>
+    <string name="desc_fav_list">Description</string>
+    <string name="search">Search Here ...</string>
+    <string name="button_filter">Filter</string>
 </resources>
