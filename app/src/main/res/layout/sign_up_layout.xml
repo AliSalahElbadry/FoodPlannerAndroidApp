@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <ImageView
-            android:id="@+id/imgViewUNameSignUp"
+            android:id="@+id/imgViewUNameLogIn"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
@@ -33,7 +33,7 @@
             tools:ignore="ImageContrastCheck" />
 
         <EditText
-            android:id="@+id/editTxtUNameSignUp"
+            android:id="@+id/editTxtUNameLogIn"
             style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <ImageView
-            android:id="@+id/imgViewPassSignUp"
+            android:id="@+id/imgViewPassLogIn"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
@@ -114,7 +114,7 @@
             tools:ignore="ImageContrastCheck" />
 
         <EditText
-            android:id="@+id/editTxtPassSignUp"
+            android:id="@+id/editTxtPassLogIn"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginEnd="15dp"
@@ -170,7 +170,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnLogIn"
         android:layout_width="277dp"
         android:layout_height="49dp"
         android:layout_marginTop="16dp"
@@ -195,7 +195,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/imgViewLogin" />
 
     <TextView
         android:id="@+id/textView3"
@@ -214,7 +214,7 @@
         tools:ignore="TextSizeCheck" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewHaveAccount"
         android:layout_width="188dp"
         android:layout_height="42dp"
         android:layout_marginTop="32dp"
@@ -226,11 +226,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogIn"
         tools:ignore="TextSizeCheck" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imgViewLogin"
         android:layout_width="153dp"
         android:layout_height="131dp"
         android:layout_marginTop="16dp"
@@ -245,7 +245,7 @@
         android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHaveAccount"
         app:srcCompat="@drawable/googleicon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
