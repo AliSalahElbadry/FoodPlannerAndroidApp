@@ -36,6 +36,7 @@
     <string name="desc_fav_list">Description</string>
     <string name="search">Search Here ...</string>
     <string name="button_filter">Filter</string>
+
     <string name="logout">Log out</string>
     <string name="name_profile">Name</string>
     <string name="email_profile">Email@google.com</string>
@@ -44,4 +45,7 @@
     <string name="plans_profile">Plans</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="my_plans">My Plans</string>
+
 </resources>

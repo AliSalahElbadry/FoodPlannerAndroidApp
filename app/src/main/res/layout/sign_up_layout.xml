@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:layoutDirection="ltr"
-    tools:context=".MainActivity">
+    tools:context=".app_vp.view.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+
+    <View
+        android:id="@+id/containerUname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="25dp"
@@ -21,38 +22,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
+    </View>
 
-        <ImageView
-            android:id="@+id/imgViewUNameLogIn"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/user_name"
-            app:srcCompat="@drawable/person"
-            tools:ignore="ImageContrastCheck" />
-
-        <EditText
-            android:id="@+id/editTxtUNameLogIn"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="4"
-            android:background="@null"
-            android:ems="10"
-            android:hint="@string/user_name"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:textColorHint="#000000"
-            tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <EditText
+        android:id="@+id/editTxtUNameSignUp"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@null"
+        android:drawableStart="@drawable/person"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/user_name"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingStart="20dp"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/containerUname"
+        app:layout_constraintEnd_toEndOf="@+id/containerUname"
+        app:layout_constraintStart_toStartOf="@+id/containerUname"
+        app:layout_constraintTop_toTopOf="@+id/containerUname"
+        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+
+
+    <View
+        android:id="@+id/viewContainerEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="25dp"
@@ -61,38 +59,35 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/containerUname">
+    </View>
 
-        <ImageView
-            android:id="@+id/imgViewEmailSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/email"
-            app:srcCompat="@drawable/email"
-            tools:ignore="ImageContrastCheck" />
-
-        <EditText
-            android:id="@+id/editTxtEmailSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="4"
-            android:background="@null"
-            android:ems="10"
-            android:hint="@string/email"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress"
-            android:textColorHint="#000000"
-            tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <EditText
+        android:id="@+id/editTxtEmailSignUp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@null"
+        android:drawableStart="@drawable/email"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:paddingStart="20dp"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/viewContainerEmail"
+        app:layout_constraintEnd_toEndOf="@+id/viewContainerEmail"
+        app:layout_constraintStart_toStartOf="@+id/viewContainerEmail"
+        app:layout_constraintTop_toTopOf="@+id/viewContainerEmail"
+        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+
+
+    <View
+        android:id="@+id/viewContainerPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="25dp"
@@ -101,38 +96,35 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/viewContainerEmail">
+    </View>
 
-        <ImageView
-            android:id="@+id/imgViewPassLogIn"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/passowrd"
-            app:srcCompat="@drawable/password"
-            tools:ignore="ImageContrastCheck" />
-
-        <EditText
-            android:id="@+id/editTxtPassLogIn"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="4"
-            android:background="@null"
-            android:ems="10"
-            android:hint="@string/passowrd"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:textColorHint="#000000"
-            tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <EditText
+        android:id="@+id/editTxtPassSignUp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_weight="4"
+        android:background="@null"
+        android:drawableStart="@drawable/password"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/passowrd"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/viewContainerPassword"
+        app:layout_constraintEnd_toEndOf="@+id/viewContainerPassword"
+        app:layout_constraintStart_toStartOf="@+id/viewContainerPassword"
+        app:layout_constraintTop_toTopOf="@+id/viewContainerPassword"
+        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+
+
+    <View
+        android:id="@+id/viewContainerrePassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="25dp"
@@ -141,33 +133,30 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/viewContainerPassword">
+    </View>
 
-        <ImageView
-            android:id="@+id/imgViewRePassSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/reapet_passowrd"
-            app:srcCompat="@drawable/password"
-            tools:ignore="ImageContrastCheck" />
+    <EditText
+        android:id="@+id/editTxtRePassSignUp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@null"
+        android:drawableStart="@drawable/password"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/reapet_passowrd"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/viewContainerrePassword"
+        app:layout_constraintEnd_toEndOf="@+id/viewContainerrePassword"
+        app:layout_constraintStart_toStartOf="@+id/viewContainerrePassword"
+        app:layout_constraintTop_toTopOf="@+id/viewContainerrePassword"
+        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
-        <EditText
-            android:id="@+id/editTxtRePassSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="4"
-            android:background="@null"
-            android:ems="10"
-            android:hint="@string/reapet_passowrd"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:textColorHint="#000000"
-            tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
-    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogIn"
@@ -210,13 +199,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/viewContainerrePassword"
         tools:ignore="TextSizeCheck" />
 
     <TextView
         android:id="@+id/textViewHaveAccount"
-        android:layout_width="188dp"
-        android:layout_height="42dp"
+        android:layout_width="217dp"
+        android:layout_height="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/have_an_account"
         android:textAlignment="center"

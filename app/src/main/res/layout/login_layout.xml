@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgViewLogin" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/containerUname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
@@ -55,7 +55,7 @@
             tools:ignore="ImageContrastCheck" />
 
         <EditText
-            android:id="@+id/editTxtUNameLogIn"
+            android:id="@+id/editTxtUNameSignUp"
             style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="288dp"
             android:layout_height="match_parent"
@@ -72,7 +72,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/viewContainerPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
@@ -83,7 +83,7 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/containerUname">
 
         <ImageView
             android:id="@+id/imgViewPassLogIn"
@@ -97,7 +97,7 @@
             tools:ignore="ImageContrastCheck" />
 
         <EditText
-            android:id="@+id/editTxtPassLogIn"
+            android:id="@+id/editTxtPassSignUp"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginEnd="15dp"
@@ -124,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/viewContainerPassword"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
