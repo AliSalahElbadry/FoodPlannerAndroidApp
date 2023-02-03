@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/splashImageView"
+            app:layout_constraintTop_toTopOf="@+id/splashImageView"
             tools:text="@string/title_fav_list" />
 
         <TextView
@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/splashImageView"
+            app:layout_constraintStart_toEndOf="@+id/splashImageView"
             app:layout_constraintTop_toBottomOf="@+id/txtViewTitleFavouriteList"
             app:layout_constraintVertical_bias="0.0"
             tools:text="@string/des_fav_list" />
@@ -45,18 +45,18 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:contentDescription="@string/user_name"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/splashImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toEndOf="@+id/txtViewTitleFavouriteList"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/splashImageView"
             app:layout_constraintVertical_bias="0.407"
             app:srcCompat="@drawable/deleteicon"
             tools:ignore="ImageContrastCheck" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView"
+            android:id="@+id/splashImageView"
             android:layout_width="118dp"
             android:layout_height="90dp"
             android:layout_marginStart="4dp"

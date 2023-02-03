@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:layoutDirection="ltr"
-    tools:context=".app_vp.view.MainActivity">
+    tools:context=".app_vp.view.Splash_fScreen">
 
 
     <View
