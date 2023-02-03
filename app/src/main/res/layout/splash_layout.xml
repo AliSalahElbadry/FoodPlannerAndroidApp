@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/splashImageView"
         android:layout_width="418dp"
         android:layout_height="727dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -14,5 +15,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_background" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/splash_anim"
+        android:layout_width="355dp"
+        android:layout_height="292dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="-60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="mylottie_anim_splash.json"
+        app:lottie_loop="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
