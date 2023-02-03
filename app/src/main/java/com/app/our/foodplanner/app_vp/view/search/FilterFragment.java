@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import com.app.our.foodplanner.R;
 
-public class searchFragment extends Fragment {
+public class FilterFragment extends Fragment {
 
 
 
-    public searchFragment() {
+    public FilterFragment() {
         // Required empty public constructor
     }
 
@@ -28,6 +28,6 @@ public class searchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        return inflater.inflate(R.layout.fliter_layout, container, false);
     }
 }
