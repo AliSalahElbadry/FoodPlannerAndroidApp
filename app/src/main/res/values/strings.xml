@@ -25,8 +25,8 @@
     <string name="meal_country_name">Meal Country</string>
     <string name="meal_name">Meal Name</string>
     <string name="login_move_page">Login</string>
-    <string name="sinUp_move_page" >Sign Up</string>
-    <string name="text_login_signup" >Food Planner</string>
+    <string name="sinUp_move_page">Sign Up</string>
+    <string name="text_login_signup">Food Planner</string>
     <string name="welcom_back">Welcome Back</string>
     <string name="have_account_login">Don\'t have an account?Sign up</string>
     <string name="my_favourite">My Favourites</string>
@@ -36,5 +36,16 @@
     <string name="desc_fav_list">Description</string>
     <string name="search">Search Here ...</string>
     <string name="button_filter">Filter</string>
+
+    <string name="logout">Log out</string>
+    <string name="name_profile">Name</string>
+    <string name="email_profile">Email@google.com</string>
+    <string name="information_person">Information</string>
+    <string name="favourites_profile">Favourites</string>
+    <string name="plans_profile">Plans</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="my_plans">My Plans</string>
+
 </resources>
