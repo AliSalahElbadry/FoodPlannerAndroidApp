@@ -47,5 +47,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="my_plans">My Plans</string>
+    <string name="suggestion_meal">Suggestion for today</string>
+    <string name="randum_meal">Meal for you</string>
 
 </resources>

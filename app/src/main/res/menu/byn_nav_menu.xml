@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/favouriteMenu"
+            android:icon="@drawable/baseline_favorite_24"
+            android:title="favourite" />
+
+        <item
+            android:id="@+id/homeMenu"
+            android:icon="@drawable/baseline_home_24"
+            android:title="home" />
+
+        <item
+            android:id="@+id/planMenu"
+            android:icon="@drawable/baseline_play_circle_filled_24"
+            android:title="plan" />
+
+
+    </group>
+</menu>
