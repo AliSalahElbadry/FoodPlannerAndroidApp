@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/row"
         android:layout_width="match_parent"
-        android:layout_height="122dp">
+        android:layout_height="wrap_content">
 
 
         <TextView
