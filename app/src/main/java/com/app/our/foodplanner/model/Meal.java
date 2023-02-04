@@ -142,8 +142,7 @@ public class Meal {
     @SerializedName("strMeasure17")
     @ColumnInfo(name="strMeasure17")
     private String strMeasure17;
-    @ColumnInfo(name="mealDate")
-    private Date mealDate;
+
     @SerializedName("strMeasure18")
     @ColumnInfo(name="strMeasure18")
     private String strMeasure18;
@@ -154,6 +153,7 @@ public class Meal {
     @ColumnInfo(name="strMeasure20")
     private String strMeasure20;
     @ColumnInfo(name="isFavorite")
+    @Nullable
     private boolean isFavorite;
     @ColumnInfo(name="meal_Time")
     @Nullable

@@ -7,7 +7,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
 
-        android:id="@+id/recyclerViewplaneList"
+        android:id="@+id/recyclerViewRandumMeals"
 
         android:layout_width="383dp"
         android:layout_height="651dp"
