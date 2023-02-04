@@ -16,7 +16,7 @@ public abstract class AppDataBase extends RoomDatabase {
     public abstract MealDAO MealDAO();
     public static synchronized AppDataBase getInstance(Context context){
         if (instance == null){
-            instance= Room.databaseBuilder(context.getApplicationContext(),AppDataBase.class,"FoodPlaner").build();
+            instance= Room.databaseBuilder(context.getApplicationContext(),AppDataBase.class,"FoodPlanner").build();
         }
         return instance;
     }
