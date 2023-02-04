@@ -56,8 +56,10 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSuggest">
+        app:layout_constraintTop_toBottomOf="@+id/textViewSuggest"
+        app:layout_constraintVertical_bias="0.0">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewSuggestMeal"
@@ -99,9 +101,9 @@
             android:id="@+id/imgViewheartHomeSuggestMeal"
             android:layout_width="35dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:layout_marginLeft="300dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             app:srcCompat="@drawable/heartfill"
             tools:ignore="ImageContrastCheck" />
 

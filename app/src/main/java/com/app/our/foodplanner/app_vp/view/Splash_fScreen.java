@@ -28,7 +28,7 @@ public class Splash_fScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_layout);
         animationImage= AnimationUtils.loadAnimation(this,R.anim.splash_image_anim);
-        imageViewSplash=findViewById(R.id.splashImageView);
+        imageViewSplash=findViewById(R.id.imageViewMeal);
         imageViewSplash.setAnimation(animationImage);
         animationImage.start();
         lottieAnimationView=findViewById(R.id.splash_anim);

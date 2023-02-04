@@ -1,13 +1,21 @@
 package com.app.our.foodplanner.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+
+@Entity(tableName="PlanOfWeek")
+
 public class PlanOfWeek {
-
+    @ColumnInfo(name="idPlan")
+    @PrimaryKey
     private int idPlan;
-    private String idMeal;
-
-    public PlanOfWeek(int idPlan, String idMeal) {
+    @ColumnInfo (name="week")
+    private String week;//(year,month,week)
+    public PlanOfWeek(int idPlan, String week) {
         this.idPlan = idPlan;
-        this.idMeal = idMeal;
+        this.week = week;
     }
 
     public int getIdPlan() {
@@ -18,11 +26,11 @@ public class PlanOfWeek {
         this.idPlan = idPlan;
     }
 
-    public String getIdMeal() {
-        return idMeal;
+    public String getweek() {
+        return week;
     }
 
-    public void setIdMeal(String idMeal) {
-        this.idMeal = idMeal;
+    public void setweek(String week) {
+        this.week = week;
     }
 }
