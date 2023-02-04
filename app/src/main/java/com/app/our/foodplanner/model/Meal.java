@@ -1,56 +1,221 @@
 package com.app.our.foodplanner.model;
 
+import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.sql.Date;
+
+@Entity(tableName="Meals")
 public class Meal {
-
+    @SerializedName("idMeal")
+    @ColumnInfo(name="idMeal")
     private String idMeal;
+    @SerializedName("strMeal")
+    @ColumnInfo(name="strMeal")
     private String strMeal;
+    @SerializedName("strCategory")
+    @ColumnInfo(name="strCategory")
     private String strCategory;
+    @SerializedName("strArea")
+    @ColumnInfo(name="strArea")
     private String strArea;
+    @SerializedName("strInstructions")
+    @ColumnInfo(name="strInstructions")
     private String strInstructions;
+    @SerializedName("strMealThumb")
+    @ColumnInfo(name="strMealThumb")
     private String strMealThumb;
+    @SerializedName("strYoutube")
+    @ColumnInfo(name="strYoutube")
     private String strYoutube;
+    @SerializedName("strIngredient1")
+    @ColumnInfo(name="strIngredient1")
     private String strIngredient1;
+    @SerializedName("strIngredient2")
+    @ColumnInfo(name="strIngredient2")
     private String strIngredient2;
+    @SerializedName("strIngredient3")
+    @ColumnInfo(name="strIngredient3")
     private String strIngredient3;
+    @SerializedName("strIngredient4")
+    @ColumnInfo(name="strIngredient4")
     private String strIngredient4;
+    @SerializedName("strIngredient5")
+    @ColumnInfo(name="strIngredient5")
     private String strIngredient5;
+    @SerializedName("strIngredient6")
+    @ColumnInfo(name="strIngredient6")
     private String strIngredient6;
+    @SerializedName("strIngredient7")
+    @ColumnInfo(name="strIngredient7")
     private String strIngredient7;
+    @SerializedName("strIngredient8")
+    @ColumnInfo(name="strIngredient8")
     private String strIngredient8;
+    @SerializedName("strIngredient9")
+    @ColumnInfo(name="strIngredient9")
     private String strIngredient9;
+    @SerializedName("strIngredient10")
+    @ColumnInfo(name="strIngredient10")
     private String strIngredient10;
+    @SerializedName("strIngredient11")
+    @ColumnInfo(name="strIngredient11")
     private String strIngredient11;
+    @SerializedName("strIngredient12")
+    @ColumnInfo(name="strIngredient12")
     private String strIngredient12;
+    @SerializedName("strIngredient13")
+    @ColumnInfo(name="strIngredient13")
     private String strIngredient13;
+    @SerializedName("strIngredient14")
+    @ColumnInfo(name="strIngredient14")
     private String strIngredient14;
+    @SerializedName("strIngredient15")
+    @ColumnInfo(name="strIngredient15")
     private String strIngredient15;
+    @SerializedName("strIngredient16")
+    @ColumnInfo(name="strIngredient16")
     private String strIngredient16;
+    @SerializedName("strIngredient17")
+    @ColumnInfo(name="strIngredient17")
     private String strIngredient17;
+    @SerializedName("strIngredient18")
+    @ColumnInfo(name="strIngredient18")
     private String strIngredient18;
+    @SerializedName("strIngredient19")
+    @ColumnInfo(name="strIngredient19")
     private String strIngredient19;
+    @SerializedName("strIngredient20")
+    @ColumnInfo(name="strIngredient20")
     private String strIngredient20;
+    @SerializedName("strMeasure1")
+    @ColumnInfo(name="strMeasure1")
     private String strMeasure1;
+    @SerializedName("strMeasure2")
+    @ColumnInfo(name="strMeasure2")
     private String strMeasure2;
+    @SerializedName("strMeasure3")
+    @ColumnInfo(name="strMeasure3")
     private String strMeasure3;
+    @SerializedName("strMeasure4")
+    @ColumnInfo(name="strMeasure4")
     private String strMeasure4;
+    @SerializedName("strMeasure5")
+    @ColumnInfo(name="strMeasure5")
     private String strMeasure5;
+    @SerializedName("strMeasure6")
+    @ColumnInfo(name="strMeasure6")
     private String strMeasure6;
+    @SerializedName("strMeasure7")
+    @ColumnInfo(name="strMeasure7")
     private String strMeasure7;
+    @SerializedName("strMeasure8")
+    @ColumnInfo(name="strMeasure8")
     private String strMeasure8;
+    @SerializedName("strMeasure9")
+    @ColumnInfo(name="strMeasure9")
     private String strMeasure9;
+    @SerializedName("strMeasure10")
+    @ColumnInfo(name="strMeasure10")
     private String strMeasure10;
+    @SerializedName("strMeasure11")
+    @ColumnInfo(name="strMeasure11")
     private String strMeasure11;
+    @SerializedName("strMeasure12")
+    @ColumnInfo(name="strMeasure12")
     private String strMeasure12;
+    @SerializedName("strMeasure13")
+    @ColumnInfo(name="strMeasure13")
     private String strMeasure13;
+    @SerializedName("strMeasure14")
+    @ColumnInfo(name="strMeasure14")
     private String strMeasure14;
+    @SerializedName("strMeasure15")
+    @ColumnInfo(name="strMeasure15")
     private String strMeasure15;
+    @SerializedName("strMeasure16")
+    @ColumnInfo(name="strMeasure16")
     private String strMeasure16;
+    @SerializedName("strMeasure17")
+    @ColumnInfo(name="strMeasure17")
     private String strMeasure17;
+    @ColumnInfo(name="mealDate")
+    private Date mealDate;
+    @SerializedName("strMeasure18")
+    @ColumnInfo(name="strMeasure18")
     private String strMeasure18;
+    @SerializedName("strMeasure19")
+    @ColumnInfo(name="strMeasure19")
     private String strMeasure19;
+    @SerializedName("strMeasure20")
+    @ColumnInfo(name="strMeasure20")
     private String strMeasure20;
+    @ColumnInfo(name="isFavorite")
+    private boolean isFavorite;
+    @ColumnInfo(name="meal_Time")
+    @Nullable
+    private String meal_Time;
+    @ColumnInfo(name="meal_Day")
+    @Nullable
+    private String meal_Day;
+    @ColumnInfo(name="meal_Week")
+    @Nullable
+    private String meal_Week;
 
-    public Meal(String idMeal, String strMeal, String strCategory, String strArea, String strInstructions, String strMealThumb, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strIngredient8, String strIngredient9, String strIngredient10, String strIngredient11, String strIngredient12, String strIngredient13, String strIngredient14, String strIngredient15, String strIngredient16, String strIngredient17, String strIngredient18, String strIngredient19, String strIngredient20, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strMeasure8, String strMeasure9, String strMeasure10, String strMeasure11, String strMeasure12, String strMeasure13, String strMeasure14, String strMeasure15, String strMeasure16, String strMeasure17, String strMeasure18, String strMeasure19, String strMeasure20) {
+    @ColumnInfo(name="meal_Month")
+    @Nullable
+    private String meal_Month;
+
+
+    @ColumnInfo(name="meal_Year")
+    @Nullable
+    private String meal_Year;
+
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    @Nullable
+    public String getMeal_Day() {
+        return meal_Day;
+    }
+
+    public void setMeal_Day(@Nullable String meal_Day) {
+        this.meal_Day = meal_Day;
+    }
+
+    @Nullable
+    public String getMeal_Week() {
+        return meal_Week;
+    }
+
+    public void setMeal_Week(@Nullable String meal_Week) {
+        this.meal_Week = meal_Week;
+    }
+
+    @Nullable
+    public String getMeal_Month() {
+        return meal_Month;
+    }
+
+    public void setMeal_Month(@Nullable String meal_Month) {
+        this.meal_Month = meal_Month;
+    }
+
+    @Nullable
+    public String getMeal_Year() {
+        return meal_Year;
+    }
+
+    public void setMeal_Year(@Nullable String meal_Year) {
+        this.meal_Year = meal_Year;
+    }
+
+    public Meal(String idMeal, String strMeal, String strCategory, String strArea, String strInstructions, String strMealThumb, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strIngredient8, String strIngredient9, String strIngredient10, String strIngredient11, String strIngredient12, String strIngredient13, String strIngredient14, String strIngredient15, String strIngredient16, String strIngredient17, String strIngredient18, String strIngredient19, String strIngredient20, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strMeasure8, String strMeasure9, String strMeasure10, String strMeasure11, String strMeasure12, String strMeasure13, String strMeasure14, String strMeasure15, String strMeasure16, String strMeasure17, String strMeasure18, String strMeasure19, String strMeasure20, boolean isFavorite, @Nullable String meal_Time, @Nullable String meal_Day, @Nullable String meal_Week, @Nullable String meal_Month, @Nullable String meal_Year) {
         this.idMeal = idMeal;
         this.strMeal = strMeal;
         this.strCategory = strCategory;
@@ -98,6 +263,25 @@ public class Meal {
         this.strMeasure18 = strMeasure18;
         this.strMeasure19 = strMeasure19;
         this.strMeasure20 = strMeasure20;
+        this.isFavorite = isFavorite;
+        this.meal_Time = meal_Time;
+        this.meal_Day = meal_Day;
+        this.meal_Week = meal_Week;
+        this.meal_Month = meal_Month;
+        this.meal_Year = meal_Year;
+    }
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+    public boolean getFavorite() {
+        return isFavorite;
+    }
+    public String getMeal_Time() {
+        return meal_Time;
+    }
+
+    public void setMeal_Time(String meal_Time) {
+        this.meal_Time = meal_Time;
     }
 
     public String getIdMeal() {

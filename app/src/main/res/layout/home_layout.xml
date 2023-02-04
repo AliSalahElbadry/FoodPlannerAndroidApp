@@ -55,9 +55,12 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
+
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/textViewSuggest">
+
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewSuggestMeal"
