@@ -10,25 +10,25 @@
 
         android:id="@+id/recyclerViewplaneList"
         android:layout_width="match_parent"
-        android:layout_height="237dp"
+        android:layout_height="236dp"
 
         app:layout_constraintBottom_toTopOf="@+id/bottonNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline4" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
         android:layout_width="54dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/baseline_person_24"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
 
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.1" />
+
 
     <SearchView
         android:id="@+id/searchView"
@@ -38,16 +38,16 @@
         android:iconifiedByDefault="false"
         android:queryHint="@string/search"
         app:layout_constraintBottom_toBottomOf="@+id/profileImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.753"
         app:layout_constraintStart_toEndOf="@+id/profileImage"
-        app:layout_constraintTop_toTopOf="@+id/profileImage" />
-
+        app:layout_constraintTop_toTopOf="@+id/profileImage"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSuggestMeal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="149dp"
         app:cardBackgroundColor="@color/gray"
         app:cardCornerRadius="35dp"
         app:cardElevation="3dp"
@@ -55,8 +55,8 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/textViewSuggest">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -99,9 +99,9 @@
             android:id="@+id/imgViewheartHomeSuggestMeal"
             android:layout_width="35dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:layout_marginLeft="300dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             app:srcCompat="@drawable/heartfill"
             tools:ignore="ImageContrastCheck" />
 
@@ -143,13 +143,12 @@
         android:id="@+id/textViewSuggest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="44dp"
         android:text="@string/suggestion_meal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
-
 
     <TextView
         android:id="@+id/textView11"
@@ -181,5 +180,19 @@
         app:layout_constraintTop_toTopOf="@+id/txtViewFilter"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/baseline_filter_list_24" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="12dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="377dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
