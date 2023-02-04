@@ -1,8 +1,10 @@
 package com.app.our.foodplanner.model;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +14,8 @@ import java.sql.Date;
 public class Meal {
     @SerializedName("idMeal")
     @ColumnInfo(name="idMeal")
+    @NonNull
+    @PrimaryKey
     private String idMeal;
     @SerializedName("strMeal")
     @ColumnInfo(name="strMeal")
@@ -142,8 +146,6 @@ public class Meal {
     @SerializedName("strMeasure17")
     @ColumnInfo(name="strMeasure17")
     private String strMeasure17;
-    @ColumnInfo(name="mealDate")
-    private Date mealDate;
     @SerializedName("strMeasure18")
     @ColumnInfo(name="strMeasure18")
     private String strMeasure18;
@@ -175,8 +177,11 @@ public class Meal {
     private String meal_Year;
 
 
-    public boolean isFavorite() {
+    public boolean getIsFavorite() {
         return isFavorite;
+    }
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite=isFavorite;
     }
 
     @Nullable
@@ -270,12 +275,7 @@ public class Meal {
         this.meal_Month = meal_Month;
         this.meal_Year = meal_Year;
     }
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
-    }
-    public boolean getFavorite() {
-        return isFavorite;
-    }
+
     public String getMeal_Time() {
         return meal_Time;
     }
