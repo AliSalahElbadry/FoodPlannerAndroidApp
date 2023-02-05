@@ -31,7 +31,7 @@
     <string name="have_account_login">Don\'t have an account?Sign up</string>
     <string name="my_favourite">My Favourites</string>
     <string name="title_favourite_list">Title</string>
-    <string name="des_fav_list">Description</string>
+    <string name="des_fav_list">Country</string>
     <string name="title_fav_list">Title</string>
     <string name="desc_fav_list">Country</string>
     <string name="search">Search Here ...</string>
@@ -49,5 +49,6 @@
     <string name="my_plans">My Plans</string>
     <string name="suggestion_meal">Suggestion for today</string>
     <string name="randum_meal">Meal for you</string>
+    <string name="country_category">Country</string>
 
 </resources>

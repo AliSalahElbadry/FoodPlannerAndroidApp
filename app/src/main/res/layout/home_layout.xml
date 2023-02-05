@@ -103,26 +103,6 @@
             app:layout_constraintVertical_bias="0.0"
             tools:text="@string/des_fav_list" />
 
-        <ImageView
-            android:id="@+id/imgViewheartHomeSuggestMeal"
-            android:layout_width="35dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="300dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/heartfill"
-            tools:ignore="ImageContrastCheck" />
-
-        <ImageView
-            android:id="@+id/imgViewcalenderHomeSuggestMeal"
-            android:layout_width="35dp"
-            android:layout_height="50dp"
-
-            android:layout_marginLeft="300dp"
-            android:layout_marginTop="60dp"
-            app:srcCompat="@drawable/baseline_calendar"
-            tools:ignore="ImageContrastCheck" />
-
 
     </androidx.cardview.widget.CardView>
 
