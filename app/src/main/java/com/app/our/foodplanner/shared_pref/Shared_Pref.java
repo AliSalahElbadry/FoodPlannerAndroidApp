@@ -7,8 +7,22 @@ import androidx.annotation.NonNull;
 
 public class Shared_Pref implements Shared_Pref_Interface{
 
+    private static Shared_Pref shared_pref;
+    private Context context;
+    private Shared_Pref(Context context)
+    {
+     this.context=context;
+    }
+    public static Shared_Pref getInstance(Context context)
+    {
+        if(shared_pref==null)
+        {
+            shared_pref=new Shared_Pref(context);
+        }
+        return shared_pref;
+    }
     @Override
-    public void setUserData(@NonNull Context context, String uname, String email, String pass)
+    public void setUserData(String uname, String email, String pass)
     {
        SharedPreferences.Editor preferences=context.getSharedPreferences("uData", Context.MODE_PRIVATE).edit();
        preferences.putString("uName",uname);
@@ -18,7 +32,7 @@ public class Shared_Pref implements Shared_Pref_Interface{
     }
 
     @Override
-    public String[] getUserData(@NonNull Context context)
+    public String[] getUserData()
     {
         String[]data=new String[3];
         SharedPreferences preferences=context.getSharedPreferences("uData",Context.MODE_PRIVATE);

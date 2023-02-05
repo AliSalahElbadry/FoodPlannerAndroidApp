@@ -36,6 +36,6 @@ public interface RepositoryInterface {
     public void enqueueCallFilterByCategory(NetworkDelegate networkDelegate, Context context,String data);
     public void enqueueCallFilterByArea(NetworkDelegate networkDelegate, Context context,String data);
 
-    public void setUserData(@NonNull Context context, String uname, String email, String pass);
-    public String[] getUserData(@NonNull Context context);
+    public void setUserData(String uname, String email, String pass);
+    public String[] getUserData();
 }
