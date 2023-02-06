@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_plansFragment"
+            app:destination="@id/plansFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_signup_Login_Fragment"
+            app:destination="@id/signup_Login_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.profile.ProfileFragment"
+        android:label="Profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_signup_Login_Fragment"
+            app:destination="@id/signup_Login_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.favorite.FavoriteFragment"
+        android:label="Favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plansFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.plans.PlansFragment"
+        android:label="Plans" >
+        <action
+            android:id="@+id/action_plansFragment_to_planFragment2"
+            app:destination="@id/planFragment2" />
+        <action
+            android:id="@+id/action_plansFragment_to_addNewPlanFragment"
+            app:destination="@id/addNewPlanFragment" />
+        <action
+            android:id="@+id/action_plansFragment_to_addMealToPlanFragment"
+            app:destination="@id/addMealToPlanFragment" />
+        <action
+            android:id="@+id/action_plansFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signup_Login_Fragment"
+        android:name="com.app.our.foodplanner.app_vp.view.signup_login.Signup_Login_Fragment"
+        android:label="Signup_Login">
+        <action
+            android:id="@+id/action_signup_Login_Fragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_signup_Login_Fragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.signup.SignupFragment"
+        android:label="Signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.login.LogInFragment"
+        android:label="LogIn" >
+        <action
+            android:id="@+id/action_logInFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/planFragment2"
+        android:name="com.app.our.foodplanner.app_vp.view.plan.PlanFragment"
+        android:label="Plan" />
+    <fragment
+        android:id="@+id/addNewPlanFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.add_new_plan.AddNewPlanFragment"
+        android:label="AddNewPlanFragment" />
+    <fragment
+        android:id="@+id/addMealToPlanFragment"
+        android:name="com.app.our.foodplanner.app_vp.view.add_meal_to_plan.AddMealToPlanFragment"
+        android:label="AddMealToPlanFragment" >
+        <action
+            android:id="@+id/action_addMealToPlanFragment_to_plansFragment"
+            app:destination="@id/plansFragment" />
+    </fragment>
+</navigation>

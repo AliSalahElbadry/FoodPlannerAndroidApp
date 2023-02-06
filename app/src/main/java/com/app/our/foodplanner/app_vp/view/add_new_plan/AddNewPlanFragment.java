@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import com.app.our.foodplanner.R;
 
-public class AddNewMealFragment extends Fragment {
+public class AddNewPlanFragment extends Fragment {
 
 
 
-    public AddNewMealFragment() {
+    public AddNewPlanFragment() {
         // Required empty public constructor
     }
 
