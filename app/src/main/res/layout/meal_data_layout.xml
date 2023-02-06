@@ -8,7 +8,7 @@
     app:layout_scrollEffect="none">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageViewMeal"
+        android:id="@+id/imageViewMealHome"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:layout_marginTop="16dp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.011"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewMeal" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMealHome" />
 
     <TextView
         android:id="@+id/textViewMealDescTitle"

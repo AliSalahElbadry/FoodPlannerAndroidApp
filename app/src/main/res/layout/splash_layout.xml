@@ -7,7 +7,7 @@
     android:layoutDirection="ltr">
 
     <ImageView
-        android:id="@+id/imageViewMeal"
+        android:id="@+id/imageViewMealSplash"
         android:layout_width="418dp"
         android:layout_height="727dp"
         app:layout_constraintBottom_toBottomOf="parent"

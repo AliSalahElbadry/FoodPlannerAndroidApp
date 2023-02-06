@@ -12,30 +12,30 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/row"
+        android:id="@+id/rowMealHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <TextView
-            android:id="@+id/txtViewTitleFavouriteList"
+            android:id="@+id/txtViewTitleListCategoryHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@+id/imageViewMeal"
-            app:layout_constraintTop_toTopOf="@+id/imageViewMeal"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMealHome"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMealHome"
             tools:text="@string/title_fav_list" />
 
         <TextView
-            android:id="@+id/textViewDescriptionFavouriteList"
+            android:id="@+id/textViewAreaCategoryHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewMeal"
-            app:layout_constraintStart_toEndOf="@+id/imageViewMeal"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewTitleFavouriteList"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealHome"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMealHome"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewTitleListCategoryHome"
             app:layout_constraintVertical_bias="0.0"
             tools:text="@string/des_fav_list" />
 
@@ -45,18 +45,18 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:contentDescription="@string/user_name"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewMeal"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealHome"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.875"
-            app:layout_constraintStart_toEndOf="@+id/txtViewTitleFavouriteList"
-            app:layout_constraintTop_toTopOf="@+id/imageViewMeal"
+            app:layout_constraintStart_toEndOf="@+id/txtViewTitleListCategoryHome"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMealHome"
             app:layout_constraintVertical_bias="0.407"
             app:srcCompat="@drawable/deleteicon"
             tools:ignore="ImageContrastCheck" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageViewMeal"
+            android:id="@+id/imageViewMealHome"
             android:layout_width="118dp"
             android:layout_height="90dp"
             android:layout_marginStart="4dp"
