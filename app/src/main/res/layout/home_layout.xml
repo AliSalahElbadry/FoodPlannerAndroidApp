@@ -13,8 +13,7 @@
 
         android:layout_height="251dp"
 
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottonNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline4" />
@@ -55,10 +54,8 @@
             android:id="@+id/imageViewSuggestMeal"
             android:layout_width="123dp"
             android:layout_height="106dp"
-            android:layout_gravity="center|left"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             app:civ_border_color="@color/lightGreen"
             app:civ_border_width="3dp"
             app:layout_constraintHorizontal_bias="0.2"
@@ -70,8 +67,9 @@
             android:id="@+id/txtViewTitleHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="25dp"
             android:fontFamily="sans-serif-black"
             app:layout_constraintStart_toEndOf="@+id/imageViewSuggestMeal"
             app:layout_constraintTop_toTopOf="@+id/imageViewSuggestMeal"
@@ -81,8 +79,8 @@
             android:id="@+id/textViewCountryHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="70dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginStart="25dp"
             android:fontFamily="sans-serif-black"
             app:layout_constraintVertical_bias="0.0"
             tools:text="@string/des_fav_list" />
@@ -101,16 +99,6 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/searchView" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
     <TextView
         android:id="@+id/textView11"
         android:layout_width="0dp"
@@ -123,14 +111,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewRandumMeals"
         app:layout_constraintStart_toStartOf="@+id/guideline4" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottonNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/byn_nav_menu" />
+
 
     <ImageView
         android:id="@+id/imageView3"

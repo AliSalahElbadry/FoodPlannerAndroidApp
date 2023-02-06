@@ -1,40 +1,62 @@
 package com.app.our.foodplanner.app_vp.view;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.app.our.foodplanner.R;
-import com.app.our.foodplanner.app_vp.view.home.AdapterHomeCategory;
-import com.app.our.foodplanner.app_vp.view.home.AdapterHomeMealCategory;
-import com.app.our.foodplanner.model.Area;
-import com.app.our.foodplanner.model.Category;
-import com.app.our.foodplanner.model.Ingredient;
-import com.app.our.foodplanner.model.Meal;
-import com.app.our.foodplanner.model.Repository;
-import com.app.our.foodplanner.network.ConcreteRemoteSource;
-import com.app.our.foodplanner.network.NetworkDelegate;
-import com.app.our.foodplanner.network.RemoteSource;
-import com.bumptech.glide.Glide;
+import com.app.our.foodplanner.app_vp.view.home.HomeFragment;
+import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.presenter.Presenter;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivityContainer extends AppCompatActivity implements MainActivityContainerInterface {
 
-public class MainActivityContainer extends AppCompatActivity {
+    Presenter presenter;
+    NavController navController;
+    HomeFragment homeFragment;
+    FragmentManager manager;
+    FragmentTransaction transaction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+         homeFragment=new HomeFragment();
+         manager=getSupportFragmentManager();
+         transaction=manager.beginTransaction();
+         transaction.add(R.id.nav_host_fragment,homeFragment,"Home");
+         transaction.commit();
+        presenter=new Presenter(this);
+        presenter.setHomeFragment(homeFragment);
+        presenter.getAllCategories();
+        presenter.getRandomMeal();
+
     }
+    @Override
+    public Presenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
+    public void showFavPage() {
+
+    }
+
+    @Override
+    public void showProfilePage() {
+
+    }
+
+    @Override
+    public void showPlansPage() {
+
+    }
+
 }

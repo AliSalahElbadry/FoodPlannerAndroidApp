@@ -24,6 +24,9 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
     private final Context context;
     private List<Meal> categoriesMeles;
 
+    public List<Meal> getCategoriesMeles() {
+        return categoriesMeles;
+    }
 
     private static final String TAG="RecyclerView";
 
@@ -52,15 +55,7 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
         Glide.with(context).load(categoriesMeles.get(position).getStrMealThumb())
                 .into(holder.imageView);
 
-        // Picasso.get().load(values.get(position).getThumbnail()).into(holder.imageView);
 
-//        holder.btnFav.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //onProductClickLesener.onClick(values.get(position));
-//                //  holder.btnFav.setEnabled(false);
-//            }
-//        });
 
     }
 
@@ -71,9 +66,6 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
 
     public void setData(List<Meal> values){
         this.categoriesMeles = values;
-
-
-      
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
