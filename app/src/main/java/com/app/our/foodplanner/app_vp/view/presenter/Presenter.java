@@ -1,22 +1,16 @@
 package com.app.our.foodplanner.app_vp.view.presenter;
 
-import android.os.Bundle;
-import android.util.Log;
+import android.graphics.Bitmap;
 
-import androidx.annotation.Nullable;
-
-import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
 import com.app.our.foodplanner.model.Ingredient;
 import com.app.our.foodplanner.model.Meal;
-import com.app.our.foodplanner.network.ConcreteRemoteSource;
 import com.app.our.foodplanner.network.NetworkDelegate;
-import com.app.our.foodplanner.network.RemoteSource;
 
 import java.util.ArrayList;
 
-public class Presenter implements NetworkDelegate {
+public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void getMealByNameOnSuccessResults(ArrayList< Meal > Res) {
     }
@@ -69,4 +63,59 @@ public class Presenter implements NetworkDelegate {
     @Override
     public void onFailureResults(String msg) {
     }
+
+   //home functions
+    @Override
+    public void searchMealByName(ArrayList<Meal> meals, String search) {
+
+    }
+
+    @Override
+    public void showFilter() {
+
+    }
+
+    @Override
+    public void showMeal(Meal meal, Bitmap image) {
+
+    }
+
+    @Override
+    public void getMealsByCategory(String category) {
+
+    }
+
+    @Override
+    public void showFavPage() {
+
+    }
+
+    @Override
+    public void showProfilePage() {
+
+    }
+
+    @Override
+    public void showPlansPage() {
+
+    }
+
+    //end home functions
+
+    //Meal Page functions
+    @Override
+    public void addToFav(Meal meal) {
+
+    }
+
+    @Override
+    public void addToPlan(Meal meal) {
+
+    }
+
+    @Override
+    public void showVideo(String url) {
+
+    }
+    //end Meal Page functions
 }

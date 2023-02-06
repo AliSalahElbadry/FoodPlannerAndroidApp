@@ -11,10 +11,6 @@ public interface HomeFragmentInterface {
 
     public void showRandomMeal(ArrayList<Meal> Res);
 
-    public void showMealsByCategory(ArrayList<Meal> Res);
-
-    public void updateMealsAfterFilter(String[]meals);// just let this meals in the list and remove others
-
-    public void updateMealsAfterSearch(String[]meals);
+    public void showMeals(ArrayList<Meal>Res);
 
 }
