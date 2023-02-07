@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fontFamily="Arial"
-    app:layout_scrollEffect="none">
+    android:layoutDirection="ltr">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageViewMealHome"
+        android:id="@+id/imageViewMealMeal"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:layout_marginTop="16dp"
         android:elevation="8dp"
         android:src="@drawable/picfood"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/textViewMealCategoryCountry" />
 
     <TextView
@@ -52,7 +52,6 @@
         android:id="@+id/textViewMealIngredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="#12D5D0D0"
         android:elevation="12dp"
@@ -62,35 +61,16 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.011"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewMealHome" />
-
-    <TextView
-        android:id="@+id/textViewMealDescTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:background="#12D5D0D0"
-        android:elevation="12dp"
-        android:text="Details"
-        android:textColor="@color/text_color_primary"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMealIngredents" />
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMealMeal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMealIngredents"
-        android:layout_width="381dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
         android:textDirection="ltr"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewMealIngredients"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/textViewMealIngredients" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -98,98 +78,87 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="14dp" />
+        app:layout_constraintGuide_begin="5dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="395dp" />
-
-    <EditText
-        android:id="@+id/textViewMealStepsContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:background="@null"
-        android:cursorVisible="false"
-        android:editable="false"
-        android:elevation="12dp"
-        android:text="TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
-        android:textDirection="ltr"
-        android:textSize="16sp"
-        android:verticalScrollbarPosition="defaultPosition"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealStepsTitle" />
-
-    <TextView
-        android:id="@+id/textViewMealDesc"
-        android:layout_width="371dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewMealDescTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealDescTitle" />
+        app:layout_constraintGuide_end="7dp" />
 
     <TextView
         android:id="@+id/textViewMealStepsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="#12D5D0D0"
         android:elevation="12dp"
         android:text="Steps"
         android:textColor="@color/text_color_primary"
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealDesc" />
-
-    <ImageButton
-        android:id="@+id/imageButtonVideoShow"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@android:drawable/screen_background_light_transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMealStepsTitle"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.037"
-        app:layout_constraintStart_toEndOf="@+id/textViewMealStepsTitle"
-
-        app:layout_constraintTop_toTopOf="@+id/textViewMealStepsTitle"
-        app:srcCompat="@drawable/video_icon" />
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMealIngredents" />
 
     <ImageButton
         android:id="@+id/btnAddToFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginEnd="73dp"
         android:background="@android:drawable/screen_background_light_transparent"
         android:elevation="10dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewMealCategoryCountry"
         app:layout_constraintEnd_toStartOf="@+id/textViewMealCategoryCountry"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewMealCategoryCountry"
+        app:layout_constraintHorizontal_bias="0.556"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:srcCompat="@drawable/heartfill" />
 
     <ImageButton
         android:id="@+id/btnAddToPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
         android:background="@android:drawable/screen_background_light_transparent"
         android:elevation="10dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toEndOf="@+id/textViewMealCategoryCountry"
-        app:layout_constraintTop_toTopOf="@+id/textViewMealCategoryCountry"
+        app:layout_constraintTop_toTopOf="@+id/btnAddToFav"
         app:srcCompat="@drawable/baseline_add_box_24" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMealStepsTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewMealSteps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_begin="789dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

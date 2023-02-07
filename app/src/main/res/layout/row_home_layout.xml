@@ -2,17 +2,17 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rowMealHome"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardElevation="5dp"
-    app:cardCornerRadius="25dp"
     app:cardBackgroundColor="@color/gray"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="5dp"
     app:cardMaxElevation="3dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rowMealHome"
         android:layout_width="171dp"
         android:layout_height="212dp">
 

@@ -1,10 +1,14 @@
 package com.app.our.foodplanner.app_vp.view.home;
 
+import android.accessibilityservice.AccessibilityService;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.tv.TvView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +26,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
+import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
 import com.app.our.foodplanner.model.Category;
 import com.app.our.foodplanner.model.Meal;
 
@@ -37,6 +43,8 @@ MainActivityContainerInterface mainActivityContainerInterface;
   TextView textViewCountry;
   View view;
   SearchView searchView;
+  CardView randomMeal;
+  Meal mealRandom;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,8 +72,8 @@ MainActivityContainerInterface mainActivityContainerInterface;
         textViewCountry=view.findViewById(R.id.textViewCountryHome);
         recyclerViewCtegory=view.findViewById(R.id.recyclerViewCategory);
         recyclerViewMeals=view.findViewById(R.id.recyclerViewRandumMeals);
-        adapterHomeCategory=new AdapterHomeCategory(view.getContext(),new ArrayList<>());
-        homeMeals=new AdapterHomeMealCategory(view.getContext(),new ArrayList<>());
+        adapterHomeCategory=new AdapterHomeCategory(view.getContext(),this,new ArrayList<>());
+        homeMeals=new AdapterHomeMealCategory(view.getContext(),this,new ArrayList<>());
         recyclerViewMeals.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(view.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -73,10 +81,18 @@ MainActivityContainerInterface mainActivityContainerInterface;
         recyclerViewCtegory.setAdapter(adapterHomeCategory);
         recyclerViewMeals.setAdapter(homeMeals);
         searchView=view.findViewById(R.id.searchView);
+        randomMeal=view.findViewById(R.id.cardViewSuggestMeal);
+        randomMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityContainerInterface.showMeal(mealRandom,(((BitmapDrawable)randomMealImage.getDrawable()).getBitmap()));
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                 return false;
+                homeMeals.notifyDataSetChanged();
+                 return true;
             }
 
             @Override
@@ -85,6 +101,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
                 return true;
             }
         });
+
     }
 
     @Override
@@ -98,6 +115,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
         mainActivityContainerInterface.getPresenter().getRandomMealImage(randomMealImage,view,Res.get(0).getStrMealThumb());
         textViewTitle.setText(Res.get(0).getStrMeal());
         textViewCountry.setText(Res.get(0).getStrArea());
+        mealRandom=Res.get(0);
     }
 
     @Override
@@ -107,7 +125,8 @@ MainActivityContainerInterface mainActivityContainerInterface;
     }
 
     @Override
-    public void showRandomImage(Bitmap bitmap) {
-        randomMealImage.setImageBitmap(bitmap);
+    public MainActivityContainerInterface getConainer() {
+        return mainActivityContainerInterface;
     }
+
 }

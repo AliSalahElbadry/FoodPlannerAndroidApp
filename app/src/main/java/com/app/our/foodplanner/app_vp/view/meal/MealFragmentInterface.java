@@ -4,7 +4,11 @@ import android.graphics.Bitmap;
 
 import com.app.our.foodplanner.model.Meal;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public interface MealFragmentInterface {
 
-    public void showMeal(Meal meal, Bitmap bitmap);
+    public void showMeal(Bitmap bitmap);
+    public void setMealData(Meal meal, ArrayList<String>res);
 }

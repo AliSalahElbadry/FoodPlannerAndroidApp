@@ -3,6 +3,7 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myCatItem"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#F6F4F4"
@@ -20,7 +21,8 @@
         android:gravity="center"
         android:textColor="@color/green"
 
-        android:textSize="14pt"
+        android:textSize="20sp"
+        android:textStyle="bold"
         tools:text="@string/title_fav_list" />
 
 </androidx.cardview.widget.CardView>

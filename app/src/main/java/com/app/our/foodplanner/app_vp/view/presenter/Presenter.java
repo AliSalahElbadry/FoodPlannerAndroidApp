@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
 import com.app.our.foodplanner.model.Ingredient;
@@ -31,6 +32,12 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     private String[]uData;
 
     private Context context;
+
+    public void setMealFragmentInterface(MealFragmentInterface mealFragmentInterface) {
+        this.mealFragmentInterface = mealFragmentInterface;
+    }
+
+    MealFragmentInterface mealFragmentInterface;
 
     public void setHomeFragment(HomeFragmentInterface homeFragment) {
         this.homeFragment = homeFragment;
@@ -100,8 +107,125 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void getMealByNameOnSuccessResults(ArrayList< Meal > Res) {
+        Meal meal=Res.get(0);
+        mealFragmentInterface.setMealData(meal,filterMealFromNullVals(meal));
     }
-
+    public boolean isNotNullOrEmpty(String s1,String s2)
+    {
+        boolean is=false;
+        if(s1!=null&&s2!=null){
+         if(!s1.isEmpty()&&!s2.isEmpty())
+         {
+             is=true;
+         }
+        }
+        return is;
+    }
+    public ArrayList<String> filterMealFromNullVals(Meal meal)
+    {
+        ArrayList<String>res=new ArrayList<>();
+        if(isNotNullOrEmpty(meal.getStrIngredient1(),meal.getStrMeasure1()))
+        {
+            res.add(meal.getStrIngredient1());
+            res.add(meal.getStrMeasure1());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient2(),meal.getStrMeasure2()))
+        {
+            res.add(meal.getStrIngredient2());
+            res.add(meal.getStrMeasure2());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient3(),meal.getStrMeasure3()))
+        {
+            res.add(meal.getStrIngredient3());
+            res.add(meal.getStrMeasure3());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient4(),meal.getStrMeasure4()))
+        {
+            res.add(meal.getStrIngredient4());
+            res.add(meal.getStrMeasure4());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient5(),meal.getStrMeasure5()))
+        {
+            res.add(meal.getStrIngredient5());
+            res.add(meal.getStrMeasure5());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient6(),meal.getStrMeasure6()))
+        {
+            res.add(meal.getStrIngredient6());
+            res.add(meal.getStrMeasure6());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient7(),meal.getStrMeasure7()))
+        {
+            res.add(meal.getStrIngredient7());
+            res.add(meal.getStrMeasure7());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient8(),meal.getStrMeasure8()))
+        {
+            res.add(meal.getStrIngredient8());
+            res.add(meal.getStrMeasure8());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient9(),meal.getStrMeasure9()))
+        {
+            res.add(meal.getStrIngredient9());
+            res.add(meal.getStrMeasure9());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient10(),meal.getStrMeasure10()))
+        {
+            res.add(meal.getStrIngredient10());
+            res.add(meal.getStrMeasure10());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient11(),meal.getStrMeasure11()))
+        {
+            res.add(meal.getStrIngredient11());
+            res.add(meal.getStrMeasure11());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient12(),meal.getStrMeasure12()))
+        {
+            res.add(meal.getStrIngredient12());
+            res.add(meal.getStrMeasure12());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient13(),meal.getStrMeasure13()))
+        {
+            res.add(meal.getStrIngredient13());
+            res.add(meal.getStrMeasure13());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient14(),meal.getStrMeasure14()))
+        {
+            res.add(meal.getStrIngredient14());
+            res.add(meal.getStrMeasure14());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient15(),meal.getStrMeasure15()))
+        {
+            res.add(meal.getStrIngredient15());
+            res.add(meal.getStrMeasure15());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient16(),meal.getStrMeasure16()))
+        {
+            res.add(meal.getStrIngredient16());
+            res.add(meal.getStrMeasure16());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient17(),meal.getStrMeasure17()))
+        {
+            res.add(meal.getStrIngredient17());
+            res.add(meal.getStrMeasure17());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient18(),meal.getStrMeasure18()))
+        {
+            res.add(meal.getStrIngredient18());
+            res.add(meal.getStrMeasure18());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient19(),meal.getStrMeasure19()))
+        {
+            res.add(meal.getStrIngredient19());
+            res.add(meal.getStrMeasure19());
+        }
+        if(isNotNullOrEmpty(meal.getStrIngredient20(),meal.getStrMeasure20()))
+        {
+            res.add(meal.getStrIngredient20());
+            res.add(meal.getStrMeasure20());
+        }
+        return  res;
+    }
     @Override
     public void listAllMealsByFirstLetterOnSuccessResults(ArrayList<Meal> Res) {
 
@@ -162,14 +286,15 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     }
 
     @Override
+    public void getMealByName(String name) {
+        repository.enqueueCallGetMealByName(this,context,name);
+    }
+
+    @Override
     public void showFilter() {
 
     }
 
-    @Override
-    public void showMeal(Meal meal, Bitmap image) {
-
-    }
 
     @Override
     public void getMealsByCategory(String category) {

@@ -1,6 +1,9 @@
 package com.app.our.foodplanner.app_vp.view.home;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,13 +33,13 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
     }
 
     private static final String TAG="RecyclerView";
+    HomeFragmentInterface homeFragmentInterface;
 
-
-    public AdapterHomeMealCategory(Context context, List<Meal> values) {
+    public AdapterHomeMealCategory(Context context,HomeFragmentInterface homeFragment, List<Meal> values) {
         this.context = context;
         // this.values = values;
         this.categoriesMeles =new ArrayList<>();
-
+        homeFragmentInterface=homeFragment;
     }
 
     @NonNull
@@ -44,21 +48,17 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
         LayoutInflater inflater=LayoutInflater.from(recyclerView.getContext());
         View v=inflater.inflate(R.layout.row_home_layout,recyclerView,false);
         AdapterHomeMealCategory.ViewHolder viewHolder=new AdapterHomeMealCategory.ViewHolder(v);
-        Log.i(TAG, "onCreateViewHolder: new row createeeeeeeeee");
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterHomeMealCategory.ViewHolder holder, int position) {
         holder.txtTitle.setText(categoriesMeles.get(position).getStrMeal());
-      //  holder.txtCountry.setText(categoriesMeles.get(position).getStrArea());
-        Glide.with(context).load(categoriesMeles.get(position).getStrMealThumb())
-                .into(holder.imageView);
-
-
-
+        homeFragmentInterface.getConainer().getPresenter().getRandomMealImage(holder.imageView,holder.cardView,categoriesMeles.get(position).getStrMealThumb());
+        holder.cardView.setOnClickListener(l->{
+            homeFragmentInterface.getConainer().showMeal(categoriesMeles.get(holder.getAdapterPosition()),((BitmapDrawable)holder.imageView.getDrawable()).getBitmap());
+        });
     }
-
     @Override
     public int getItemCount() {
         return categoriesMeles.size();
@@ -75,7 +75,7 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
         public ImageView imageView;
 
 
-        public ConstraintLayout constraintLayout;
+        public CardView cardView;
         public View layout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -84,8 +84,7 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
             txtTitle=itemView.findViewById(R.id.txtViewTitleListCategoryHome);
             txtCountry=itemView.findViewById(R.id.textViewAreaCategoryHome);
             imageView=itemView.findViewById(R.id.imageViewMealHome);
-
-            constraintLayout=itemView.findViewById(R.id.rowMealHome);
+            cardView=itemView.findViewById(R.id.rowMealHome);
 
         }
     }

@@ -13,9 +13,9 @@ public interface PresenterInterface {
 
  //home functions
  public void searchMealByName(String search);
+ public void getMealByName(String name);
  public void showFilter();
 
- public void showMeal(Meal meal, Bitmap image);// show meal page
  public void getMealsByCategory(String category);
  public void getAllCategories();
  public void getRandomMeal();

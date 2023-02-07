@@ -27,6 +27,8 @@ public class Splash_fScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_layout);
+        getSupportActionBar().hide();
+
         animationImage= AnimationUtils.loadAnimation(this,R.anim.splash_image_anim);
         imageViewSplash=findViewById(R.id.imageViewMealSplash);
         imageViewSplash.setAnimation(animationImage);
