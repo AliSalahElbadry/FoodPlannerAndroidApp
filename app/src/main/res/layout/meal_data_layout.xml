@@ -21,11 +21,12 @@
 
     <TextView
         android:id="@+id/textViewMealName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#12D5D0D0"
         android:elevation="12dp"
         android:text="Salad Shrimp"
+        android:textAlignment="center"
         android:textColor="@color/text_color_primary"
         android:textDirection="ltr"
         android:textSize="30sp"
