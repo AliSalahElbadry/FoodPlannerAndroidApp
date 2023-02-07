@@ -66,7 +66,8 @@ MainActivityContainerInterface mainActivityContainerInterface;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.view=view;mainActivityContainerInterface=((MainActivityContainer)getActivity());
+        this.view=view;
+        mainActivityContainerInterface=((MainActivityContainer)getActivity());
         randomMealImage=view.findViewById(R.id.imageViewSuggestMeal);
         textViewTitle=view.findViewById(R.id.txtViewTitleHome);
         textViewCountry=view.findViewById(R.id.textViewCountryHome);

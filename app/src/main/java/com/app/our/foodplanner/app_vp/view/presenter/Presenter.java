@@ -15,6 +15,9 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 import com.app.our.foodplanner.model.Repository;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +35,13 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     private String[]uData;
 
     private Context context;
-
+    private boolean isLogedIn;
+    private FirebaseAuth firebaseAuth;
     public void setMealFragmentInterface(MealFragmentInterface mealFragmentInterface) {
         this.mealFragmentInterface = mealFragmentInterface;
+
     }
+
 
     MealFragmentInterface mealFragmentInterface;
 
@@ -55,6 +61,14 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         areas=new ArrayList<>();
         plans=new ArrayList<>();
         uData=repository.getUserData();
+        FirebaseApp.initializeApp(context);
+        firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser user=firebaseAuth.getCurrentUser();
+        if(user!=null) {
+            if (user.isEmailVerified()) {
+                isLogedIn = true;
+            }
+        }
     }
 
     public ArrayList<Meal> getMeals() {
@@ -317,6 +331,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     public void getRandomMealImage(ImageView imageView, View view, String url) {
         Glide.with(view).load(url).into(imageView);
     }
+
+    @Override
+    public boolean isLogedIn() {
+        return false;
+    }
     //end home functions
 
     //Meal Page functions
@@ -333,6 +352,18 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void showVideo(String url) {
 
+    }
+
+    @Override
+    public String[] getUserData() {
+        String[]data=new String[3];
+        if(isLogedIn)
+        {
+           data[0]=firebaseAuth.getCurrentUser().getEmail();
+           data[1]=firebaseAuth.getCurrentUser().getDisplayName();
+           data[2]=firebaseAuth.getCurrentUser().getUid();
+        }
+        return data;
     }
     //end Meal Page functions
 }

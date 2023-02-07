@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.app.our.foodplanner.R;
+import com.google.firebase.FirebaseApp;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,9 +27,9 @@ public class Splash_fScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.splash_layout);
         getSupportActionBar().hide();
-
         animationImage= AnimationUtils.loadAnimation(this,R.anim.splash_image_anim);
         imageViewSplash=findViewById(R.id.imageViewMealSplash);
         imageViewSplash.setAnimation(animationImage);

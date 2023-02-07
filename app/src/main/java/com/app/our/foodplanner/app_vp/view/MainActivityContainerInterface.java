@@ -12,6 +12,9 @@ public interface MainActivityContainerInterface {
     public void showProfilePage();
 
     public void showPlansPage();
-
+    public  void showLogIn();
+    public void showSignUp();
+    public void showHome();
     public void showMeal(Meal meal, Bitmap image);// show meal page
+
 }

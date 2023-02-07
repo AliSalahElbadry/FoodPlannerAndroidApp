@@ -21,6 +21,7 @@ public interface PresenterInterface {
  public void getRandomMeal();
  public void getRandomMealImage(ImageView imageView, View view,String url);
 
+ public boolean isLogedIn();
  //end home
 
  // Meal Page
@@ -30,4 +31,6 @@ public interface PresenterInterface {
  public void showVideo(String url);
  //end Meal
 
+ //profile
+ public String[]getUserData();
 }
