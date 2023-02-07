@@ -25,7 +25,7 @@
     </View>
 
     <EditText
-        android:id="@+id/editTxtUNameLogIn"
+        android:id="@+id/editTxtUNameProfile"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"

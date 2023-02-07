@@ -45,7 +45,7 @@
 
 
     <EditText
-        android:id="@+id/editTxtUNameLogIn"
+        android:id="@+id/editTxtUNameProfile"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="355dp"
         android:layout_height="53dp"

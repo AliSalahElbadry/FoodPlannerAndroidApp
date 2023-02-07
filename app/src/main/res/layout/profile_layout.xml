@@ -5,13 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineProfileLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineProfileRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp" />
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="216dp"
         android:layout_height="152dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineProfileRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile" />
 
@@ -51,33 +64,41 @@
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/textViewNameProfile" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutProfile"
-        android:layout_width="390dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
+
+    <View
+        android:id="@+id/containerUname"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/search_view"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/editTxtUNameProfile"
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"></View>
+
+    <EditText
+        android:id="@+id/editTxtUNameProfile"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="380dp"
+        android:layout_height="51dp"
+        android:autoText="true"
+        android:background="@null"
+        android:drawableEnd="@drawable/baseline_edit_24"
+        android:hint="@string/email"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingEnd="20dp"
+
+        android:textColorHint="#B2000000"
+        app:layout_constraintBottom_toBottomOf="@+id/containerUname"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineProfileRight"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmail">
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
+        app:layout_constraintTop_toTopOf="@+id/containerUname"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/information_person" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/favourites_profile"
-            tools:layout_editor_absoluteX="138dp"
-            tools:layout_editor_absoluteY="334dp" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/plans_profile"
-            tools:layout_editor_absoluteX="287dp"
-            tools:layout_editor_absoluteY="319dp" />
-    </com.google.android.material.tabs.TabLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

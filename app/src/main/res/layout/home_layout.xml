@@ -9,14 +9,14 @@
 
 
         android:id="@+id/recyclerViewRandumMeals"
-        android:layout_width="0dp"
+        android:layout_width="380dp"
 
-        android:layout_height="251dp"
+        android:layout_height="265dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline4" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <SearchView
         android:id="@+id/searchView"
@@ -29,25 +29,25 @@
         android:queryHint="@string/search"
         app:layout_constraintEnd_toStartOf="@+id/txtViewFilter"
         app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSuggestMeal"
         android:layout_width="0dp"
         android:layout_height="145dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/gray"
         app:cardCornerRadius="25dp"
         app:cardElevation="3dp"
         app:cardMaxElevation="2dp"
         app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
 
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline4">
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSuggest">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -55,7 +55,7 @@
             android:layout_width="123dp"
             android:layout_height="106dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             app:civ_border_color="@color/lightGreen"
             app:civ_border_width="3dp"
             app:layout_constraintHorizontal_bias="0.2"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="33dp"
             android:layout_marginBottom="25dp"
             android:fontFamily="sans-serif-black"
             app:layout_constraintStart_toEndOf="@+id/imageViewSuggestMeal"
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="30dp"
             android:fontFamily="sans-serif-black"
             app:layout_constraintVertical_bias="0.0"
             tools:text="@string/des_fav_list" />
@@ -99,19 +99,19 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/searchView" />
 
+
     <TextView
         android:id="@+id/textView11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="18dp"
+
         android:fontFamily="serif"
         android:text="@string/randum_meal"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewRandumMeals"
-        app:layout_constraintStart_toStartOf="@+id/guideline4" />
-
-
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSuggestMeal" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -125,7 +125,7 @@
         app:srcCompat="@drawable/baseline_filter_list_24" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/guidelineProfileLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -143,22 +143,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="18dp"
         android:fontFamily="serif"
         android:text="@string/suggestion_meal"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/cardViewSuggestMeal"
-        app:layout_constraintStart_toStartOf="@+id/guideline4" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewCategory" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCategory"
-        android:layout_width="382dp"
+        android:layout_width="0dp"
         android:layout_height="97dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSuggest"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewFilter" />
 </androidx.constraintlayout.widget.ConstraintLayout>
