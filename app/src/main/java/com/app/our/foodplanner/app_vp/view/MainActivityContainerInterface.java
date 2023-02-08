@@ -17,4 +17,6 @@ public interface MainActivityContainerInterface {
     public void showHome();
     public void showMeal(Meal meal, Bitmap image);// show meal page
 
+
+
 }

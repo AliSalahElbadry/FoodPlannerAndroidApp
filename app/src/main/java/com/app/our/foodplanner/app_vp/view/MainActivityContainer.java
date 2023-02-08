@@ -1,5 +1,7 @@
 package com.app.our.foodplanner.app_vp.view;
 
+import static android.content.ContentValues.TAG;
+
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.app.our.foodplanner.app_vp.view.favorite.FavoriteFragment;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragment;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragment;
+import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.meal.MealFragment;
 import com.app.our.foodplanner.app_vp.view.plans.PlansFragment;
 import com.app.our.foodplanner.app_vp.view.presenter.Presenter;
@@ -50,7 +53,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     FragmentManager manager;
     FragmentTransaction transaction;
     BottomNavigationView navigationView;
-
+    LogInFragment logInFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
         if(getSupportActionBar()!=null)
              getSupportActionBar().hide();
          homeFragment=new HomeFragment();
+         logInFragment=new LogInFragment();
          profileFragment=new ProfileFragment();
          plansFragment=new PlansFragment();
          favoriteFragment=new FavoriteFragment();
@@ -70,6 +74,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
         presenter.setHomeFragment(homeFragment);
         presenter.getAllCategories();
         presenter.getRandomMeal();
+       // presenter.setLogInFragmentInterface(logInFragment);
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -146,10 +151,13 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
 
     @Override
     public void showLogIn() {
+
         LogInFragment fragment=new LogInFragment();
+        presenter.setLogInFragmentInterface(logInFragment);
         transaction=manager.beginTransaction();
         transaction.replace(R.id.nav_host_fragment,fragment);
         transaction.commit();
+
     }
 
     @Override
@@ -158,6 +166,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
         transaction=manager.beginTransaction();
         transaction.replace(R.id.nav_host_fragment,fragment);
         transaction.commit();
+
     }
 
     @Override

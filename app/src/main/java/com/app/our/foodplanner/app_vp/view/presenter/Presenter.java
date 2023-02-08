@@ -1,11 +1,19 @@
 package com.app.our.foodplanner.app_vp.view.presenter;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.login.LogInFragment;
+import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
@@ -15,7 +23,10 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 import com.app.our.foodplanner.model.Repository;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -26,6 +37,12 @@ import java.util.stream.Stream;
 
 public class Presenter implements NetworkDelegate , PresenterInterface {
     //Data Holders
+
+    private LogInFragmentInterface LogInFragmentInterface;
+    public void setLogInFragmentInterface(LogInFragmentInterface LogInFragmentInterface) {
+        this.LogInFragmentInterface = LogInFragmentInterface;
+    }
+    boolean isLoginSuccess=true;
     private Repository repository;
     private ArrayList<Meal>meals;
     private ArrayList<Category>categories;
@@ -51,6 +68,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     //end Data Holders
     private HomeFragmentInterface homeFragment;
+
+
     public Presenter(Context context)
     {
         this.context=context;
@@ -365,5 +384,47 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         }
         return data;
     }
+
+
+    @Override
+    public void doLogin(String email, String pass) {
+        Log.i(TAG, "doLogin: ");
+
+        firebaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    //enter home
+                    Log.i("isSuccessful", " isSuccessful"+task);
+                    isLoginSuccess = true;
+                    LogInFragmentInterface.onLoginResult(isLoginSuccess);
+                }
+                else{
+                    isLoginSuccess = false;
+                    LogInFragmentInterface.onLoginResult(isLoginSuccess);
+                }
+            }
+        });
+    }
+
+//    @Override
+//    public void clear() {
+//        LogInFragmentInterface.onClearText();
+//    }
+
+//    @Override
+//    public void onClickLogin(Context context,String email, String pass) {
+//        firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()){
+//                    //enter home
+//                    Log.i("isSuccessful", " isSuccessful"+task);
+//
+//                }
+//            }
+//        });
+//
+//    }
     //end Meal Page functions
 }

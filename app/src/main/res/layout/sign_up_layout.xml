@@ -25,7 +25,7 @@
     </View>
 
     <EditText
-        android:id="@+id/editTxtUNameProfile"
+        android:id="@+id/editTxtUNameLogIn"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -203,7 +203,7 @@
         tools:ignore="TextSizeCheck" />
 
     <TextView
-        android:id="@+id/textViewHaveAccount"
+        android:id="@+id/textViewHaveAccountLogIn"
         android:layout_width="217dp"
         android:layout_height="32dp"
         android:layout_marginTop="32dp"
@@ -234,7 +234,7 @@
         android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHaveAccount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHaveAccountLogIn"
         app:srcCompat="@drawable/googleicon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

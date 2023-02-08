@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:id="@+id/imgViewLogin"
+        android:id="@+id/imgViewLoginPage"
         android:layout_width="224dp"
         android:layout_height="151dp"
         android:layout_marginTop="16dp"
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/loginwithoutkey" />
 
     <TextView
-        android:id="@+id/textViewWelcome"
+        android:id="@+id/textViewWelcomeLoginPage"
         android:layout_width="155dp"
         android:layout_height="22dp"
         android:layout_marginTop="4dp"
@@ -27,10 +27,10 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgViewLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/imgViewLoginPage" />
 
     <View
-        android:id="@+id/containerUname"
+        android:id="@+id/containerUnameLoginPage"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="25dp"
@@ -41,11 +41,11 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWelcome"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewWelcomeLoginPage"/>
 
 
     <EditText
-        android:id="@+id/editTxtUNameProfile"
+        android:id="@+id/editTxtUNameLogInPage"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="355dp"
         android:layout_height="53dp"
@@ -59,16 +59,16 @@
         android:inputType="text"
         android:paddingStart="20dp"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/containerUname"
-        app:layout_constraintEnd_toEndOf="@+id/containerUname"
+        app:layout_constraintBottom_toBottomOf="@+id/containerUnameLoginPage"
+        app:layout_constraintEnd_toEndOf="@+id/containerUnameLoginPage"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/containerUname"
-        app:layout_constraintTop_toTopOf="@+id/containerUname"
+        app:layout_constraintStart_toStartOf="@+id/containerUnameLoginPage"
+        app:layout_constraintTop_toTopOf="@+id/containerUnameLoginPage"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
     <View
-        android:id="@+id/viewContainerPassword"
+        android:id="@+id/viewContainerPasswordLoginPage"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="25dp"
@@ -79,12 +79,12 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerUname">
+        app:layout_constraintTop_toBottomOf="@+id/containerUnameLoginPage">
     </View>
 
 
     <EditText
-        android:id="@+id/editTxtPassLogIn"
+        android:id="@+id/editTxtPassLogInPage"
         android:layout_width="360dp"
         android:layout_height="57dp"
         android:layout_weight="4"
@@ -97,16 +97,16 @@
         android:inputType="textPassword"
         android:paddingStart="20dp"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/viewContainerPassword"
-        app:layout_constraintEnd_toEndOf="@+id/viewContainerPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/viewContainerPasswordLoginPage"
+        app:layout_constraintEnd_toEndOf="@+id/viewContainerPasswordLoginPage"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/viewContainerPassword"
-        app:layout_constraintTop_toTopOf="@+id/viewContainerPassword"
+        app:layout_constraintStart_toStartOf="@+id/viewContainerPasswordLoginPage"
+        app:layout_constraintTop_toTopOf="@+id/viewContainerPasswordLoginPage"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogIn"
+        android:id="@+id/btnLogInPage"
         android:layout_width="277dp"
         android:layout_height="49dp"
         android:layout_marginTop="44dp"
@@ -117,11 +117,11 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewContainerPassword"
+        app:layout_constraintTop_toBottomOf="@+id/viewContainerPasswordLoginPage"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
-        android:id="@+id/textViewHaveAccount"
+        android:id="@+id/textViewHaveAccountLogInPage"
         android:layout_width="289dp"
         android:layout_height="30dp"
         android:layout_marginTop="32dp"
@@ -132,28 +132,28 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogIn"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogInPage"
         tools:ignore="TextSizeCheck" />
 
     <ImageView
-        android:id="@+id/imageViewGoogle"
+        android:id="@+id/imageViewGoogleLogPage"
         android:layout_width="77dp"
         android:layout_height="45dp"
         android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHaveAccount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHaveAccountLogInPage"
         app:srcCompat="@drawable/googleicon" />
 
     <ImageView
         android:id="@+id/imageViewKeyLogin"
         android:layout_width="42dp"
         android:layout_height="38dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgViewLogin"
-        app:layout_constraintEnd_toEndOf="@+id/imgViewLogin"
+        app:layout_constraintBottom_toBottomOf="@+id/imgViewLoginPage"
+        app:layout_constraintEnd_toEndOf="@+id/imgViewLoginPage"
         app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="@+id/imgViewLogin"
-        app:layout_constraintTop_toTopOf="@+id/imgViewLogin"
+        app:layout_constraintStart_toStartOf="@+id/imgViewLoginPage"
+        app:layout_constraintTop_toTopOf="@+id/imgViewLoginPage"
         app:layout_constraintVertical_bias="0.699"
         app:srcCompat="@drawable/baseline_key_24" />
 

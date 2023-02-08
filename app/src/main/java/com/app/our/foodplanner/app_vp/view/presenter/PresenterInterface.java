@@ -1,5 +1,6 @@
 package com.app.our.foodplanner.app_vp.view.presenter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,4 +34,10 @@ public interface PresenterInterface {
 
  //profile
  public String[]getUserData();
+
+ //public void onClickLogin(Context context,String email, String pass);
+ //public void clear();
+ public void doLogin(String email, String pass);
+
+
 }
