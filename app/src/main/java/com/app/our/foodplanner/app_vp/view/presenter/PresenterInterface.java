@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Meal;
 
 import java.util.ArrayList;
@@ -33,4 +34,5 @@ public interface PresenterInterface {
 
  //profile
  public String[]getUserData();
+ public void putUserData(String userName, String email, String password);
 }
