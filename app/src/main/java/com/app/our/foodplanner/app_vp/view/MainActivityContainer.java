@@ -132,7 +132,6 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
             {
                 transaction = manager.beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, manager.getFragments().get(size))
-                           .addToBackStack("c")
                            .commit();
             }else if(manager.getFragments().get(size) instanceof SignupFragment)
             {
