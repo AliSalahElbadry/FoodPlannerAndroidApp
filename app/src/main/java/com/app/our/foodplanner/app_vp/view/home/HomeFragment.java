@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -86,7 +87,11 @@ MainActivityContainerInterface mainActivityContainerInterface;
         randomMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivityContainerInterface.showMeal(mealRandom,(((BitmapDrawable)randomMealImage.getDrawable()).getBitmap()));
+                if(mealRandom!=null&&randomMealImage!=null)
+                     mainActivityContainerInterface.showMeal(mealRandom,(((BitmapDrawable)randomMealImage.getDrawable()).getBitmap()));
+                 else{
+                    Toast.makeText(getContext(), "Connection Error Please Check Network !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -98,7 +103,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mainActivityContainerInterface.getPresenter().searchMealByName(newText);
+                    mainActivityContainerInterface.getPresenter().searchMealByName(newText);
                 return true;
             }
         });
@@ -121,8 +126,14 @@ MainActivityContainerInterface mainActivityContainerInterface;
 
     @Override
     public void showMeals(ArrayList<Meal> Res) {
-        homeMeals.setData(Res);
-        homeMeals.notifyDataSetChanged();
+        if(homeMeals==null)
+        {
+            homeMeals=new AdapterHomeMealCategory(getContext(),this,Res);
+
+        }else {
+            homeMeals.setData(Res);
+            homeMeals.notifyDataSetChanged();
+        }
     }
 
     @Override

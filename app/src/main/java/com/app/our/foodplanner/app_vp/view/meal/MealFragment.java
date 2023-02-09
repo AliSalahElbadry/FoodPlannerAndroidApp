@@ -71,7 +71,6 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
     @Override
     public void setMealData(Meal meal, ArrayList<String> res) {
         this.meal=meal;
-        Log.i("","Working");
         textViewMealName=view.findViewById(R.id.textViewMealName);
         textViewMealCategoryCountry=view.findViewById(R.id.textViewMealCategoryCountry);
         mealSteps=view.findViewById(R.id.textViewMealSteps);
@@ -84,9 +83,10 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
         mealIngredients.setAdapter(adapter);
         textViewMealName.setText(meal.getStrMeal());
         textViewMealCategoryCountry.setText(meal.getStrCategory()+" , "+meal.getStrArea());
-        mealSteps.setText(meal.getStrInstructions());
-
+        mealSteps.setText(meal.getStrInstructions()+"\n\n\n");
     }
-
-
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 }

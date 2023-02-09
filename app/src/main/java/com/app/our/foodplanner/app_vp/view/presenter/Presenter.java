@@ -3,7 +3,7 @@ package com.app.our.foodplanner.app_vp.view.presenter;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +15,7 @@ import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragment;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
 import com.app.our.foodplanner.model.Ingredient;
@@ -23,15 +24,16 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 import com.app.our.foodplanner.model.Repository;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,33 +56,42 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     private Context context;
     private boolean isLogedIn;
     private FirebaseAuth firebaseAuth;
-    public void setMealFragmentInterface(MealFragmentInterface mealFragmentInterface) {
-        this.mealFragmentInterface = mealFragmentInterface;
+    MealFragmentInterface mealFragmentInterface;
+    private HomeFragmentInterface homeFragment;
 
+    public void setSignupFragmentInterface(SignupFragmentInterface signupFragmentInterface) {
+        this.signupFragmentInterface = signupFragmentInterface;
     }
 
-
-    MealFragmentInterface mealFragmentInterface;
+    private SignupFragmentInterface signupFragmentInterface;
+    public void setMealFragmentInterface(MealFragmentInterface mealFragmentInterface) {
+        this.mealFragmentInterface = mealFragmentInterface;
+    }
 
     public void setHomeFragment(HomeFragmentInterface homeFragment) {
         this.homeFragment = homeFragment;
     }
 
     //end Data Holders
-    private HomeFragmentInterface homeFragment;
-
 
     public Presenter(Context context)
     {
+
         this.context=context;
         repository=Repository.getInstance(context);
+        uData=repository.getUserData();
+        if(uData!=null)
+        {
+            if (!uData[0].isEmpty()){
+                isLogedIn=true;
+            }
+        }
         meals=new ArrayList<>();
         categories=new ArrayList<>();
         ingredients=new ArrayList<>();
         areas=new ArrayList<>();
         plans=new ArrayList<>();
         uData=repository.getUserData();
-        FirebaseApp.initializeApp(context);
         firebaseAuth=FirebaseAuth.getInstance();
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user!=null) {
@@ -308,6 +319,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void onFailureResults(String msg) {
+        Toast.makeText(context, "Connection Error !! Please Check Connection", Toast.LENGTH_SHORT).show();
     }
 
    //home functions
@@ -336,7 +348,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void getAllCategories() {
-
             repository.enqueueCallListAllCategories_Just_Names(this,context);
             getMealsByCategory("Beef");
     }
@@ -353,7 +364,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public boolean isLogedIn() {
-        return false;
+        return isLogedIn;
     }
     //end home functions
 
@@ -386,6 +397,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     }
 
 
+
     @Override
     public void doLogin(String email, String pass) {
         Log.i(TAG, "doLogin: ");
@@ -407,24 +419,18 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         });
     }
 
-//    @Override
-//    public void clear() {
-//        LogInFragmentInterface.onClearText();
-//    }
+    @Override
+    public void putUserData(String userName, String email, String password) {
 
-//    @Override
-//    public void onClickLogin(Context context,String email, String pass) {
-//        firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()){
-//                    //enter home
-//                    Log.i("isSuccessful", " isSuccessful"+task);
-//
-//                }
-//            }
-//        });
-//
-//    }
-    //end Meal Page functions
+               firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(s->{
+                   isLogedIn=true;
+                   signupFragmentInterface.getSignUpStatus(isLogedIn);
+               })
+               .addOnFailureListener(f->{isLogedIn=false; Log.e("",f.toString());});
+        if(isLogedIn)
+        {
+            repository.setUserData(userName,email,password);
+        }
+    }
+
 }

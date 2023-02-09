@@ -69,6 +69,7 @@
             android:layout_marginBottom="25dp"
             android:fontFamily="sans-serif-black"
             android:maxWidth="185dp"
+            android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@+id/imageViewSuggestMeal"
             app:layout_constraintTop_toTopOf="@+id/imageViewSuggestMeal"
             tools:text="@string/title_fav_list" />

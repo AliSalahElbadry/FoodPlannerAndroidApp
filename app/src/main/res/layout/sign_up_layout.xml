@@ -21,11 +21,12 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
-    </View>
+        app:layout_constraintTop_toBottomOf="@+id/textView2"/>
 
     <EditText
-        android:id="@+id/editTxtUNameLogIn"
+
+        android:id="@+id/editTxtUNameSignUp"
+
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -46,7 +47,6 @@
         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
 
-
     <View
         android:id="@+id/viewContainerEmail"
         android:layout_width="match_parent"
@@ -59,8 +59,7 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerUname">
-    </View>
+        app:layout_constraintTop_toBottomOf="@+id/containerUname"/>
 
     <EditText
         android:id="@+id/editTxtEmailSignUp"
@@ -83,7 +82,6 @@
         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
 
-
     <View
         android:id="@+id/viewContainerPassword"
         android:layout_width="match_parent"
@@ -96,11 +94,10 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewContainerEmail">
-    </View>
+        app:layout_constraintTop_toBottomOf="@+id/viewContainerEmail"/>
 
     <EditText
-        android:id="@+id/editTxtPassLogIn"
+        android:id="@+id/editTxtPassSignUp"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="4"
@@ -120,7 +117,6 @@
         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
 
-
     <View
         android:id="@+id/viewContainerrePassword"
         android:layout_width="match_parent"
@@ -133,8 +129,7 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewContainerPassword">
-    </View>
+        app:layout_constraintTop_toBottomOf="@+id/viewContainerPassword"/>
 
     <EditText
         android:id="@+id/editTxtRePassSignUp"
@@ -157,9 +152,8 @@
         tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
 
-
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogIn"
+        android:id="@+id/btnSignUps"
         android:layout_width="277dp"
         android:layout_height="49dp"
         android:layout_marginTop="16dp"
@@ -201,9 +195,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewContainerrePassword"
         tools:ignore="TextSizeCheck" />
-
     <TextView
-        android:id="@+id/textViewHaveAccountLogIn"
+
+        android:id="@+id/textViewHaveAccountSignUp"
+
         android:layout_width="217dp"
         android:layout_height="32dp"
         android:layout_marginTop="32dp"
@@ -215,26 +210,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogIn"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUps"
         tools:ignore="TextSizeCheck" />
 
     <ImageView
         android:id="@+id/imgViewLogin"
-        android:layout_width="153dp"
-        android:layout_height="131dp"
+        android:layout_width="127dp"
+        android:layout_height="115dp"
         android:layout_marginTop="16dp"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/adduser" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="77dp"
-        android:layout_height="45dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHaveAccountLogIn"
+
+        android:id="@+id/googleBtn"
+        android:layout_width="82dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewHaveAccountSignUp"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/textViewHaveAccountSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHaveAccountSignUp"
+
         app:srcCompat="@drawable/googleicon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
