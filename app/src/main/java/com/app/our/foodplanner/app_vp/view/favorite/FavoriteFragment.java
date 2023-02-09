@@ -1,6 +1,9 @@
 package com.app.our.foodplanner.app_vp.view.favorite;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +18,17 @@ import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.app_vp.view.home.AdapterHomeCategory;
+import com.app.our.foodplanner.app_vp.view.home.AdapterHomeMealCategory;
 import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
 import com.app.our.foodplanner.model.Meal;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FavoriteFragment extends Fragment implements FavouriteFragmentInterface{
 
@@ -59,16 +69,55 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewFavouriteList.setLayoutManager(linearLayoutManager);
         recyclerViewFavouriteList.setAdapter(adapterFavouriteList);
+        presenterInterface.getAllFavouriteList().subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<Meal>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Meal> Meals) {
+                        Log.i(TAG, "onNext: getAllFavouriteList");
+                        adapterFavouriteList.setData(Meals);
+                        adapterFavouriteList.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        // myAdapter.notifyDataSetChanged();
+        recyclerViewFavouriteList.setAdapter(adapterFavouriteList);
+
+    }
+
+
+
+    @Override
+    public void showData(List<Meal> meal) {
+        adapterFavouriteList.setData(meal);
+        recyclerViewFavouriteList.setAdapter(adapterFavouriteList);
+        adapterFavouriteList.notifyDataSetChanged();
     }
 
     @Override
-    public void deleteMealOfFavouriteList(Meal meal) {
-        presenterInterface.deleteToFav(meal);
-
+    public void onClickDelete(Boolean isFav,String meal) {
+       presenterInterface.UpdateMealOfFavouriteList(false,meal);
+       adapterFavouriteList.notifyDataSetChanged();
     }
 
     @Override
-    public void onClickDelete(Meal meal) {
-        deleteMealOfFavouriteList(meal);
+    public MainActivityContainerInterface getConainer() {
+            return mainActivityContainerInterface;
     }
+
+
 }

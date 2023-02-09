@@ -12,6 +12,8 @@ import com.app.our.foodplanner.shared_pref.Shared_Pref;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public class Repository implements RepositoryInterface {
 
     private static  Repository repo;
@@ -45,7 +47,7 @@ public class Repository implements RepositoryInterface {
 
     @Override
     public List<Meal> getAllFavMeals(boolean isFav) {
-        return localSource.getAllFavMeals(isFav);
+        return localSource.getAllFavMeals(true);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public LiveData<List<Meal>> getAllFavMealsLive(boolean isFav) {
+    public Observable<List<Meal>> getAllFavMealsLive(boolean isFav) {
         return localSource.getAllFavMealsLive(isFav);
     }
 

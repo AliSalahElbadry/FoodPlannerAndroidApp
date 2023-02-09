@@ -42,8 +42,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.lang.annotation.Target;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import io.reactivex.rxjava3.core.Observable;
 
 public class Presenter implements NetworkDelegate , PresenterInterface {
     //Data Holders
@@ -63,6 +66,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         this.favouriteFragmentInterface = favouriteFragmentInterface;
     }
     String nameProfile;
+    Boolean checkout=false;
     private Repository repository;
     private ArrayList<Meal>meals;
     private Meal targetMeal;
@@ -419,7 +423,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public String[] getUserData() {
         String[]data=new String[3];
-        if(isLogedIn)
+        Log.i(TAG, "getUserData: isLogedIn "+isLogedIn);
+        if(checkout==true)
         {
 
             data[1]=firebaseAuth.getCurrentUser().getEmail();
@@ -427,6 +432,9 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
             data[0]=firebaseAuth.getCurrentUser().getDisplayName();
             data[0]=nameProfile;
             data[2]=firebaseAuth.getCurrentUser().getUid();
+        }
+        if(checkout==false){
+            Log.i(TAG, "checkout: "+checkout);
         }
 
         return data;
@@ -446,6 +454,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                     Log.i("isSuccessful", " isSuccessful"+task);
 
                     isLogedIn=true;
+                    checkout=true;
+                    Log.i(TAG, "login suss: "+checkout+" "+isLogedIn);
                     LogInFragmentInterface.onLoginResult(isLogedIn);
                     repository.setUserData(email,email,pass);
                     FirebaseUser user=firebaseAuth.getCurrentUser();
@@ -462,6 +472,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 }
                 else{
                     isLogedIn=false;
+                    checkout=false;
+                    Log.i(TAG, "login fail: "+checkout+" "+isLogedIn);
                     LogInFragmentInterface.onLoginResult(isLogedIn);
                 }
             }
@@ -470,8 +482,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void logout() {
-        firebaseAuth.signOut();
         isLogedIn=false;
+        checkout=false;
+        Log.i(TAG, "logout: "+checkout+" "+isLogedIn);
+        firebaseAuth.signOut();
+
     }
 
     @Override
@@ -483,9 +498,10 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         Log.i(TAG, "putUserData: "+nameProfile);
                firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(s->{
                    isLogedIn=true;
+                   checkout=true;
                    signupFragmentInterface.getSignUpStatus(isLogedIn);
                })
-               .addOnFailureListener(f->{isLogedIn=false; Log.e("",f.toString());});
+               .addOnFailureListener(f->{isLogedIn=false; checkout=false; Log.e("",f.toString());});
         if(isLogedIn)
         {
             repository.setUserData(userName,email,password);
@@ -496,6 +512,16 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     public void deleteToFav(Meal mealdelete) {
         repository.deleteMeal(mealdelete);
+    }
+
+    @Override
+    public Observable<List<Meal>> getAllFavouriteList() {
+       return repository.getAllFavMealsLive(true);
+    }
+
+    @Override
+    public void UpdateMealOfFavouriteList(Boolean isFav, String Meal) {
+        repository.updateFavoriteInMeal(isFav,Meal);
     }
 
     public void getAllPlans() {

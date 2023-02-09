@@ -1,12 +1,14 @@
 package com.app.our.foodplanner.app_vp.view.favorite;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,6 +19,8 @@ import com.app.our.foodplanner.app_vp.view.home.AdapterHomeCategory;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.model.Category;
 import com.app.our.foodplanner.model.Meal;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +29,14 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
 
     private final Context context;
     private List<Meal> favorite;
-    FavouriteFragmentInterface favoriteFragment;
+    FavouriteFragmentInterface favouriteFragmentInterface;
 
     private static final String TAG="RecyclerView";
-    public List<Meal> getallFavouriteList() {
-        return favorite;
-    }
-
-
 
     public AdapterFavouriteList(Context context, FavouriteFragmentInterface favouriteFragmentInterface, List<Meal> values) {
         this.context = context;
-        // this.values = values;
-        this.favorite =new ArrayList<>();
-        this.favoriteFragment=favouriteFragmentInterface;
+        this.favorite =values;
+        this.favouriteFragmentInterface=favouriteFragmentInterface;
     }
 
     @NonNull
@@ -56,10 +54,21 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
 
         holder.txtViewNameFavouriteList.setText(favorite.get(position).getStrMeal());
         holder.textViewAreaFavouriteList.setText(favorite.get(position).getStrArea());
+        holder.rowFavouriteList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, favorite.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
+              //  favouriteFragmentInterface.getConainer().showMeal(favorite.get(holder.getAdapterPosition()),((BitmapDrawable)holder.imageViewMealFavouriteList.getDrawable()).getBitmap());
+            }
+        });
+        Glide.with(context).load(favorite.get(position).getStrMealThumb())
+                .placeholder(R.drawable.picfood).into(holder.imageViewMealFavouriteList);
+
         holder.imgViewDeleteFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favoriteFragment.onClickDelete(favorite.get(position));
+                Toast.makeText(context, "delete meal", Toast.LENGTH_SHORT).show();
+                favouriteFragmentInterface.onClickDelete(false,favorite.get(position).getIdMeal());
             }
         });
 
@@ -71,11 +80,8 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
     }
 
     public void setData(List<Meal> values){
-        this.favorite = new ArrayList<>();
-        for(int i=0;i<values.size();i++){
-            favorite.add(values.get(i));
-        }
-        // notifyDataSetChanged();
+        this.favorite = values;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -89,7 +95,7 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
             layout=itemView;
             imageViewMealFavouriteList=itemView.findViewById(R.id.imageViewMealFavouriteList);
             imgViewDeleteFavorite=itemView.findViewById(R.id.imgViewDeleteFavorite);
-            txtViewNameFavouriteList=itemView.findViewById(R.id.imgViewDeleteFavorite);
+            txtViewNameFavouriteList=itemView.findViewById(R.id.txtViewNameFavouriteList);
             textViewAreaFavouriteList=itemView.findViewById(R.id.textViewAreaFavouriteList);
             rowFavouriteList=itemView.findViewById(R.id.rowFavouriteList);
 

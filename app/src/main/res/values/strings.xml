@@ -52,5 +52,6 @@
     <string name="country_category">Country</string>
     <string name="log_out">Logout</string>
     <string name="go_home_from_profile">Back</string>
+    <string name="email_login">Email</string>
 
 </resources>

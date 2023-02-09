@@ -11,6 +11,8 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public interface ConcreteLocalSourceInterface {
 
     Meal getMeal(String id);
@@ -19,7 +21,7 @@ public interface ConcreteLocalSourceInterface {
     List<Meal> getAllMealsInPlan(String week, String month, String year);
     List<PlanOfWeek> getPlans();
     LiveData<List<PlanOfWeek>> getPlansLive();
-    LiveData<List<Meal>> getAllFavMealsLive(boolean isFav);
+    Observable<List<Meal>> getAllFavMealsLive(boolean isFav);
     LiveData<List<Meal>> getAllMealsInPlanLive(String week, String month, String year);
     void updateFavoriteInMeal(boolean isFav, String idMeal);
     void updateDateInMeal(String time, String day, String week, String month, String year, String idMeal);

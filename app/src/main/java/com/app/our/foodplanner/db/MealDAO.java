@@ -13,6 +13,8 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 @Dao
 public interface MealDAO {
 
@@ -33,7 +35,8 @@ public interface MealDAO {
     LiveData<List<PlanOfWeek>> getPlansLive();
 
     @Query("SELECT * From Meals where isFavorite Like:isFav")
-    LiveData<List<Meal>> getAllFavMealsLive(boolean isFav);
+    Observable<List<Meal>> getAllFavMealsLive(boolean isFav);
+    //LiveData<List<Meal>> getAllFavMealsLive(boolean isFav);
 
     @Query("SELECT * From Meals where meal_Week Like:week and meal_Month like :month and meal_Year like:year")
     LiveData<List<Meal>> getAllMealsInPlanLive(String week,String month,String year);

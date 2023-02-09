@@ -12,6 +12,8 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public interface PresenterInterface {
 
  //home functions
@@ -49,5 +51,8 @@ public interface PresenterInterface {
  public void setTargetMealDayAndTime(String day,String time);
 
  public void deleteToFav(Meal mealdelete);
+
+ public Observable<List<Meal>> getAllFavouriteList();
+ public void UpdateMealOfFavouriteList(Boolean isFav,String Meal);
 
 }

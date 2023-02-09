@@ -117,7 +117,7 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
         }
         else{
-            showDialog("Not match");
+           // showDialog("Not match");
             Log.i(TAG, "ffffffffffffffffffffonLoginResult: "+result);
             Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);

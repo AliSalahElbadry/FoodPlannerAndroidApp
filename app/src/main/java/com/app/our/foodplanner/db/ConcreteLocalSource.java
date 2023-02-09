@@ -10,6 +10,8 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
 
     MealDAO mealDAO;
@@ -17,7 +19,7 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     private static ConcreteLocalSource localSource = null;
 
     LiveData<List<PlanOfWeek>> getPlansLive;
-    LiveData<List<Meal>> getAllFavMealsLive;
+    Observable<List<Meal>> getAllFavMealsLive;
     LiveData<List<Meal>> getAllMealsInPlanLive;
 
     private ConcreteLocalSource(Context context){
@@ -66,7 +68,8 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     }
 
     @Override
-    public LiveData<List<Meal>> getAllFavMealsLive(boolean isFav) {
+    public Observable<List<Meal>> getAllFavMealsLive(boolean isFav) {
+
         return getAllFavMealsLive;
     }
 

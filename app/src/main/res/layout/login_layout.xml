@@ -51,10 +51,10 @@
         android:layout_height="53dp"
         android:layout_weight="4"
         android:background="@null"
-        android:drawableStart="@drawable/person"
+        android:drawableStart="@drawable/email"
         android:drawablePadding="5dp"
         android:ems="10"
-        android:hint="@string/user_name"
+        android:hint="@string/email_login"
         android:importantForAutofill="no"
         android:inputType="text"
         android:paddingStart="20dp"
@@ -151,11 +151,11 @@
         android:layout_height="38dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgViewLoginPage"
         app:layout_constraintEnd_toEndOf="@+id/imgViewLoginPage"
-        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintHorizontal_bias="0.659"
         app:layout_constraintStart_toStartOf="@+id/imgViewLoginPage"
         app:layout_constraintTop_toTopOf="@+id/imgViewLoginPage"
-        app:layout_constraintVertical_bias="0.699"
-        app:srcCompat="@drawable/baseline_key_24" />
+        app:layout_constraintVertical_bias="0.654"
+        app:srcCompat="@drawable/baseline_lock_24" />
 
     <!--    <EditText-->
 <!--        android:id="@+id/editTxtPassSignUp"-->

@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
 
     @Override
     public void onClickLogOut() {
-        showDialog("you can sure logout");
+        showDialog("Are you sure you want to log out?");
 //        presenterInterface.logout();
 //        ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
     }
@@ -96,7 +96,7 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
     {
         AlertDialog.Builder alert=new AlertDialog.Builder(getContext());
         alert.setMessage(msg);
-        alert.setTitle("Logout");
+        alert.setTitle("Log out");
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

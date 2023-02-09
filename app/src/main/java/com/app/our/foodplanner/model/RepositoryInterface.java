@@ -9,6 +9,8 @@ import com.app.our.foodplanner.network.NetworkDelegate;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public interface RepositoryInterface {
     Meal getMeal(String id);
     PlanOfWeek getPlan(int id);
@@ -16,7 +18,7 @@ public interface RepositoryInterface {
     List<Meal> getAllMealsInPlan(String week, String month, String year);
     List<PlanOfWeek> getPlans();
     LiveData<List<PlanOfWeek>> getPlansLive();
-    LiveData<List<Meal>> getAllFavMealsLive(boolean isFav);
+    Observable<List<Meal>> getAllFavMealsLive(boolean isFav);
     LiveData<List<Meal>> getAllMealsInPlanLive(String week, String month, String year);
     void updateFavoriteInMeal(boolean isFav, String idMeal);
     void updateDateInMeal(String time, String day, String week, String month, String year, String idMeal);
