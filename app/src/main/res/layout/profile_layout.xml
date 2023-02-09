@@ -3,101 +3,111 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineProfileLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="15dp" />
+        app:layout_constraintGuide_begin="29dp" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineProfileRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="15dp" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="216dp"
-        android:layout_height="152dp"
-        android:layout_marginTop="76dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineProfileRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile" />
-
-    <TextView
-        android:id="@+id/textViewLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="255dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="45dp"
-        android:text="@string/logout"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textViewNameProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/name_profile"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/email_profile"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/textViewNameProfile" />
+        app:layout_constraintGuide_end="28dp" />
 
 
     <View
-        android:id="@+id/containerUname"
+        android:id="@+id/viewTop"
+        android:layout_width="402dp"
+        android:layout_height="247dp"
+        android:background="@drawable/profile_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="222dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/profile"
+        app:civ_border_color="@color/second_color"
+        app:civ_border_width="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
+        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
+        app:layout_constraintTop_toTopOf="@+id/viewTop" />
+
+
+    <View
+        android:id="@+id/viewInformaion"
         android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="116dp"
-        android:background="@drawable/search_view"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/editTxtUNameLogIn"
-        app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"></View>
-
-    <EditText
-        android:id="@+id/editTxtUNameLogIn"
-        style="@style/Widget.AppCompat.AutoCompleteTextView"
-        android:layout_width="380dp"
-        android:layout_height="51dp"
-        android:autoText="true"
-        android:background="@null"
-        android:drawableEnd="@drawable/baseline_edit_24"
-        android:hint="@string/email"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:paddingEnd="20dp"
-
-        android:textColorHint="#B2000000"
-        app:layout_constraintBottom_toBottomOf="@+id/containerUname"
+        android:layout_height="390dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/information_profile_background"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLogOut"
         app:layout_constraintEnd_toStartOf="@+id/guidelineProfileRight"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
-        app:layout_constraintTop_toTopOf="@+id/containerUname"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
+        app:layout_constraintVertical_bias="0.061" />
 
+    <TextView
+        android:id="@+id/textViewEmailProfile"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/text_profile_layout"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
+        app:layout_constraintTop_toBottomOf="@+id/viewTop" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineInformationRieght"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="333dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineInformationLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="64dp" />
+
+    <TextView
+        android:id="@+id/textViewNameProfile"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/text_profile_layout"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmailProfile" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogOut"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/custom_button_stroke"
+        android:text="@string/log_out"
+        android:textColor="@color/second_color"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameProfile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,8 +37,11 @@ public interface PresenterInterface {
  public String[]getUserData();
 
  public void doLogin(String email, String pass);
+ public  void logout();
 
 
  public void putUserData(String userName, String email, String password);
+
+ public void deleteToFav(Meal mealdelete);
 
 }

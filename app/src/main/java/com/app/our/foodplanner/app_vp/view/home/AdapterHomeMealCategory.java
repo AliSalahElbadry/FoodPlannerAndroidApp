@@ -82,7 +82,7 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
             super(itemView);
             layout=itemView;
             txtTitle=itemView.findViewById(R.id.txtViewTitleListCategoryHome);
-            txtCountry=itemView.findViewById(R.id.textViewAreaCategoryHome);
+         //   txtCountry=itemView.findViewById(R.id.textViewAreaCategoryHome);
             imageView=itemView.findViewById(R.id.imageViewMealHome);
             cardView=itemView.findViewById(R.id.rowMealHome);
 

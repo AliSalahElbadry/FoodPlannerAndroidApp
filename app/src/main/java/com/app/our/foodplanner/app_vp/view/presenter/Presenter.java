@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.app.our.foodplanner.app_vp.view.favorite.FavouriteFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragment;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.profile.ProfileFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
@@ -25,6 +27,7 @@ import com.app.our.foodplanner.model.Repository;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -41,10 +44,20 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     //Data Holders
 
     private LogInFragmentInterface LogInFragmentInterface;
+    private ProfileFragmentInterface profileFragmentInterface;
+
+    private FavouriteFragmentInterface favouriteFragmentInterface;
     public void setLogInFragmentInterface(LogInFragmentInterface LogInFragmentInterface) {
         this.LogInFragmentInterface = LogInFragmentInterface;
     }
-    boolean isLoginSuccess=true;
+    public void setProfileFragmentInterface(ProfileFragmentInterface profileFragmentInterface) {
+        this.profileFragmentInterface = profileFragmentInterface;
+    }
+
+    public void setfavouriteFragmentInterface(FavouriteFragmentInterface favouriteFragmentInterface) {
+        this.favouriteFragmentInterface = favouriteFragmentInterface;
+    }
+    String nameProfile;
     private Repository repository;
     private ArrayList<Meal>meals;
     private ArrayList<Category>categories;
@@ -56,6 +69,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     private Context context;
     private boolean isLogedIn;
     private FirebaseAuth firebaseAuth;
+    private GoogleSignInOptions googleSignInOptions;
     MealFragmentInterface mealFragmentInterface;
     private HomeFragmentInterface homeFragment;
 
@@ -389,10 +403,14 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         String[]data=new String[3];
         if(isLogedIn)
         {
-           data[0]=firebaseAuth.getCurrentUser().getEmail();
-           data[1]=firebaseAuth.getCurrentUser().getDisplayName();
-           data[2]=firebaseAuth.getCurrentUser().getUid();
+
+            data[1]=firebaseAuth.getCurrentUser().getEmail();
+            Log.i(TAG, "getUserData:////// "+data[1]);
+            data[0]=firebaseAuth.getCurrentUser().getDisplayName();
+            data[0]=nameProfile;
+            data[2]=firebaseAuth.getCurrentUser().getUid();
         }
+
         return data;
     }
 
@@ -408,20 +426,43 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 if (task.isSuccessful()){
                     //enter home
                     Log.i("isSuccessful", " isSuccessful"+task);
-                    isLoginSuccess = true;
-                    LogInFragmentInterface.onLoginResult(isLoginSuccess);
+
+                    isLogedIn=true;
+                    LogInFragmentInterface.onLoginResult(isLogedIn);
+                    repository.setUserData(email,email,pass);
+                    FirebaseUser user=firebaseAuth.getCurrentUser();
+                    uData=new String[3];
+                   // uData[0]=user.getDisplayName();
+                    uData[0]=nameProfile;
+                    uData[1]=user.getEmail();
+                    uData[2]=user.getUid();
+                    Log.i(TAG, "onComplete: "+uData[0]+" "+uData[1]+" "+uData[2]);
+                    repository.setUserData(uData[0],uData[1],uData[2]);
+                    /////////
+                   // profileFragmentInterface.showUserData(uData);
+
                 }
                 else{
-                    isLoginSuccess = false;
-                    LogInFragmentInterface.onLoginResult(isLoginSuccess);
+                    isLogedIn=false;
+                    LogInFragmentInterface.onLoginResult(isLogedIn);
                 }
             }
         });
     }
 
     @Override
+    public void logout() {
+        firebaseAuth.signOut();
+        isLogedIn=false;
+    }
+
+    @Override
     public void putUserData(String userName, String email, String password) {
 
+             nameProfile=userName;
+             uData[0]=nameProfile;
+
+        Log.i(TAG, "putUserData: "+nameProfile);
                firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(s->{
                    isLogedIn=true;
                    signupFragmentInterface.getSignUpStatus(isLogedIn);
@@ -431,6 +472,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         {
             repository.setUserData(userName,email,password);
         }
+    }
+
+    @Override
+    public void deleteToFav(Meal mealdelete) {
+            repository.deleteMeal(mealdelete);
     }
 
 }

@@ -57,8 +57,6 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     FragmentManager manager;
     FragmentTransaction transaction;
 
-    LogInFragment logInFragment;
-
    public BottomNavigationView navigationView;
    int index=0;
 
@@ -70,7 +68,6 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
         if(getSupportActionBar()!=null)
              getSupportActionBar().hide();
          homeFragment=new HomeFragment();
-         logInFragment=new LogInFragment();
          profileFragment=new ProfileFragment();
          plansFragment=new PlansFragment();
          favoriteFragment=new FavoriteFragment();
@@ -79,6 +76,8 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
          presenter.setHomeFragment(homeFragment);
          intiateUi(savedInstanceState);
          navigationView=findViewById(R.id.bottonNavigationView);
+
+        presenter.setProfileFragmentInterface(profileFragment);
 
 
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -206,14 +205,11 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
 
     @Override
     public void showLogIn() {
-
         LogInFragment fragment=new LogInFragment();
-        presenter.setLogInFragmentInterface(logInFragment);
+        presenter.setLogInFragmentInterface(fragment);
         transaction=manager.beginTransaction();
-
         transaction.replace(R.id.nav_host_fragment,fragment)
                    .commit();
-
     }
 
     @Override

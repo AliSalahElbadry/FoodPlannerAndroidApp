@@ -2,11 +2,12 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rowFavouriteList"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="5dp"
-    app:cardCornerRadius="35dp"
     app:cardBackgroundColor="@color/gray"
+    app:cardCornerRadius="35dp"
+    app:cardElevation="5dp"
     app:cardMaxElevation="3dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
@@ -18,45 +19,45 @@
 
 
         <TextView
-            android:id="@+id/txtViewTitleListCategoryHome"
+            android:id="@+id/txtViewNameFavouriteList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@+id/imageViewMealHome"
-            app:layout_constraintTop_toTopOf="@+id/imageViewMealHome"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMealFavouriteList"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMealFavouriteList"
             tools:text="@string/title_fav_list" />
 
         <TextView
-            android:id="@+id/textViewAreaCategoryHome"
+            android:id="@+id/textViewAreaFavouriteList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealHome"
-            app:layout_constraintStart_toEndOf="@+id/imageViewMealHome"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewTitleListCategoryHome"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealFavouriteList"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMealFavouriteList"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewNameFavouriteList"
             app:layout_constraintVertical_bias="0.0"
             tools:text="@string/des_fav_list" />
 
         <ImageView
-            android:id="@+id/imgViewUNameLogIn"
+            android:id="@+id/imgViewDeleteFavorite"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:contentDescription="@string/user_name"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealHome"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealFavouriteList"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.875"
-            app:layout_constraintStart_toEndOf="@+id/txtViewTitleListCategoryHome"
-            app:layout_constraintTop_toTopOf="@+id/imageViewMealHome"
+            app:layout_constraintStart_toEndOf="@+id/txtViewNameFavouriteList"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMealFavouriteList"
             app:layout_constraintVertical_bias="0.407"
             app:srcCompat="@drawable/deleteicon"
             tools:ignore="ImageContrastCheck" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageViewMealHome"
+            android:id="@+id/imageViewMealFavouriteList"
             android:layout_width="118dp"
             android:layout_height="90dp"
             android:layout_marginStart="4dp"

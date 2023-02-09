@@ -50,5 +50,7 @@
     <string name="suggestion_meal">Suggestion for today</string>
     <string name="randum_meal">Meal for you</string>
     <string name="country_category">Country</string>
+    <string name="log_out">Logout</string>
+    <string name="go_home_from_profile">Back</string>
 
 </resources>
