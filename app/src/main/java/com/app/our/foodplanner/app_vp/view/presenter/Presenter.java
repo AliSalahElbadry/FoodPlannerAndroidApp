@@ -427,7 +427,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                     LogInFragmentInterface.onLoginResult(isLoginSuccess);
                 }
                 else{
-                    isLoginSuccess = false;
+                    isLogedIn = false;
                     LogInFragmentInterface.onLoginResult(isLoginSuccess);
                 }
             }

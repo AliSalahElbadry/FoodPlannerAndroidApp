@@ -211,7 +211,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     public void showLogIn() {
 
         LogInFragment fragment=new LogInFragment();
-        presenter.setLogInFragmentInterface(logInFragment);
+        presenter.setLogInFragmentInterface(fragment);
         transaction=manager.beginTransaction();
 
         transaction.replace(R.id.nav_host_fragment,fragment)

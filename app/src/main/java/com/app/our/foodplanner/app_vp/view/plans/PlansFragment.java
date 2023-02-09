@@ -29,6 +29,7 @@ public class PlansFragment extends Fragment implements PlansFragmentInterface {
 
     public PlansFragment() {
         // Required empty public constructor
+        adapter=new PlansAdapter(target,this);
     }
 
 
@@ -49,7 +50,7 @@ public class PlansFragment extends Fragment implements PlansFragmentInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listPlans=view.findViewById(R.id.recyclerViewPlansContainer);
-        adapter=new PlansAdapter(target,this);
+
         listPlans.setAdapter(adapter);
         listPlans.setLayoutManager(new LinearLayoutManager(getContext()));
         imageButtonAddPlan=view.findViewById(R.id.imageButtonAddPlan);
@@ -80,8 +81,10 @@ public class PlansFragment extends Fragment implements PlansFragmentInterface {
 
     @Override
     public void setPlansData(List<PlanOfWeek> plans) {
-        adapter.setData(plans);
-        adapter.notifyDataSetChanged();
+        if(plans!=null) {
+            adapter.setData(plans);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
