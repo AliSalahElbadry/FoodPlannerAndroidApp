@@ -3,9 +3,14 @@ package com.app.our.foodplanner.app_vp.view.plans;
 import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface PlansFragmentInterface {
-    public void showPlans(ArrayList<PlanOfWeek>plans,int mode);// 0:means normal show , 1 means add meal to plan show
     public void updateList_AddPlan(PlanOfWeek plan);
+    public void updateListRemPlan(PlanOfWeek plan);
+    public void setTarget(String target);
+    public void setPlansData(List<PlanOfWeek> plans);
+    public void showAddMeal(PlanOfWeek plan);
+    public  void showAddPlan(PlanOfWeek plan);
 
 }

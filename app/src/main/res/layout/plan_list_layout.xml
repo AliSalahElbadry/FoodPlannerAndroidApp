@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewRandumMeals"
+        android:id="@+id/recyclerViewPlansContainer"
         android:layout_width="383dp"
         android:layout_height="651dp"
         android:layout_marginStart="1dp"
@@ -32,6 +32,18 @@
         app:layout_constraintTop_toTopOf="parent"
 
         />
+
+    <ImageButton
+        android:id="@+id/imageButtonAddPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewPlanList"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
