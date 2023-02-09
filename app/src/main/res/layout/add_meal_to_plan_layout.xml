@@ -1,6 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/meal_back_corners"
+        android:text="Select Meal Day"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupDayMeal"
+        android:layout_width="250dp"
+        android:layout_height="363dp"
+        android:background="@drawable/meal_back_corners"
+        android:paddingBottom="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <RadioButton
+            android:id="@+id/radioButtonSunDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/sunday" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMonDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/monday" />
+
+        <RadioButton
+            android:id="@+id/radioButtonThuesDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/thuday" />
+
+        <RadioButton
+            android:id="@+id/radioButtonWedDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/wedday" />
+
+        <RadioButton
+            android:id="@+id/radioButtonThurthDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/thuday" />
+
+        <RadioButton
+            android:id="@+id/radioButtonFriDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/friday" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSaturDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/satday" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="170dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/meal_back_corners"
+        android:text="Select Meal Time"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroupDayMeal"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/radioGroupDayMeal"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupDayMeal" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupTimeMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/meal_back_corners"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <RadioButton
+            android:id="@+id/radioButton9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="@string/breakfast_text"
+            android:textAllCaps="true"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="@string/lunch_text"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="568dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="@string/dinner_text"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="260dp"
+            tools:layout_editor_absoluteY="568dp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonDoneAddMeal"
+        android:layout_width="182dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="25dp"
+        android:text="Done"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupTimeMeal"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

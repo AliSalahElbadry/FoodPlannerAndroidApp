@@ -15,6 +15,7 @@ import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragment;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.plans.PlansFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
@@ -33,6 +34,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,6 +49,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     boolean isLoginSuccess=true;
     private Repository repository;
     private ArrayList<Meal>meals;
+    private Meal targetMeal;
     private ArrayList<Category>categories;
     private ArrayList<Area>areas;
     private ArrayList<Ingredient>ingredients;
@@ -58,6 +61,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     private FirebaseAuth firebaseAuth;
     MealFragmentInterface mealFragmentInterface;
     private HomeFragmentInterface homeFragment;
+    private PlansFragmentInterface plansInterface;
+
+    public void setPlansInterface(PlansFragmentInterface plansInterface) {
+        this.plansInterface = plansInterface;
+    }
 
     public void setSignupFragmentInterface(SignupFragmentInterface signupFragmentInterface) {
         this.signupFragmentInterface = signupFragmentInterface;
@@ -371,7 +379,9 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     //Meal Page functions
     @Override
     public void addToFav(Meal meal) {
-
+           meal.setIsFavorite(true);
+           repository.insertMeal(meal);
+       mealFragmentInterface.setAddFavRes(true);
     }
 
     @Override
@@ -382,6 +392,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void showVideo(String url) {
 
+    }
+
+    @Override
+    public void setTargetAddMealToPlan(Meal meal) {
+        targetMeal=meal;
     }
 
     @Override
@@ -408,7 +423,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 if (task.isSuccessful()){
                     //enter home
                     Log.i("isSuccessful", " isSuccessful"+task);
-                    isLoginSuccess = true;
+                    isLogedIn = true;
                     LogInFragmentInterface.onLoginResult(isLoginSuccess);
                 }
                 else{
@@ -431,6 +446,30 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         {
             repository.setUserData(userName,email,password);
         }
+    }
+
+    @Override
+    public void getAllPlans() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                plansInterface.setPlansData(repository.getPlans());
+            }
+        }).start();
+    }
+
+    @Override
+    public void setTargetAddMealToPlanPlanData(PlanOfWeek plan) {
+        targetMeal.setMeal_Year(plan.getYear());
+        targetMeal.setMeal_Month(plan.getMonth());
+        targetMeal.setMeal_Week(plan.getWeek());
+    }
+
+    @Override
+    public void setTargetMealDayAndTime(String day, String time) {
+        targetMeal.setMeal_Day(day);
+        targetMeal.setMeal_Time(time);
+        repository.insertMeal(targetMeal);
     }
 
 }

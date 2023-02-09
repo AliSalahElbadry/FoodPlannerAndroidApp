@@ -40,6 +40,7 @@ import com.app.our.foodplanner.app_vp.view.profile.ProfileFragment;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragment;
 import com.app.our.foodplanner.app_vp.view.signup_login.Signup_Login_Fragment;
 import com.app.our.foodplanner.model.Meal;
+import com.app.our.foodplanner.model.PlanOfWeek;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.FirebaseApp;
@@ -191,6 +192,8 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     @Override
     public void showPlansPage() {
         if(presenter.isLogedIn()){
+            presenter.setPlansInterface(plansFragment);
+            presenter.getAllPlans();
             if(manager.getFragments().get(manager.getFragments().size()-1)!=plansFragment) {
                 transaction = manager.beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, plansFragment)
@@ -251,6 +254,17 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
             presenter.getMealByName(meal.getStrMeal());
             presenter.setMealFragmentInterface(mealFragment);
         }
+    }
+
+    @Override
+    public void showPlansAddMeal() {
+        navigationView.setSelectedItemId(R.id.planMenu);
+        plansFragment.setTarget("AddMeal");
+    }
+
+    @Override
+    public void showPlanPage(PlanOfWeek plan) {
+        //tell presenter to get all emeals in plan
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Meal;
+import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public interface PresenterInterface {
 
  public void addToPlan(Meal meal);
  public void showVideo(String url);
+ public void setTargetAddMealToPlan(Meal meal);
  //end Meal
 
  //profile
@@ -40,5 +42,9 @@ public interface PresenterInterface {
 
 
  public void putUserData(String userName, String email, String password);
+ public void getAllPlans();
+ public void setTargetAddMealToPlanPlanData(PlanOfWeek plan);
+
+ public void setTargetMealDayAndTime(String day,String time);
 
 }

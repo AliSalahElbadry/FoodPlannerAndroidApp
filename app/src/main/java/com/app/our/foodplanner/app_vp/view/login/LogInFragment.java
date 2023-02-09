@@ -72,22 +72,16 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         imageViewGoogleLog=view.findViewById(R.id.imageViewGoogleLogPage);
         textViewHaveAccountLogIn=view.findViewById(R.id.textViewHaveAccountLogInPage);
 
-        Log.i(TAG, "onViewCreated: 85462625321652");
-       btnLogIn.setOnClickListener(new View.OnClickListener() {
+         btnLogIn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
                if(editTxtUNameLogIn.getText().toString().isEmpty()||editTxtPassLogIn.getText().toString().isEmpty()){
                    Toast.makeText(getContext(), "Please, enter your mobile or password", Toast.LENGTH_SHORT).show();
-                   Log.i(TAG, "onClickLogin://///////////////////////////// ");
-                   Log.d(TAG, "onClick: ");
                }
                else{
                   // PresenterInterface.onClickLogin(getContext(),editTxtPassLogIn.getText().toString(),editTxtPassLogIn.getText().toString());
                    presenterInterface.doLogin(editTxtUNameLogIn.getText().toString(),editTxtPassLogIn.getText().toString());
-
-                   Toast.makeText(getContext(), "eeeeeelse", Toast.LENGTH_SHORT).show();
-
                }
 
            }
@@ -96,23 +90,14 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
 
     }
 
-//    @Override
-//    public void onClearText() {
-//        editTxtUNameLogIn.setText(" ");
-//        editTxtPassLogIn.setText(" ");
-//    }
-
     @Override
     public void onLoginResult(Boolean result) {
 
         if(result){
-           // Toast.makeText(this.getContext(), "Login succes", Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "ssssssssssssonLoginResult: "+result);
-
+            ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
         }
         else{
-           // Toast.makeText(LogInFragment.this.getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "ffffffffffffffffffffonLoginResult: "+result);
+            Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
         }
     }
 }

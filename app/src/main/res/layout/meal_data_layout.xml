@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/meal_back_corners"
     android:fontFamily="Arial"
     android:layoutDirection="ltr">
@@ -97,6 +102,8 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewMealCategoryCountry"
         app:layout_constraintEnd_toStartOf="@+id/textViewMealCategoryCountry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMealName"
         app:srcCompat="@drawable/baseline_favorite_border_24" />
 
     <ImageButton
@@ -108,6 +115,8 @@
         android:elevation="10dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewMealCategoryCountry"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewMealCategoryCountry"
         app:layout_constraintTop_toTopOf="@+id/btnAddToFav"
         app:srcCompat="@drawable/baseline_edit_calendar_24" />
@@ -142,7 +151,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButtonVideoShow"
         android:layout_width="49dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
@@ -162,4 +171,6 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintGuide_begin="796dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

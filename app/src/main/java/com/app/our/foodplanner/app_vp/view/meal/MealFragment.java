@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.our.foodplanner.R;
+import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
+import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
+import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
 import com.app.our.foodplanner.model.Meal;
 
 import java.util.ArrayList;
@@ -33,6 +38,10 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
     Bitmap bitmap;
     TextView mealSteps;
     View view;
+    ImageButton btnAddFav;
+    ImageButton btnAddToPlan;
+    ImageButton imageButtonVideoShow;
+    PresenterInterface presenterInterface;
     public MealFragment() {
         // Required empty public constructor
     }
@@ -46,9 +55,24 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenterInterface=((MainActivityContainerInterface)getActivity()).getPresenter();
         imageViewMealMeal=view.findViewById(R.id.imageViewMealMeal);
         this.view=view;
         imageViewMealMeal.setImageBitmap(bitmap);
+        btnAddFav=view.findViewById(R.id.btnAddToFav);
+        btnAddToPlan=view.findViewById(R.id.btnAddToPlan);
+        imageButtonVideoShow=view.findViewById(R.id.imageButtonVideoShow);
+        btnAddFav.setOnClickListener(l->{
+            presenterInterface.addToFav(meal);
+        });
+        btnAddToPlan.setOnClickListener(l->{
+            presenterInterface.setTargetAddMealToPlan(meal);
+            ((MainActivityContainer)getActivity()).showPlansAddMeal();
+            dismiss();
+        });
+        imageButtonVideoShow.setOnClickListener(l->{
+            //((MainActivityContainer)getActivity()).showVideo(meal.getStrYoutube());
+        });
     }
 
     @NonNull
@@ -85,6 +109,15 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
         textViewMealCategoryCountry.setText(meal.getStrCategory()+" , "+meal.getStrArea());
         mealSteps.setText(meal.getStrInstructions()+"\n\n\n");
     }
+
+    @Override
+    public void setAddFavRes(boolean isSet) {
+        if(isSet) {
+            btnAddFav.setBackgroundResource(R.drawable.baseline_favorite_24);
+            Toast.makeText(getContext(), "Added To Favorite", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);

@@ -11,4 +11,5 @@ public interface MealFragmentInterface {
 
     public void showMeal(Bitmap bitmap);
     public void setMealData(Meal meal, ArrayList<String>res);
+    public  void setAddFavRes(boolean isSet);
 }
