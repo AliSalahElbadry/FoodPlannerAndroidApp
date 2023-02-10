@@ -3,7 +3,6 @@ package com.app.our.foodplanner.app_vp.view.presenter;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,14 +12,11 @@ import androidx.annotation.NonNull;
 
 import com.app.our.foodplanner.app_vp.view.favorite.FavouriteFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
-import com.app.our.foodplanner.app_vp.view.login.LogInFragment;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
-
-import com.app.our.foodplanner.app_vp.view.profile.ProfileFragmentInterface;
-
+import com.app.our.foodplanner.app_vp.view.plan.PlanFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.plans.PlansFragmentInterface;
-
+import com.app.our.foodplanner.app_vp.view.profile.ProfileFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
@@ -30,23 +26,21 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 import com.app.our.foodplanner.model.Repository;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
-
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Presenter implements NetworkDelegate , PresenterInterface {
     //Data Holders
@@ -69,6 +63,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     Boolean checkout=false;
     private Repository repository;
     private ArrayList<Meal>meals;
+    private ArrayList<Meal>targetShowPlanMeals=new ArrayList<>();
     private Meal targetMeal;
     private ArrayList<Category>categories;
     private ArrayList<Area>areas;
@@ -83,6 +78,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     MealFragmentInterface mealFragmentInterface;
     private HomeFragmentInterface homeFragment;
     private PlansFragmentInterface plansInterface;
+    private  PlanFragmentInterface planFragmentInterface;
+
 
     public void setPlansInterface(PlansFragmentInterface plansInterface) {
         this.plansInterface = plansInterface;
@@ -400,9 +397,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     //Meal Page functions
     @Override
     public void addToFav(Meal meal) {
-           meal.setIsFavorite(true);
-           repository.insertMeal(meal);
-       mealFragmentInterface.setAddFavRes(true);
+        meal.setIsFavorite(true);
+        repository.insertMeal(meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(()->{
+            mealFragmentInterface.setAddFavRes(true);
+        }).subscribe();
+        repository.updateFavoriteInMeal(true,meal.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 
     @Override
@@ -418,6 +417,49 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void setTargetAddMealToPlan(Meal meal) {
         targetMeal=meal;
+    }
+
+    @Override
+    public void removePlan(PlanOfWeek plan) {
+        repository.deletePlan(plan).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+    }
+    @Override
+    public void getMealsInPlan(PlanOfWeek plan) {
+        repository.getAllMealsInPlan(plan.getWeek(),plan.getMonth(),plan.getYear()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+            if(i!=null) {
+                targetShowPlanMeals.addAll(i);
+                sendFirstDayInWeekMeals(plan.getWeek());
+            }
+        });
+    }
+    public void sendFirstDayInWeekMeals(String day){
+        ArrayList<Meal>breakfast=new ArrayList<>();
+        ArrayList<Meal>lunch=new ArrayList<>();
+        ArrayList<Meal>dinner=new ArrayList<>();
+        for (Meal i:targetShowPlanMeals) {
+            if(i.getMeal_Day().equals(day))
+            {
+                if(i.getMeal_Time().equals("Breakfast"))
+                {
+                    breakfast.add(i);
+                }else if(i.getMeal_Time().equals("Lunch"))
+                {
+                    lunch.add(i);
+
+                }else if(i.getMeal_Time().equals("Dinner"))
+                {
+                    dinner.add(i);
+                }
+            }
+        }
+        planFragmentInterface.setData(breakfast,lunch,dinner);
+    }
+
+
+    @Override
+    public void addPlan(PlanOfWeek plan) {
+        repository.insertPlan(plan).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        plansInterface.updateList_AddPlan(plan);
     }
 
     @Override
@@ -439,36 +481,24 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
         return data;
     }
-
-
-
     @Override
     public void doLogin(String email, String pass) {
-        Log.i(TAG, "doLogin: ");
 
         firebaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    //enter home
-                    Log.i("isSuccessful", " isSuccessful"+task);
 
                     isLogedIn=true;
                     checkout=true;
-                    Log.i(TAG, "login suss: "+checkout+" "+isLogedIn);
                     LogInFragmentInterface.onLoginResult(isLogedIn);
                     repository.setUserData(email,email,pass);
                     FirebaseUser user=firebaseAuth.getCurrentUser();
                     uData=new String[3];
-                   // uData[0]=user.getDisplayName();
                     uData[0]=nameProfile;
                     uData[1]=user.getEmail();
                     uData[2]=user.getUid();
-                    Log.i(TAG, "onComplete: "+uData[0]+" "+uData[1]+" "+uData[2]);
                     repository.setUserData(uData[0],uData[1],uData[2]);
-                    /////////
-                   // profileFragmentInterface.showUserData(uData);
-
                 }
                 else{
                     isLogedIn=false;
@@ -482,11 +512,13 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void logout() {
-        isLogedIn=false;
-        checkout=false;
-        Log.i(TAG, "logout: "+checkout+" "+isLogedIn);
+        isLogedIn = false;
+        checkout = false;
+        Log.i(TAG, "logout: " + checkout + " " + isLogedIn);
         firebaseAuth.signOut();
-
+    }
+    public void setPlanInterface(PlanFragmentInterface planInterface) {
+        planFragmentInterface=planInterface;
     }
 
     @Override
@@ -525,27 +557,27 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     }
 
     public void getAllPlans() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                plansInterface.setPlansData(repository.getPlans());
-            }
-        }).start();
+        repository.getPlans().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnSuccess(i->{
+            plansInterface.setPlansData(i);
+        }).subscribe();
+
     }
 
     @Override
     public void setTargetAddMealToPlanPlanData(PlanOfWeek plan) {
-        targetMeal.setMeal_Year(plan.getYear());
-        targetMeal.setMeal_Month(plan.getMonth());
-        targetMeal.setMeal_Week(plan.getWeek());
+        if(targetMeal!=null) {
+            targetMeal.setMeal_Year(plan.getYear());
+            targetMeal.setMeal_Month(plan.getMonth());
+            targetMeal.setMeal_Week(plan.getWeek());
+        }
     }
 
     @Override
     public void setTargetMealDayAndTime(String day, String time) {
         targetMeal.setMeal_Day(day);
         targetMeal.setMeal_Time(time);
-        repository.insertMeal(targetMeal);
-
+        repository.insertMeal(targetMeal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        plansInterface.setTarget("showPlan");
     }
 
 }
