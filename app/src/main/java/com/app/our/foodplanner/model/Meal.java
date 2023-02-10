@@ -20,10 +20,23 @@ import java.sql.Date;
 @Entity(tableName="Meals")
 public class Meal {
 
-    @PrimaryKey
+    @ColumnInfo(name="id")
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private int id;
     @SerializedName("idMeal")
     @ColumnInfo(name="idMeal")
+
     private String idMeal;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @SerializedName("strMeal")
     @ColumnInfo(name="strMeal")
     private String strMeal;

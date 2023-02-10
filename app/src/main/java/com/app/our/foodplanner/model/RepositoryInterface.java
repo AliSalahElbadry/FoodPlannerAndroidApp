@@ -14,6 +14,9 @@ import io.reactivex.rxjava3.core.Single;
 
 public interface RepositoryInterface {
     Single<Meal>getMeal(String id);
+    Single<Integer> isMealExists(String id);
+    Single<List<Meal>>getAllFavLikeMeal(String id);
+    public Completable removeMealFromPlan(String mealid, String week);
     Single<PlanOfWeek> getPlan(int id);
     List<Meal> getAllFavMeals(boolean isFav);
     Single<List<Meal>> getAllMealsInPlan(String week, String month, String year);

@@ -43,6 +43,16 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
+    public Single<Integer> isMealExists(String id) {
+        return localSource.isMealExists(id);
+    }
+
+    @Override
+    public Single<List<Meal>> getAllFavLikeMeal(String id) {
+        return localSource.getAllFavLikeMeal(id);
+    }
+
+    @Override
     public Single<PlanOfWeek> getPlan(int id) {
         return localSource.getPlan(id);
     }
@@ -85,6 +95,10 @@ public class Repository implements RepositoryInterface {
     @Override
     public Completable updateDateInMeal(String time, String day, String week, String month, String year, String idMeal) {
         return localSource.updateDateInMeal(time,day,week,month,year,idMeal);
+    }
+    @Override
+    public Completable removeMealFromPlan(String mealid, String week) {
+        return localSource.removeMealFromPlan(mealid,week);
     }
 
     @Override

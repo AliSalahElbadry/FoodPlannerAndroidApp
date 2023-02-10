@@ -32,7 +32,7 @@ public interface PresenterInterface {
 
  // Meal Page
  public void addToFav(Meal meal);
-
+public  void getAllFav();
  public void addToPlan(Meal meal);
  public void showVideo(String url);
  public void setTargetAddMealToPlan(Meal meal);
@@ -58,5 +58,6 @@ public void sendFirstDayInWeekMeals(String week);
 
  public Observable<List<Meal>> getAllFavouriteList();
  public void UpdateMealOfFavouriteList(Boolean isFav,String Meal);
+ public List<Meal> castListToSet(List<Meal>meals);
 
 }

@@ -40,6 +40,8 @@ import java.util.stream.Stream;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Presenter implements NetworkDelegate , PresenterInterface {
@@ -398,10 +400,28 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void addToFav(Meal meal) {
         meal.setIsFavorite(true);
-        repository.insertMeal(meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(()->{
-            mealFragmentInterface.setAddFavRes(true);
-        }).subscribe();
-        repository.updateFavoriteInMeal(true,meal.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        repository.isMealExists(meal.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+           if(i>0)
+           {
+               repository.updateFavoriteInMeal(true,meal.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+           }else if(i==0)
+           {
+               repository.insertMeal(meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(()->{
+                   mealFragmentInterface.setAddFavRes(true);
+               }).subscribe();
+           }
+        });
+        mealFragmentInterface.setAddFavRes(true);
+     }
+
+    @Override
+    public void getAllFav() {
+        repository.getAllFavMealsLive(true).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+                    i=castListToSet(i);
+                    favouriteFragmentInterface.showData(i);
+
+                });
     }
 
     @Override
@@ -421,10 +441,21 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void removePlan(PlanOfWeek plan) {
+        repository.getAllMealsInPlan(plan.getWeek(),plan.getMonth(),plan.getYear()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+            for (Meal m:i) {
+                if(m.getIsFavorite())
+                {
+                    repository.updateDateInMeal(null,null,null,null,null,m.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                }else{
+                    repository.deleteMeal(m).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                }
+            }
+        });
         repository.deletePlan(plan).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
     }
     @Override
     public void getMealsInPlan(PlanOfWeek plan) {
+
         repository.getAllMealsInPlan(plan.getWeek(),plan.getMonth(),plan.getYear()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
             if(i!=null) {
                 targetShowPlanMeals.addAll(i);
@@ -432,6 +463,51 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
             }
         });
     }
+    public List<Meal> castListToSet(List<Meal>meals)
+    {
+        List<Meal>res=new ArrayList<>();boolean flag=false;
+        for(int i=0;i<meals.size();i++)
+        {
+            flag=false;
+            for(int j=i+1;j<meals.size();j++)
+            {
+                if(meals.get(i).getIdMeal().equals(meals.get(j).getIdMeal()))
+                {
+                    flag=true;
+                }
+            }
+            if(!flag)
+            {
+                res.add(meals.get(i));
+            }
+        }
+        return  res;
+    }
+
+    public ArrayList<Meal> checkMealRedInPlan(List<Meal>meals)
+    {
+        ArrayList<Meal>res=new ArrayList<>();boolean flag=false;
+        for(int i=0;i<meals.size();i++)
+        {
+            flag=false;
+            for(int j=i+1;j<meals.size();j++)
+            {
+                if(meals.get(i).getMeal_Day().equals(meals.get(j).getMeal_Day())&&
+                        meals.get(i).getMeal_Time().equals(meals.get(j).getMeal_Time())&&
+                        meals.get(i).getMeal_Week().equals(meals.get(j).getMeal_Week())&&
+                        meals.get(i).getMeal_Month().equals(meals.get(j).getMeal_Month()))
+                {
+                    flag=true;
+                }
+            }
+            if(!flag)
+            {
+                res.add(meals.get(i));
+            }
+        }
+        return  res;
+    }
+
     public void sendFirstDayInWeekMeals(String day){
         ArrayList<Meal>breakfast=new ArrayList<>();
         ArrayList<Meal>lunch=new ArrayList<>();
@@ -452,6 +528,9 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 }
             }
         }
+        breakfast=checkMealRedInPlan(breakfast);
+        lunch=checkMealRedInPlan(lunch);
+        dinner=checkMealRedInPlan(dinner);
         planFragmentInterface.setData(breakfast,lunch,dinner);
     }
 
@@ -553,8 +632,24 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void UpdateMealOfFavouriteList(Boolean isFav, String Meal) {
-        repository.updateFavoriteInMeal(isFav,Meal);
-    }
+        repository.getAllFavLikeMeal(Meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+           if(i!=null)
+            for (Meal m:i) {
+
+                    if (m.getMeal_Time() != null)
+                        repository.updateFavoriteInMeal(isFav, Meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                    else {
+                        repository.deleteMeal(m).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                    }
+            }
+           else{
+               repository.getMeal(Meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(m->{
+                   repository.deleteMeal(m).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+               }) ;
+           }
+
+        });
+      }
 
     public void getAllPlans() {
         repository.getPlans().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnSuccess(i->{
@@ -576,8 +671,23 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     public void setTargetMealDayAndTime(String day, String time) {
         targetMeal.setMeal_Day(day);
         targetMeal.setMeal_Time(time);
-        repository.insertMeal(targetMeal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
-        plansInterface.setTarget("showPlan");
+        repository.getAllFavLikeMeal(targetMeal.getIdMeal()).subscribeOn(Schedulers.io()).onErrorComplete().observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+             int flag=0;
+            for (Meal m:i) {
+                if(m.getIsFavorite())
+                {
+                    targetMeal.setIsFavorite(true);
+                    repository.insertMeal(targetMeal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                    flag=1;
+                    break;
+                }
+              if(flag==0)
+              {
+                  repository.insertMeal(targetMeal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+              }
+            }
+        });
+         plansInterface.setTarget("showPlan");
     }
 
 }

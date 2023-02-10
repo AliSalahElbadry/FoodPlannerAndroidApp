@@ -160,7 +160,10 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     @Override
     public void showFavPage() {
        if(presenter.isLogedIn()){
+
            if(manager.getFragments().get(manager.getFragments().size()-1)!=favoriteFragment) {
+               presenter.getAllFav();
+               presenter.setfavouriteFragmentInterface(favoriteFragment);
                transaction = manager.beginTransaction();
                transaction.replace(R.id.nav_host_fragment, favoriteFragment);
                transaction.commit();

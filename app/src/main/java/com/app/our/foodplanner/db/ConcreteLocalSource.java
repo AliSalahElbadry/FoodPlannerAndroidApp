@@ -44,6 +44,21 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     }
 
     @Override
+    public Single<List<Meal>> getAllFavLikeMeal(String id) {
+        return mealDAO.getAllFavLikeMeal(id);
+    }
+
+    @Override
+    public Single<Integer> isMealExists(String id) {
+        return mealDAO.isMealExists(id);
+    }
+
+    @Override
+    public Completable removeMealFromPlan(String mealid, String week) {
+        return mealDAO.removeMealFromPlan(mealid,week);
+    }
+
+    @Override
     public Single<PlanOfWeek> getPlan(int id) {
         return mealDAO.getPlan(id);
     }

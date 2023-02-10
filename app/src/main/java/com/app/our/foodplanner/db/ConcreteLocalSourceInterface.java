@@ -17,6 +17,9 @@ import io.reactivex.rxjava3.core.Single;
 public interface ConcreteLocalSourceInterface {
 
     Single<Meal> getMeal(String id);
+    Single<List<Meal>>getAllFavLikeMeal(String id);
+    Single<Integer> isMealExists(String id);
+    Completable removeMealFromPlan(String mealid,String week);
     Single<PlanOfWeek> getPlan(int id);
     List<Meal> getAllFavMeals(boolean isFav);
     Single<List<Meal>> getAllMealsInPlan(String week, String month, String year);
