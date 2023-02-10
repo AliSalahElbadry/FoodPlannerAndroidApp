@@ -63,15 +63,17 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
         btnAddToPlan=view.findViewById(R.id.btnAddToPlan);
         imageButtonVideoShow=view.findViewById(R.id.imageButtonVideoShow);
         btnAddFav.setOnClickListener(l->{
+            meal.setImageBitmap(bitmap);
             presenterInterface.addToFav(meal);
         });
         btnAddToPlan.setOnClickListener(l->{
+            meal.setImageBitmap(bitmap);
             presenterInterface.setTargetAddMealToPlan(meal);
             ((MainActivityContainer)getActivity()).showPlansAddMeal();
             dismiss();
         });
         imageButtonVideoShow.setOnClickListener(l->{
-            //((MainActivityContainer)getActivity()).showVideo(meal.getStrYoutube());
+            ((MainActivityContainer)getActivity()).showVideo(meal.getStrYoutube());
         });
     }
 
@@ -116,10 +118,5 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
             btnAddFav.setBackgroundResource(R.drawable.baseline_favorite_24);
             Toast.makeText(getContext(), "Added To Favorite", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 }

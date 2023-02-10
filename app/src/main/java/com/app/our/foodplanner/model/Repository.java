@@ -13,6 +13,8 @@ import com.app.our.foodplanner.shared_pref.Shared_Pref;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 
 public class Repository implements RepositoryInterface {
 
@@ -36,12 +38,22 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public Meal getMeal(String id) {
+    public Single<Meal> getMeal(String id) {
         return localSource.getMeal(id);
     }
 
     @Override
-    public PlanOfWeek getPlan(int id) {
+    public Single<Integer> isMealExists(String id) {
+        return localSource.isMealExists(id);
+    }
+
+    @Override
+    public Single<List<Meal>> getAllFavLikeMeal(String id) {
+        return localSource.getAllFavLikeMeal(id);
+    }
+
+    @Override
+    public Single<PlanOfWeek> getPlan(int id) {
         return localSource.getPlan(id);
     }
 
@@ -51,12 +63,12 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public List<Meal> getAllMealsInPlan(String week, String month, String year) {
+    public Single<List<Meal>> getAllMealsInPlan(String week, String month, String year) {
         return localSource.getAllMealsInPlan(week,month,year);
     }
 
     @Override
-    public List<PlanOfWeek> getPlans() {
+    public Single<List<PlanOfWeek>> getPlans() {
         return localSource.getPlans();
     }
 
@@ -76,33 +88,37 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public void updateFavoriteInMeal(boolean isFav, String idMeal) {
-        localSource.updateFavoriteInMeal(isFav,idMeal);
+    public Completable updateFavoriteInMeal(boolean isFav, String idMeal) {
+        return localSource.updateFavoriteInMeal(isFav,idMeal);
     }
 
     @Override
-    public void updateDateInMeal(String time, String day, String week, String month, String year, String idMeal) {
-        localSource.updateDateInMeal(time,day,week,month,year,idMeal);
+    public Completable updateDateInMeal(String time, String day, String week, String month, String year, String idMeal) {
+        return localSource.updateDateInMeal(time,day,week,month,year,idMeal);
+    }
+    @Override
+    public Completable removeMealFromPlan(String mealid, String week) {
+        return localSource.removeMealFromPlan(mealid,week);
     }
 
     @Override
-    public void insertMeal(Meal meal) {
-        localSource.insertMeal(meal);
+    public Completable insertMeal(Meal meal) {
+        return localSource.insertMeal(meal);
     }
 
     @Override
-    public void insertPlan(PlanOfWeek plan) {
-        localSource.insertPlan(plan);
+    public Completable insertPlan(PlanOfWeek plan) {
+        return localSource.insertPlan(plan);
     }
 
     @Override
-    public void deleteMeal(Meal meal) {
-        localSource.deleteMeal(meal);
+    public Completable deleteMeal(Meal meal) {
+        return localSource.deleteMeal(meal);
     }
 
     @Override
-    public void deletePlan(PlanOfWeek plan) {
-        localSource.deletePlan(plan);
+    public Completable deletePlan(PlanOfWeek plan) {
+        return localSource.deletePlan(plan);
     }
 
     @Override

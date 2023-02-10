@@ -23,7 +23,9 @@ import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
 import com.app.our.foodplanner.model.Meal;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
@@ -59,9 +61,7 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         this.view=view;
-       // mainActivityContainerInterface=((MainActivityContainer)getActivity());
         presenterInterface=((MainActivityContainerInterface)getActivity()).getPresenter();
         recyclerViewFavouriteList=view.findViewById(R.id.recyclerViewFavouriteList);
         adapterFavouriteList=new AdapterFavouriteList(view.getContext(),this,new ArrayList<>());
@@ -69,48 +69,18 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewFavouriteList.setLayoutManager(linearLayoutManager);
         recyclerViewFavouriteList.setAdapter(adapterFavouriteList);
-        presenterInterface.getAllFavouriteList().subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<Meal>>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Meal> Meals) {
-                        Log.i(TAG, "onNext: getAllFavouriteList");
-                        adapterFavouriteList.setData(Meals);
-                        adapterFavouriteList.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-        // myAdapter.notifyDataSetChanged();
-        recyclerViewFavouriteList.setAdapter(adapterFavouriteList);
-
     }
-
-
 
     @Override
     public void showData(List<Meal> meal) {
         adapterFavouriteList.setData(meal);
-        recyclerViewFavouriteList.setAdapter(adapterFavouriteList);
         adapterFavouriteList.notifyDataSetChanged();
     }
 
     @Override
     public void onClickDelete(Boolean isFav,String meal) {
        presenterInterface.UpdateMealOfFavouriteList(false,meal);
+       adapterFavouriteList.updateRemFromFav(meal);
        adapterFavouriteList.notifyDataSetChanged();
     }
 

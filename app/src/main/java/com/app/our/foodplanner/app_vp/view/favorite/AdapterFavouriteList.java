@@ -1,6 +1,7 @@
 package com.app.our.foodplanner.app_vp.view.favorite;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,18 +58,16 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
         holder.rowFavouriteList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, favorite.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
-              //  favouriteFragmentInterface.getConainer().showMeal(favorite.get(holder.getAdapterPosition()),((BitmapDrawable)holder.imageViewMealFavouriteList.getDrawable()).getBitmap());
-            }
-        });
-        Glide.with(context).load(favorite.get(position).getStrMealThumb())
-                .placeholder(R.drawable.picfood).into(holder.imageViewMealFavouriteList);
+                Toast.makeText(context, favorite.get(holder.getAdapterPosition()).getStrMeal(), Toast.LENGTH_SHORT).show();
 
+             }
+        });
+      holder.imageViewMealFavouriteList.setImageBitmap(BitmapFactory.decodeByteArray(favorite.get(position).getImage(),0,favorite.get(position).getImage().length));
         holder.imgViewDeleteFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "delete meal", Toast.LENGTH_SHORT).show();
-                favouriteFragmentInterface.onClickDelete(false,favorite.get(position).getIdMeal());
+                favouriteFragmentInterface.onClickDelete(false,favorite.get(holder.getAdapterPosition()).getIdMeal());
             }
         });
 
@@ -99,6 +98,16 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
             textViewAreaFavouriteList=itemView.findViewById(R.id.textViewAreaFavouriteList);
             rowFavouriteList=itemView.findViewById(R.id.rowFavouriteList);
 
+        }
+    }
+    public void updateRemFromFav(String meal)
+    {
+        for (Meal m:favorite) {
+            if(m.getIdMeal().equals(meal))
+            {
+                favorite.remove(m);
+                break;
+            }
         }
     }
 }
