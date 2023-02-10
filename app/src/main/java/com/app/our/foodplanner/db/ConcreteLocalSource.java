@@ -10,6 +10,9 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+
 public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
 
     MealDAO mealDAO;
@@ -36,12 +39,12 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
         return localSource;
     }
     @Override
-    public Meal getMeal(String id) {
+    public Single<Meal> getMeal(String id) {
         return mealDAO.getMeal(id);
     }
 
     @Override
-    public PlanOfWeek getPlan(int id) {
+    public Single<PlanOfWeek> getPlan(int id) {
         return mealDAO.getPlan(id);
     }
 
@@ -51,12 +54,12 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     }
 
     @Override
-    public List<Meal> getAllMealsInPlan(String week, String month, String year) {
+    public Single<List<Meal>> getAllMealsInPlan(String week, String month, String year) {
         return mealDAO.getAllMealsInPlan(week,month,year);
     }
 
     @Override
-    public List<PlanOfWeek> getPlans() {
+    public Single<List<PlanOfWeek>> getPlans() {
        return mealDAO.getPlans();
     }
 
@@ -76,67 +79,33 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     }
 
     @Override
-    public void updateFavoriteInMeal(boolean isFav, String idMeal) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDAO.updateFavoriteInMeal(isFav,idMeal);
-            }
-        }).start();
-
+    public Completable updateFavoriteInMeal(boolean isFav, String idMeal) {
+      return  mealDAO.updateFavoriteInMeal(isFav,idMeal);
     }
 
     @Override
-    public void updateDateInMeal(String time, String day, String week, String month, String year, String idMeal) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDAO.updateDateInMeal(time,day,week,month,year,idMeal);
-            }
-        }).start();
-
+    public Completable updateDateInMeal(String time, String day, String week, String month, String year, String idMeal) {
+        return mealDAO.updateDateInMeal(time,day,week,month,year,idMeal);
     }
 
     @Override
-    public void insertMeal(Meal meal) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDAO.insertMeal(meal);
-            }
-        }).start();
-
+    public Completable insertMeal(Meal meal) {
+              return   mealDAO.insertMeal(meal);
     }
 
     @Override
-    public void insertPlan(PlanOfWeek plan) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDAO.insertPlan(plan);
-            }
-        }).start();
+    public Completable insertPlan(PlanOfWeek plan) {
+             return  mealDAO.insertPlan(plan);
     }
 
     @Override
-    public void deleteMeal(Meal meal) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDAO.deleteMeal(meal);
-            }
-        }).start();
+    public Completable deleteMeal(Meal meal) {
+        return mealDAO.deleteMeal(meal);
     }
 
     @Override
-    public void deletePlan(PlanOfWeek plan) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDAO.deletePlan(plan);
-            }
-        }).start();
+    public Completable deletePlan(PlanOfWeek plan) {
+        return mealDAO.deletePlan(plan);
     }
 
 

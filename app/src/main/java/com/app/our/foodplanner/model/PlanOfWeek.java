@@ -8,15 +8,14 @@ import androidx.room.PrimaryKey;
 @Entity(tableName="PlanOfWeek")
 
 public class PlanOfWeek {
-    public PlanOfWeek(int idPlan, String week, String month, String year) {
-        this.idPlan = idPlan;
+    public PlanOfWeek(String week, String month, String year) {
         this.week = week;
         this.month = month;
         this.year = year;
     }
 
     @ColumnInfo(name="idPlan")
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int idPlan;
     @ColumnInfo (name="week")
     private String week;

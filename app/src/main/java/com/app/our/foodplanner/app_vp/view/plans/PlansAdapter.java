@@ -1,5 +1,6 @@
 package com.app.our.foodplanner.app_vp.view.plans;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,15 @@ import java.util.List;
 public class PlansAdapter extends RecyclerView.Adapter<PlansAdapter.ViewHolder>{
     List<PlanOfWeek>plansOfWeek;
     PlansFragmentInterface fragmentInterface;
-    String target;
+    String target="showPlan";
     public PlansAdapter(String target,PlansFragmentInterface plansFragmentInterface) {
         plansOfWeek=new ArrayList<>();
-        this.target=target;
+        if(target!=null)
+         this.target=target;
+        if(this.target!="AddMeal")
+        {
+            this.target="showPlan";
+        }
         fragmentInterface=plansFragmentInterface;
     }
 
@@ -41,12 +47,12 @@ public class PlansAdapter extends RecyclerView.Adapter<PlansAdapter.ViewHolder>{
         holder.textViewWeek.setText(plansOfWeek.get(position).getYear()+"/"+plansOfWeek.get(position).getMonth()+"/"+plansOfWeek.get(position).getWeek());
         holder.deletePlan.setOnClickListener(v -> fragmentInterface.updateListRemPlan(plansOfWeek.get(holder.getAdapterPosition())));
         holder.item.setOnClickListener(v->{
-            if(target.equals("AddMeal"))
-            {
-                fragmentInterface.showAddMeal(plansOfWeek.get(holder.getAdapterPosition()));
-            }else if(target.equals("showPlan"))
-            {
-                fragmentInterface.showAddPlan(plansOfWeek.get(holder.getAdapterPosition()));
+            if(target!=null) {
+                if (target.equals("AddMeal")) {
+                    fragmentInterface.showAddMeal(plansOfWeek.get(holder.getAdapterPosition()));
+                } else if (target.equals("showPlan")) {
+                    fragmentInterface.showAddPlan(plansOfWeek.get(holder.getAdapterPosition()));
+                }
             }
         });
 

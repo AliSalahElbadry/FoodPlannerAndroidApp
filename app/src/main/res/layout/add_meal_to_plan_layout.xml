@@ -3,29 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="154dp"
         android:layout_height="40dp"
-        android:layout_marginTop="88dp"
-        android:background="@drawable/meal_back_corners"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/plan_meal_item_corners"
         android:text="Select Meal Day"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioGroupDayMeal"
-        android:layout_width="250dp"
-        android:layout_height="363dp"
-        android:background="@drawable/meal_back_corners"
+        android:layout_width="192dp"
+        android:layout_height="357dp"
         android:paddingBottom="6dp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -36,64 +36,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/sunday" />
+            android:background="@drawable/add_meal_to_plan_back"
+            android:text="@string/sunday"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButtonMonDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/monday" />
+            android:background="@drawable/add_meal_to_plan_back"
+            android:text="@string/monday"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButtonThuesDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/thuday" />
+            android:background="@drawable/add_meal_to_plan_back"
+            android:text="@string/thuday"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButtonWedDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/wedday" />
+            android:background="@drawable/add_meal_to_plan_back"
+            android:text="@string/wedday"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButtonThurthDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/thuday" />
+            android:background="@drawable/add_meal_to_plan_back"
+            android:text="@string/thuday"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButtonFriDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/friday" />
+            android:background="@drawable/add_meal_to_plan_back"
+            android:text="@string/friday"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButtonSaturDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/satday" />
+            android:background="@drawable/add_meal_to_plan_back"
+            android:text="@string/satday"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="170dp"
         android:layout_height="41dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/meal_back_corners"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/plan_meal_item_corners"
         android:text="Select Meal Time"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/radioGroupDayMeal"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/radioGroupDayMeal"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupDayMeal" />
 
@@ -101,7 +129,6 @@
         android:id="@+id/radioGroupTimeMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/meal_back_corners"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
         app:layout_constraintHorizontal_bias="0.503"
@@ -113,18 +140,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+            android:background="@drawable/add_meal_to_plan_back"
+            android:paddingEnd="5dp"
             android:text="@string/breakfast_text"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButton8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+            android:background="@drawable/add_meal_to_plan_back"
+            android:paddingEnd="5dp"
             android:text="@string/lunch_text"
+            android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="16sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="42dp"
             tools:layout_editor_absoluteY="568dp" />
 
@@ -133,9 +168,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+            android:background="@drawable/add_meal_to_plan_back"
+            android:paddingEnd="5dp"
             android:text="@string/dinner_text"
+            android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="16sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="260dp"
             tools:layout_editor_absoluteY="568dp" />
     </RadioGroup>
@@ -145,14 +184,15 @@
         android:layout_width="182dp"
         android:layout_height="58dp"
         android:layout_marginTop="25dp"
+        android:background="@drawable/btnsignup"
         android:text="Done"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupTimeMeal"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

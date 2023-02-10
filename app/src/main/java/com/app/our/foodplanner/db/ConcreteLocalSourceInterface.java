@@ -11,21 +11,24 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+
 public interface ConcreteLocalSourceInterface {
 
-    Meal getMeal(String id);
-    PlanOfWeek getPlan(int id);
+    Single<Meal> getMeal(String id);
+    Single<PlanOfWeek> getPlan(int id);
     List<Meal> getAllFavMeals(boolean isFav);
-    List<Meal> getAllMealsInPlan(String week, String month, String year);
-    List<PlanOfWeek> getPlans();
+    Single<List<Meal>> getAllMealsInPlan(String week, String month, String year);
+    Single<List<PlanOfWeek>> getPlans();
     LiveData<List<PlanOfWeek>> getPlansLive();
     LiveData<List<Meal>> getAllFavMealsLive(boolean isFav);
     LiveData<List<Meal>> getAllMealsInPlanLive(String week, String month, String year);
-    void updateFavoriteInMeal(boolean isFav, String idMeal);
-    void updateDateInMeal(String time, String day, String week, String month, String year, String idMeal);
-    void insertMeal(Meal meal);
-    void insertPlan(PlanOfWeek plan);
-    void deleteMeal(Meal meal);
-    void deletePlan(PlanOfWeek plan);
+    Completable updateFavoriteInMeal(boolean isFav, String idMeal);
+    Completable updateDateInMeal(String time, String day, String week, String month, String year, String idMeal);
+    Completable insertMeal(Meal meal);
+    Completable insertPlan(PlanOfWeek plan);
+    Completable deleteMeal(Meal meal);
+    Completable deletePlan(PlanOfWeek plan);
 
 }

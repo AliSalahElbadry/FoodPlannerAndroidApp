@@ -1,5 +1,8 @@
 package com.app.our.foodplanner.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
@@ -8,14 +11,28 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Date;
 
 @Entity(tableName="Meals")
 public class Meal {
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @ColumnInfo(name="id")
+    @PrimaryKey(autoGenerate = true)
+    private  int id;
     @SerializedName("idMeal")
     @ColumnInfo(name="idMeal")
-    @NonNull
-    @PrimaryKey
     private String idMeal;
     @SerializedName("strMeal")
     @ColumnInfo(name="strMeal")
@@ -173,10 +190,37 @@ public class Meal {
     private String meal_Month;
 
 
+    @Nullable
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(@Nullable byte[] image) {
+        this.image = image;
+    }
+
     @ColumnInfo(name="meal_Year")
     @Nullable
     private String meal_Year;
 
+
+    @ColumnInfo(name="image",typeAffinity = ColumnInfo.BLOB)
+    @Nullable
+    private byte[] image;
+
+    @Nullable
+    public Bitmap getImageBitmap() {
+        if(image==null)return null;
+        return BitmapFactory.decodeByteArray(image,0,image.length);
+    }
+
+    public void setImageBitmap(@Nullable Bitmap image) {
+        if(image!=null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            this.image = stream.toByteArray();
+        }
+    }
 
     public boolean getIsFavorite() {
         return isFavorite;

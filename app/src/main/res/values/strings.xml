@@ -19,9 +19,9 @@
     <string name="satday">Sat</string>
     <string name="plan_date">Week3.Sept.23</string>
     <string name="plan_name">Food Plan</string>
-    <string name="dinner_text">Dinner :</string>
-    <string name="lunch_text">Lunch :</string>
-    <string name="breakfast_text">Breakfast :</string>
+    <string name="dinner_text">Dinner</string>
+    <string name="lunch_text">Lunch</string>
+    <string name="breakfast_text">Breakfast</string>
     <string name="meal_country_name">Meal Country</string>
     <string name="meal_name">Meal Name</string>
     <string name="login_move_page">Login</string>
@@ -50,5 +50,7 @@
     <string name="suggestion_meal">Suggestion for today</string>
     <string name="randum_meal">Meal for you</string>
     <string name="country_category">Country</string>
+    <string name="select_the_first_day_in_your_week">Select The First Day In Your Week</string>
+    <string name="done">Done</string>
 
 </resources>
