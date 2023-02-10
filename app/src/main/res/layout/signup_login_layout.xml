@@ -1,76 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewSignLog"
-        android:layout_width="403dp"
-        android:layout_height="283dp"
-        android:layout_gravity="center"
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/cardViewSignLog"-->
+<!--        android:layout_width="403dp"-->
+<!--        android:layout_height="283dp"-->
+<!--        android:layout_gravity="center"-->
 
-        android:layout_marginTop="64dp"
-        app:cardCornerRadius="400dp"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewFoodPlanner">
+<!--        app:cardCornerRadius="400dp"-->
+<!--        app:cardElevation="0dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="173dp">-->
 
-        <ImageView
-            android:id="@+id/imgViewSinupLogin"
-            android:layout_width="365dp"
-            android:layout_height="261dp"
-            android:background="@drawable/picfood"
+    <!--    </androidx.cardview.widget.CardView>-->
 
 
-            android:scaleType="centerCrop" />
+    <ImageView
+        android:id="@+id/imgViewSinupLogin"
+        android:layout_width="332dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="56dp"
 
-    </androidx.cardview.widget.CardView>
+
+        android:background="@drawable/picfood"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/txtViewFoodPlanner"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="@+id/txtViewFoodPlanner"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewFoodPlanner" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignUpMovePage"
-        android:layout_width="277dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/custom_button_stroke"
         android:text="@string/sinUp_move_page"
         android:textColor="@color/green"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/btnLoginMovePage" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLoginMovePage"
-        android:layout_width="277dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/btnsignup"
         android:text="@string/login_move_page"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewSignLog" />
-
-
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/imgViewSinupLogin" />
 
     <TextView
         android:id="@+id/txtViewFoodPlanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-black"
+        android:paddingTop="30dp"
         android:text="@string/text_login_signup"
-        android:textSize="48sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="70dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="70dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

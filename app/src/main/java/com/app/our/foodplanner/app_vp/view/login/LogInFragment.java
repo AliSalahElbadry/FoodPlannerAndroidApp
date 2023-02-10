@@ -25,9 +25,14 @@ import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.app_vp.view.presenter.Presenter;
 import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 public class LogInFragment extends Fragment implements LogInFragmentInterface {
 
@@ -39,6 +44,9 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
    // LogInFragmentInterface LogInFragmentInterface;
     PresenterInterface presenterInterface;
     Context context;
+    private static final int RC_SIGN_IN = 9001;
+
+    private GoogleSignInClient mGoogleSignInClient;
 
     public LogInFragment() {
         //this.presenterInterface=presenterInterface;
@@ -78,20 +86,8 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
            }
        });
 
-//       imageViewGoogleLog.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               GoogleSignInOptions googleSignInOptions=new GoogleSignInOptions
-//                       .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                       .requestIdToken(getString(R.string.default_web_client_id))
-//                       .requestEmail().build();
-//               GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
-//
-//           }
-//       });
-
-
     }
+
     public  void onClickLogin(){
         if(editTxtUNameLogIn.getText().toString().isEmpty()&&editTxtPassLogIn.getText().toString().isEmpty()){
             Toast.makeText(getContext(), "Please, enter your email and password", Toast.LENGTH_SHORT).show();
