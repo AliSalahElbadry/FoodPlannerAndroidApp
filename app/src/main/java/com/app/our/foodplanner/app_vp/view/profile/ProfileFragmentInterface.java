@@ -4,4 +4,5 @@ public interface ProfileFragmentInterface {
     public void showUserData(String[] data);
    // public void onClickHome();
     public void onClickLogOut();
+    public void setBackUpRes(boolean res);
 }

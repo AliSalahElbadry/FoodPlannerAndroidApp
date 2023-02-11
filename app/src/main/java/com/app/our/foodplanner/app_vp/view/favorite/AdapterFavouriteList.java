@@ -46,7 +46,6 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
         LayoutInflater inflater=LayoutInflater.from(recyclerView.getContext());
         View v=inflater.inflate(R.layout.row_favourite_list,recyclerView,false);
         AdapterFavouriteList.ViewHolder viewHolder=new AdapterFavouriteList.ViewHolder(v);
-        Log.i(TAG, "onCreateViewHolder: new row createeeeeeeeee");
         return viewHolder;
     }
 
@@ -58,15 +57,14 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
         holder.rowFavouriteList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, favorite.get(holder.getAdapterPosition()).getStrMeal(), Toast.LENGTH_SHORT).show();
-
+                favouriteFragmentInterface.getConainer().showMeal(favorite.get(holder.getAdapterPosition()),favorite.get(holder.getAdapterPosition()).getImageBitmap(),1);
              }
         });
       holder.imageViewMealFavouriteList.setImageBitmap(BitmapFactory.decodeByteArray(favorite.get(position).getImage(),0,favorite.get(position).getImage().length));
         holder.imgViewDeleteFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "delete meal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Removed From Favorite", Toast.LENGTH_SHORT).show();
                 favouriteFragmentInterface.onClickDelete(false,favorite.get(holder.getAdapterPosition()).getIdMeal());
             }
         });

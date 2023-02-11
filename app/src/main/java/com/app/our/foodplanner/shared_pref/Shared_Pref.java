@@ -28,7 +28,7 @@ public class Shared_Pref implements Shared_Pref_Interface{
        preferences.putString("uName",uname);
        preferences.putString("email",email);
        preferences.putString("pass",pass);
-       preferences.commit();
+       preferences.apply();
     }
 
     @Override
@@ -41,4 +41,14 @@ public class Shared_Pref implements Shared_Pref_Interface{
         data[2]=preferences.getString("pass","");
         return  data;
     }
+
+    @Override
+    public void deleteUserData() {
+        SharedPreferences preferences=context.getSharedPreferences("uData",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.clear();
+        editor.apply();
+
+    }
+
 }

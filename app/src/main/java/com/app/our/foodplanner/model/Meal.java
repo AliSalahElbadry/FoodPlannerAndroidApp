@@ -192,7 +192,18 @@ public class Meal {
     @Nullable
     private String meal_Month;
 
+    @NonNull
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(@NonNull String userId) {
+        this.userId = userId;
+    }
+
+    @ColumnInfo(name="userId")
+    @NonNull
+    String userId;
     @Nullable
     public byte[] getImage() {
         return image;

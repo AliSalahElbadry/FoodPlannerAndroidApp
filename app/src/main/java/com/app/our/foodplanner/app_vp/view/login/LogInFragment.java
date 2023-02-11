@@ -39,7 +39,7 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
    // LogInFragmentInterface LogInFragmentInterface;
     PresenterInterface presenterInterface;
     Context context;
-
+    TextView toSignUp;
     public LogInFragment() {
         //this.presenterInterface=presenterInterface;
     }
@@ -70,7 +70,12 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         btnLogIn=view.findViewById(R.id.btnLogInPage);
         imageViewGoogleLog=view.findViewById(R.id.imageViewGoogleLogPage);
         textViewHaveAccountLogIn=view.findViewById(R.id.textViewHaveAccountLogInPage);
-
+        textViewHaveAccountLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivityContainer)getActivity()).showSignUp();
+            }
+        });
        btnLogIn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -105,7 +110,6 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         else{
             presenterInterface.doLogin(editTxtUNameLogIn.getText().toString(),editTxtPassLogIn.getText().toString());
 
-
         }
     }
 
@@ -113,12 +117,10 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
     public void onLoginResult(Boolean result) {
         if(result){
 
-            Log.i(TAG, "ssssssssssssonLoginResult: "+result);
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
         }
         else{
-           // showDialog("Not match");
-            Log.i(TAG, "ffffffffffffffffffffonLoginResult: "+result);
+
             Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
         }

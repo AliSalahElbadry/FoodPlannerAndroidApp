@@ -67,19 +67,12 @@ public class AdapterHomeCategory  extends RecyclerView.Adapter<AdapterHomeCatego
 
     public void setData(List<Category> values){
         this.categories = new ArrayList<>();
-       for(int i=0;i<values.size();i++){
-           categories.add(values.get(i));
-       }
+        categories.addAll(values);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView txtTitle;
-
-        public Button buttonCategory;
-        public ImageView imageView;
-
-
         public CardView cardView;
         public View layout;
 
