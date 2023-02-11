@@ -60,4 +60,6 @@ public void sendFirstDayInWeekMeals(String week);
  public void UpdateMealOfFavouriteList(Boolean isFav,String Meal);
  public List<Meal> castListToSet(List<Meal>meals);
 
+ public void googleSignIn(String email,String name);
+
 }

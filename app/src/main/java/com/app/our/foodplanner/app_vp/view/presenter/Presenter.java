@@ -690,4 +690,10 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
          plansInterface.setTarget("showPlan");
     }
 
+    public void googleSignIn(String email,String name){
+        isLogedIn=true;
+        checkout=true;
+        LogInFragmentInterface.onLoginResult(isLogedIn);
+        repository.setUserData(name,email,"pass");
+    }
 }
