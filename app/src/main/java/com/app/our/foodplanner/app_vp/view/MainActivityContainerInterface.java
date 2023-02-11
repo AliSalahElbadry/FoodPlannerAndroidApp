@@ -16,8 +16,10 @@ public interface MainActivityContainerInterface {
     public  void showLogIn();
     public void showSignUp();
     public void showHome();
-    public void showMeal(Meal meal, Bitmap image);// show meal page
+    public void showMeal(Meal meal, Bitmap image,int mode);// show meal page
     public void showPlansAddMeal();
+    public void ReStart();
+    public boolean checkConnectionState();
     public void showPlanPage(PlanOfWeek plan);
 
 }

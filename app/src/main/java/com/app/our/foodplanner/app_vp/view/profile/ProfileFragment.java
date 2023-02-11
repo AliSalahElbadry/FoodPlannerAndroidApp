@@ -30,9 +30,9 @@ import java.util.concurrent.Executor;
 
 public class ProfileFragment extends Fragment implements ProfileFragmentInterface{
 
-    TextView textViewNameProfile,textViewPassProfile,textViewEmailProfile;
+    TextView textViewEmailProfile;
     ImageView imageViewProfile;
-    Button btnLogOut,btnGoToHome;
+    Button btnLogOut,btnBackup;
 
     PresenterInterface presenterInterface;
 
@@ -59,14 +59,28 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
         super.onViewCreated(view, savedInstanceState);
         presenterInterface=((MainActivityContainerInterface)getActivity()).getPresenter();
         String []udata= ((MainActivityContainer)getActivity()).getPresenter().getUserData();
-        Log.i(TAG, "Profile: "+udata[0]);
         textViewEmailProfile=view.findViewById(R.id.textViewEmailProfile);
-        textViewNameProfile=view.findViewById(R.id.textViewNameProfile);
-       // textViewPassProfile=view.findViewById(R.id.textViewShowPassProfile);
+        if(udata!=null)
+        {
+            textViewEmailProfile.setText(udata[1]);
+        }else{
+            textViewEmailProfile.setText(presenterInterface.getuId());
+        }
+        btnBackup=view.findViewById(R.id.btnBackUpYourData);
         imageViewProfile=view.findViewById(R.id.imageViewProfile);
         btnLogOut=view.findViewById(R.id.btnLogOut);
 
-
+        btnBackup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(presenterInterface.isLogedIn()&&((MainActivityContainerInterface)getActivity()).checkConnectionState())
+                {
+                    presenterInterface.backupYourData();
+                }else{
+                    Toast.makeText(getContext(), "please check your connection", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         showUserData(udata);
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
@@ -81,21 +95,24 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
     @Override
     public void showUserData(String[] data) {
         textViewEmailProfile.setText(data[1]);
-        textViewNameProfile.setText(data[0]);
-        Log.i(TAG, "showUserData: 0  "+data[0]+" 1  "+data[1]+"  2  " +data[2]);
-       // textViewPassProfile.setText(data[2]);
     }
 
-//    @Override
-//    public void onClickHome() {
-//        ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
-//    }
+
+
 
     @Override
     public void onClickLogOut() {
         showDialog("Are you sure you want to log out?");
-//        presenterInterface.logout();
-//        ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
+    }
+
+    @Override
+    public void setBackUpRes(boolean res) {
+        if(res)
+        {
+            Toast.makeText(getContext(), "Backup Done", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getContext(), "Backup Failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showDialog(String msg)
@@ -107,14 +124,12 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 presenterInterface.logout();
-                ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
-                Log.i(TAG, "sure logout ok: ");
+                ((MainActivityContainerInterface)getActivity()).ReStart();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ((MainActivityContainer)getActivity()).showProfilePage();
-                Log.i(TAG, "sure logout cancel: ");
+               dialog.dismiss();
             }
         });
 

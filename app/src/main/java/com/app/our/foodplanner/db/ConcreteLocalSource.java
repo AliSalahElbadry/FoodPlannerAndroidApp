@@ -19,17 +19,10 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
 
     private static ConcreteLocalSource localSource = null;
 
-    LiveData<List<PlanOfWeek>> getPlansLive;
-    Observable<List<Meal>> getAllFavMealsLive;
-    LiveData<List<Meal>> getAllMealsInPlanLive;
 
     private ConcreteLocalSource(Context context){
         AppDataBase db=AppDataBase.getInstance(context.getApplicationContext());
         mealDAO=db.MealDAO();
-        getPlansLive=mealDAO.getPlansLive();
-        getAllFavMealsLive=mealDAO.getAllFavMealsLive( true);
-        getAllMealsInPlanLive=mealDAO.getAllMealsInPlanLive("week","month","year");
-
     }
 
     public static ConcreteLocalSource getInstance(Context context){
@@ -39,69 +32,71 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
         return localSource;
     }
     @Override
-    public Single<Meal> getMeal(String id) {
-        return mealDAO.getMeal(id);
+    public Single<Meal> getMeal(String id,String uId) {
+        return mealDAO.getMeal(id,uId);
     }
 
     @Override
-    public Single<List<Meal>> getAllFavLikeMeal(String id) {
-        return mealDAO.getAllFavLikeMeal(id);
+    public Single<List<Meal>> getAllFavLikeMeal(String id,String uId) {
+        return mealDAO.getAllFavLikeMeal(id,uId);
     }
 
     @Override
-    public Single<Integer> isMealExists(String id) {
-        return mealDAO.isMealExists(id);
+    public Single<Meal> MealInPlan(String mealId,String uId, String year, String month, String week, String day, String time) {
+        return mealDAO.MealInPlan(mealId,uId,year,month,week,day,time);
     }
 
     @Override
-    public Completable removeMealFromPlan(String mealid, String week) {
-        return mealDAO.removeMealFromPlan(mealid,week);
+    public Single<Integer> isMealExists(String id,String uId) {
+        return mealDAO.isMealExists(id,uId);
     }
 
     @Override
-    public Single<PlanOfWeek> getPlan(int id) {
-        return mealDAO.getPlan(id);
+    public Completable removeMealFromPlan(String mealid, String week,String uId) {
+        return mealDAO.removeMealFromPlan(mealid,week,uId);
     }
 
     @Override
-    public List<Meal> getAllFavMeals(boolean isFav) {
-        return mealDAO.getAllFavMeals(isFav);
+    public Single<PlanOfWeek> getPlan(int id,String uId) {
+        return mealDAO.getPlan(id,uId);
     }
 
     @Override
-    public Single<List<Meal>> getAllMealsInPlan(String week, String month, String year) {
-        return mealDAO.getAllMealsInPlan(week,month,year);
+    public List<Meal> getAllFavMeals(boolean isFav,String uId) {
+        return mealDAO.getAllFavMeals(isFav,uId);
     }
 
     @Override
-    public Single<List<PlanOfWeek>> getPlans() {
-       return mealDAO.getPlans();
+    public Single<List<Meal>> getAllMealsInPlan(String week, String month, String year,String uId) {
+        return mealDAO.getAllMealsInPlan(week,month,year,uId);
     }
 
     @Override
-    public LiveData<List<PlanOfWeek>> getPlansLive() {
-        return getPlansLive;
+    public Single<List<PlanOfWeek>> getPlans(String uId) {
+       return mealDAO.getPlans(uId);
     }
 
     @Override
-    public Observable<List<Meal>> getAllFavMealsLive(boolean isFav) {
+    public Single<List<Meal>> getAllMeals(String uId) {
+        return mealDAO.getAllMeals(uId);
+    }
 
-        return getAllFavMealsLive;
+
+    @Override
+    public Observable<List<Meal>> getAllFavMealsLive(boolean isFav,String uId) {
+
+        return mealDAO.getAllFavMealsLive(true,uId);
+    }
+
+
+    @Override
+    public Completable updateFavoriteInMeal(boolean isFav, String idMeal,String uId) {
+      return  mealDAO.updateFavoriteInMeal(isFav,idMeal,uId);
     }
 
     @Override
-    public LiveData<List<Meal>> getAllMealsInPlanLive(String week, String month, String year) {
-        return getAllMealsInPlanLive;
-    }
-
-    @Override
-    public Completable updateFavoriteInMeal(boolean isFav, String idMeal) {
-      return  mealDAO.updateFavoriteInMeal(isFav,idMeal);
-    }
-
-    @Override
-    public Completable updateDateInMeal(String time, String day, String week, String month, String year, String idMeal) {
-        return mealDAO.updateDateInMeal(time,day,week,month,year,idMeal);
+    public Completable updateDateInMeal(String time,String uId, String day, String week, String month, String year, String idMeal) {
+        return mealDAO.updateDateInMeal(time,uId,day,week,month,year,idMeal);
     }
 
     @Override
@@ -115,13 +110,13 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     }
 
     @Override
-    public Completable deleteMeal(Meal meal) {
-        return mealDAO.deleteMeal(meal);
+    public Completable deleteMeal(String meal,String uId) {
+        return mealDAO.deleteMeal(uId,meal);
     }
 
     @Override
-    public Completable deletePlan(PlanOfWeek plan) {
-        return mealDAO.deletePlan(plan);
+    public Completable deletePlan(int plan,String uId) {
+        return mealDAO.deletePlan(plan,uId);
     }
 
 

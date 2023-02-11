@@ -40,10 +40,13 @@ public  void getAllFav();
  public void getMealsInPlan(PlanOfWeek plan);
  public void addPlan(PlanOfWeek plan);
  public String[]getUserData();
-
+public ArrayList<String> getIngredinetsInMeal(Meal meal);
+public void backupYourData();
  public void doLogin(String email, String pass);
-
+public String getuId();
  public  void logout();
+ public  void  setIsLogedIn(boolean isLogedIn);
+ public void deleteMealInPlan(String mealId,String mealDay,String mealTime, PlanOfWeek plan);
 
 public void setPlanInterface(PlanFragmentInterface planInterface);
 public void sendFirstDayInWeekMeals(String week);

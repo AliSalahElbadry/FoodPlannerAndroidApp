@@ -7,4 +7,5 @@ import java.util.ArrayList;
 public interface PlanFragmentInterface {
 
     public void setData(ArrayList<Meal>breakfast,ArrayList<Meal>lunch,ArrayList<Meal>dinner);
+    public void deleteMealInPlan(Meal meal);
 }

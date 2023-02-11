@@ -56,19 +56,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
         app:layout_constraintVertical_bias="0.061" />
 
-    <TextView
-        android:id="@+id/textViewEmailProfile"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/text_profile_layout"
-        android:paddingLeft="15dp"
-        android:paddingTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
-        app:layout_constraintTop_toBottomOf="@+id/viewTop" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineInformationRieght"
         android:layout_width="wrap_content"
@@ -83,24 +70,11 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="64dp" />
 
-    <TextView
-        android:id="@+id/textViewNameProfile"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/text_profile_layout"
-        android:paddingLeft="15dp"
-        android:paddingTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmailProfile" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogOut"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/custom_button_stroke"
         android:text="@string/log_out"
         android:textColor="@color/second_color"
@@ -108,6 +82,37 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNameProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBackUpYourData" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnBackUpYourData"
+        android:layout_width="269dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_button_stroke"
+        android:text="@string/backup_your_data"
+        android:textAllCaps="false"
+        android:textColor="@color/darkGreen"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmailProfile" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/textViewEmailProfile"
+        android:layout_width="269dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_button_stroke"
+        android:text="@string/backup_your_data"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
+        app:layout_constraintTop_toBottomOf="@+id/viewTop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

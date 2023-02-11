@@ -62,6 +62,7 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view=view;
+        mainActivityContainerInterface=((MainActivityContainerInterface) getActivity());
         presenterInterface=((MainActivityContainerInterface)getActivity()).getPresenter();
         recyclerViewFavouriteList=view.findViewById(R.id.recyclerViewFavouriteList);
         adapterFavouriteList=new AdapterFavouriteList(view.getContext(),this,new ArrayList<>());

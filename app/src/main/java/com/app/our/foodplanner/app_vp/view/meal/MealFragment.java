@@ -42,8 +42,20 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
     ImageButton btnAddToPlan;
     ImageButton imageButtonVideoShow;
     PresenterInterface presenterInterface;
+    ArrayList<String>ingHolder;
+    int mode=0;
     public MealFragment() {
         // Required empty public constructor
+    }
+    public MealFragment(Meal meal,ArrayList<String>ingredients)
+    {
+        this.meal=meal;
+        if(ingredients!=null) {
+            ingHolder = ingredients;
+        }else{
+            ingHolder=new ArrayList<>();
+        }
+        this.bitmap=meal.getImageBitmap();
     }
 
     @Nullable
@@ -62,21 +74,44 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
         btnAddFav=view.findViewById(R.id.btnAddToFav);
         btnAddToPlan=view.findViewById(R.id.btnAddToPlan);
         imageButtonVideoShow=view.findViewById(R.id.imageButtonVideoShow);
-        btnAddFav.setOnClickListener(l->{
-            meal.setImageBitmap(bitmap);
-            presenterInterface.addToFav(meal);
-        });
-        btnAddToPlan.setOnClickListener(l->{
-            meal.setImageBitmap(bitmap);
-            presenterInterface.setTargetAddMealToPlan(meal);
-            ((MainActivityContainer)getActivity()).showPlansAddMeal();
-            dismiss();
-        });
-        imageButtonVideoShow.setOnClickListener(l->{
-            ((MainActivityContainer)getActivity()).showVideo(meal.getStrYoutube());
-        });
+        if(presenterInterface.isLogedIn()&&mode>0)
+        {
+            btnAddFav.setVisibility(View.GONE);
+            btnAddToPlan.setVisibility(View.GONE);
+            imageButtonVideoShow.setVisibility(View.GONE);
+            textViewMealName=view.findViewById(R.id.textViewMealName);
+            textViewMealCategoryCountry=view.findViewById(R.id.textViewMealCategoryCountry);
+            mealSteps=view.findViewById(R.id.textViewMealSteps);
+            mealIngredients=view.findViewById(R.id.recyclerViewMealIngredents);
+            LinearLayoutManager linearLayoutManager=new LinearLayoutManager(view.getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            mealIngredients.setLayoutManager(linearLayoutManager);
+            MealIngredientsAdapter adapter=new MealIngredientsAdapter(view.getContext());
+            adapter.setData(ingHolder);
+            mealIngredients.setAdapter(adapter);
+            textViewMealName.setText(meal.getStrMeal());
+            textViewMealCategoryCountry.setText(meal.getStrCategory()+" , "+meal.getStrArea());
+            mealSteps.setText("\n"+meal.getStrInstructions()+"\n\n\n");
+        }else {
+            btnAddFav.setOnClickListener(l -> {
+                meal.setImageBitmap(bitmap);
+                presenterInterface.addToFav(meal);
+            });
+            btnAddToPlan.setOnClickListener(l -> {
+                meal.setImageBitmap(bitmap);
+                presenterInterface.setTargetAddMealToPlan(meal);
+                ((MainActivityContainer) getActivity()).showPlansAddMeal();
+                dismiss();
+            });
+            imageButtonVideoShow.setOnClickListener(l -> {
+                ((MainActivityContainer) getActivity()).showVideo(meal.getStrYoutube());
+            });
+        }
     }
-
+    public void setMode(int mode)
+    {
+        this.mode=mode;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

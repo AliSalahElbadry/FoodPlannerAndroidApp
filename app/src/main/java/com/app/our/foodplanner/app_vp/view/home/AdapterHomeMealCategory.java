@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.our.foodplanner.R;
+import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.model.Meal;
 import com.bumptech.glide.Glide;
 
@@ -32,7 +34,6 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
         return categoriesMeles;
     }
 
-    private static final String TAG="RecyclerView";
     HomeFragmentInterface homeFragmentInterface;
 
     public AdapterHomeMealCategory(Context context,HomeFragmentInterface homeFragment, List<Meal> values) {
@@ -54,10 +55,16 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
     @Override
     public void onBindViewHolder(@NonNull AdapterHomeMealCategory.ViewHolder holder, int position) {
         holder.txtTitle.setText(categoriesMeles.get(position).getStrMeal());
-        homeFragmentInterface.getConainer().getPresenter().getRandomMealImage(holder.imageView,holder.cardView,categoriesMeles.get(position).getStrMealThumb());
+          if(homeFragmentInterface.getConainer().checkConnectionState())
+               homeFragmentInterface.getConainer().getPresenter().getRandomMealImage(holder.imageView,holder.cardView,categoriesMeles.get(position).getStrMealThumb());
+
         holder.cardView.setOnClickListener(l->{
-            homeFragmentInterface.getConainer().showMeal(categoriesMeles.get(holder.getAdapterPosition()),((BitmapDrawable)holder.imageView.getDrawable()).getBitmap());
-        });
+            if(homeFragmentInterface.getConainer().checkConnectionState()) {
+                homeFragmentInterface.getConainer().showMeal(categoriesMeles.get(holder.getAdapterPosition()), ((BitmapDrawable) holder.imageView.getDrawable()).getBitmap(), 0);
+            }else{
+                Toast.makeText(context, "Please Check Your Connection", Toast.LENGTH_SHORT).show();
+            }
+            });
     }
     @Override
     public int getItemCount() {

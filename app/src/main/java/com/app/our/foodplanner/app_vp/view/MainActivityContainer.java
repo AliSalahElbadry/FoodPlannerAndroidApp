@@ -2,13 +2,18 @@ package com.app.our.foodplanner.app_vp.view;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +26,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -58,7 +64,6 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     MealFragment mealFragment;
     FragmentManager manager;
     FragmentTransaction transaction;
-
    public BottomNavigationView navigationView;
    int index=0;String planTarget="showPlan";
 
@@ -78,23 +83,25 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
          presenter.setHomeFragment(homeFragment);
          intiateUi(savedInstanceState);
          navigationView=findViewById(R.id.bottonNavigationView);
-
-        presenter.setProfileFragmentInterface(profileFragment);
-
+         presenter.setProfileFragmentInterface(profileFragment);
 
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                  item.setChecked(true);
+
                  if(item.getItemId()==R.id.homeMenu)
                  {
+                     plansFragment.setTarget(planTarget);
                      showHome();
                  }else if(item.getItemId()==R.id.profileMenu)
                  {
+                     plansFragment.setTarget(planTarget);
                      showProfilePage();
                  }
                  else if(item.getItemId()==R.id.favouriteMenu)
                  {
+                     plansFragment.setTarget(planTarget);
                      showFavPage();
                  }else if(item.getItemId()==R.id.planMenu)
                  {
@@ -105,7 +112,6 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
         });
         navigationView.setOnItemReselectedListener(l->{});
     }
-
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         manager.saveFragmentInstanceState(manager.getFragments().get(0));
@@ -178,6 +184,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
 
     @Override
     public void showProfilePage() {
+        Log.e("",""+presenter.isLogedIn());
         if(presenter.isLogedIn()){
             if(manager.getFragments().get(manager.getFragments().size()-1)!=profileFragment) {
                 transaction = manager.beginTransaction();
@@ -212,56 +219,94 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
 
     @Override
     public void showLogIn() {
-        LogInFragment fragment=new LogInFragment();
-        presenter.setLogInFragmentInterface(fragment);
-        transaction=manager.beginTransaction();
-        transaction.replace(R.id.nav_host_fragment,fragment)
-                   .commit();
+        if(checkConnectionState()) {
+            LogInFragment fragment = new LogInFragment();
+            presenter.setLogInFragmentInterface(fragment);
+            transaction = manager.beginTransaction();
+            transaction.replace(R.id.nav_host_fragment, fragment)
+                    .commit();
+        }else{
+            Toast.makeText(this, "Please Check Your Connection", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void showSignUp() {
-        SignupFragment fragment=new SignupFragment();
-        presenter.setSignupFragmentInterface(fragment);
-        transaction=manager.beginTransaction();
+        if(checkConnectionState()) {
+            SignupFragment fragment = new SignupFragment();
+            presenter.setSignupFragmentInterface(fragment);
+            transaction = manager.beginTransaction();
 
-        transaction.replace(R.id.nav_host_fragment,fragment)
-                   .commit();
-
+            transaction.replace(R.id.nav_host_fragment, fragment)
+                    .commit();
+        }else{
+            Toast.makeText(this, "Please Check Your Connection", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void showHome() {
-
-               presenter.getAllCategories();
-               presenter.getRandomMeal();
+          if(checkConnectionState()) {
+                  presenter.getAllCategories();
+                  presenter.getRandomMeal();
+          }else{
+              Toast.makeText(this, "Please Check Your Connection", Toast.LENGTH_SHORT).show();
+          }
                transaction = manager.beginTransaction();
                transaction.replace(R.id.nav_host_fragment, homeFragment)
                        .commit();
     }
 
     @Override
-    public void showMeal(Meal meal, Bitmap image) {
-        if(image==null)
+    public void showMeal(Meal meal, Bitmap image,int mode) {
+        if(mode==0) {
+            if (image == null) {
+                Toast.makeText(this, "Connection Error", Toast.LENGTH_SHORT).show();
+            } else {
+                mealFragment = new MealFragment();
+                mealFragment.setMode(mode);
+                mealFragment.setCancelable(true);
+                manager = getSupportFragmentManager();
+                mealFragment.show(getSupportFragmentManager(), "Meal");
+                mealFragment.showMeal(image);
+                presenter.getMealByName(meal.getStrMeal());
+                presenter.setMealFragmentInterface(mealFragment);
+            }
+        }else if(mode>0)
         {
-            Toast.makeText(this, "Connection Error", Toast.LENGTH_SHORT).show();
-        }else {
-            mealFragment = new MealFragment();
+            mealFragment=new MealFragment(meal,presenter.getIngredinetsInMeal(meal));
+            mealFragment.setMode(mode);
             mealFragment.setCancelable(true);
             manager = getSupportFragmentManager();
             mealFragment.show(getSupportFragmentManager(), "Meal");
-            mealFragment.showMeal(image);
-            presenter.getMealByName(meal.getStrMeal());
-            presenter.setMealFragmentInterface(mealFragment);
         }
     }
-
+    public boolean checkConnectionState() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cm.getActiveNetworkInfo();
+        return nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+    }
     @Override
     public void showPlansAddMeal() {
         navigationView.setSelectedItemId(R.id.planMenu);
-        presenter.setPlansInterface(plansFragment);
-        presenter.getAllPlans();
+
         plansFragment.setTarget(new String("AddMeal"));
+    }
+
+    @Override
+    public void ReStart() {
+        presenter=new Presenter(this);
+        presenter.setHomeFragment(homeFragment);
+        presenter.setuData(new String[]{"","",""});
+        plansFragment=new PlansFragment();
+        presenter.setPlansInterface(plansFragment);
+        favoriteFragment=new FavoriteFragment();
+        presenter.setfavouriteFragmentInterface(favoriteFragment);
+        profileFragment=new ProfileFragment();
+        presenter.setProfileFragmentInterface(profileFragment);
+        presenter.setIsLogedIn(false);
+
+        navigationView.setSelectedItemId(R.id.homeMenu);
     }
 
     @Override
