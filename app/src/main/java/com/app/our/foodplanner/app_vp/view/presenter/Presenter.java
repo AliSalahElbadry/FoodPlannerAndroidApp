@@ -597,6 +597,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         repository.setUserData("","","");
         Log.i(TAG, "logout: " + checkout + " " + isLogedIn);
         firebaseAuth.signOut();
+        try {
+            finalize();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
     public void setPlanInterface(PlanFragmentInterface planInterface) {
         planFragmentInterface=planInterface;
@@ -697,5 +702,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         checkout=true;
         LogInFragmentInterface.onLoginResult(isLogedIn);
         repository.setUserData(name,email,"pass");
+
     }
 }
