@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,33 +33,35 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LogInFragment extends Fragment implements LogInFragmentInterface {
+    GoogleSignInClient mGoogleSignInClient;
+    int RC_SIGN_IN=0;
 
     EditText editTxtUNameLogIn,editTxtPassLogIn;
     Button btnLogIn;
     ImageView imageViewGoogleLog;
     TextView textViewHaveAccountLogIn;
 
-   // LogInFragmentInterface LogInFragmentInterface;
+    // LogInFragmentInterface LogInFragmentInterface;
     PresenterInterface presenterInterface;
     Context context;
-    private static final int RC_SIGN_IN = 9001;
-
-    private GoogleSignInClient mGoogleSignInClient;
 
     public LogInFragment() {
         //this.presenterInterface=presenterInterface;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,10 +69,17 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         return inflater.inflate(R.layout.login_layout, container, false);
 
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .build();
+
+
+        mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
         presenterInterface=((MainActivityContainerInterface)getActivity()).getPresenter();
 
@@ -79,12 +89,27 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         imageViewGoogleLog=view.findViewById(R.id.imageViewGoogleLogPage);
         textViewHaveAccountLogIn=view.findViewById(R.id.textViewHaveAccountLogInPage);
 
-       btnLogIn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               onClickLogin();
-           }
-       });
+        btnLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickLogin();
+            }
+        });
+
+        imageViewGoogleLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "///////////////////onClick: ");
+
+                switch (v.getId()) {
+                    case R.id.imageViewGoogleLogPage:
+                        Log.i(TAG, "///////////////////onClick: ");
+
+                        signIn();
+                        break;
+                }
+            }
+        });
 
     }
 
@@ -105,6 +130,8 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         }
     }
 
+
+
     @Override
     public void onLoginResult(Boolean result) {
         if(result){
@@ -113,7 +140,7 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
         }
         else{
-           // showDialog("Not match");
+            // showDialog("Not match");
             Log.i(TAG, "ffffffffffffffffffffonLoginResult: "+result);
             Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
@@ -136,4 +163,55 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
 
         alert.show();
     }
+
+    private void signIn() {
+
+        Log.i(TAG, "///////signIn: "+mGoogleSignInClient+"?????????///"+mGoogleSignInClient.getApplicationContext().toString());
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        Log.i(TAG, "signInIntent*********signIn: "+signInIntent+"848484");
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+
+        Log.i(TAG, "*****startActivity****: ");
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Log.i(TAG, "**225//*6 onActivityResult: "+resultCode);
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+            Log.i(TAG, "**********onActivityResult: "+task+" task.getResult();"+GoogleSignIn.getSignedInAccountFromIntent(data));
+        }
+    }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            AuthCredential credential= GoogleAuthProvider.getCredential(account.getIdToken(),null);
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
+                                // Toast.makeText(context, "sussesfulllll", Toast.LENGTH_SHORT).show();
+                                presenterInterface.googleSignIn(account.getEmail(),account.getDisplayName());
+                                Log.i(TAG, "//////////onComplete: ");
+                                Log.i(TAG, "dddddddda5al: "+account.getEmail()+account.getDisplayName()+account.getId());
+                            }
+                            else{
+                                Toast.makeText(context, "fffffAIL", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+
+        } catch (ApiException e) {
+
+            Log.w("Error", "signInResult:failed code " + e.getStatusCode());
+        }
+    }
+
 }
