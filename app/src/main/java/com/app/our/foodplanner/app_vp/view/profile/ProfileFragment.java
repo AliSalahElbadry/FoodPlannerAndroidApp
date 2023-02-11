@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,11 @@ import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.util.concurrent.Executor;
 
 public class ProfileFragment extends Fragment implements ProfileFragmentInterface{
 
@@ -113,5 +119,27 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
         });
 
         alert.show();
+    }
+
+    public void signOut(GoogleSignInClient mGoogleSignInClient) {
+
+        if(mGoogleSignInClient!=null){
+            mGoogleSignInClient.signOut()
+                    .addOnCompleteListener((Executor) this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            Toast.makeText(getContext(), "Sign out suss", Toast.LENGTH_SHORT).show();
+                            try {
+                                finalize();
+                            } catch (Throwable e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
+        }
+        else{
+            Log.i(TAG, "fail logout ");}
+
     }
 }
