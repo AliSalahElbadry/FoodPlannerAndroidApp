@@ -1,10 +1,16 @@
 package com.app.our.foodplanner.app_vp.view.signup;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +20,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +51,8 @@ import java.util.regex.Pattern;
 public class SignupFragment extends Fragment  implements SignupFragmentInterface{
 
 
-   EditText nameProfile;
+    private static final int RC_SIGN_IN =0 ;
+    EditText nameProfile;
    EditText emailSignup;
    EditText passSignup;
    EditText repassSignup;
@@ -107,9 +131,25 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
         googleSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  //google
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .build();
+                Intent signInIntent = GoogleSignIn.getClient(SignupFragment.this.getActivity().getApplicationContext(), gso).getSignInIntent();
+
+                getActivity().startActivityForResult(signInIntent, 1);
+                Log.e(TAG, "onClick: Fuuckkkkkkk" );
+                ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                        new ActivityResultCallback<Uri>() {
+                            @Override
+                            public void onActivityResult(Uri uri) {
+
+                            }
+                        });
             }
         });
+
+
         goToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +186,19 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    @Override
     public void getSignUpStatus(boolean status) {
         progressDialog.dismiss();
         if(status)
@@ -155,5 +208,34 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
             Toast.makeText(getContext(), "Error SignUp", Toast.LENGTH_SHORT).show();
         }
         ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
+    }
+
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            AuthCredential credential= GoogleAuthProvider.getCredential(account.getIdToken(),null);
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                   .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                         Log.e(".........................",",,,,,,,,,,,,,,,,,,,,,,,,,");
+                                ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
+                                Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                                ((MainActivityContainerInterface)getActivity()).getPresenter().googleSignIn(account.getEmail(),account.getDisplayName());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
+                            Log.e( "","***********************" );
+                        }
+                    });
+
+
+        } catch (ApiException e) {
+
+            Log.w("Error", "signInResult:failed code " + e.getStatusCode());
+        }
     }
 }
