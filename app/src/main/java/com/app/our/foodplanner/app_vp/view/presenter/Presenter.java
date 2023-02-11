@@ -578,6 +578,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                     uData[1]=user.getEmail();
                     uData[2]=user.getUid();
                     repository.setUserData(uData[0],uData[1],uData[2]);
+                  
                 }
                 else{
                     isLogedIn=false;
@@ -593,6 +594,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     public void logout() {
         isLogedIn = false;
         checkout = false;
+        repository.setUserData("","","");
         Log.i(TAG, "logout: " + checkout + " " + isLogedIn);
         firebaseAuth.signOut();
     }
