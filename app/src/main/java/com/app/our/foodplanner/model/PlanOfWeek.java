@@ -1,5 +1,6 @@
 package com.app.our.foodplanner.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -17,8 +18,22 @@ public class PlanOfWeek {
     @ColumnInfo(name="idPlan")
     @PrimaryKey(autoGenerate = true)
     private int idPlan;
+
+    @NonNull
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(@NonNull String userId) {
+        this.userId = userId;
+    }
+
+    @ColumnInfo (name="userId")
+    @NonNull
+    private String userId;
     @ColumnInfo (name="week")
     private String week;
+
 
     @ColumnInfo (name="month")
     private String month;

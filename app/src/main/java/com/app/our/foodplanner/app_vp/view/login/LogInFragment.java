@@ -52,7 +52,7 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
     // LogInFragmentInterface LogInFragmentInterface;
     PresenterInterface presenterInterface;
     Context context;
-
+    TextView toSignUp;
     public LogInFragment() {
         //this.presenterInterface=presenterInterface;
     }
@@ -89,12 +89,19 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         imageViewGoogleLog=view.findViewById(R.id.imageViewGoogleLogPage);
         textViewHaveAccountLogIn=view.findViewById(R.id.textViewHaveAccountLogInPage);
 
-        btnLogIn.setOnClickListener(new View.OnClickListener() {
+
+        textViewHaveAccountLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickLogin();
+                ((MainActivityContainer)getActivity()).showSignUp();
             }
         });
+       btnLogIn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               onClickLogin();
+           }
+       });
 
         imageViewGoogleLog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +133,6 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         else{
             presenterInterface.doLogin(editTxtUNameLogIn.getText().toString(),editTxtPassLogIn.getText().toString());
 
-
         }
     }
 
@@ -136,12 +142,9 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
     public void onLoginResult(Boolean result) {
         if(result){
 
-            Log.i(TAG, "ssssssssssssonLoginResult: "+result);
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
         }
         else{
-            // showDialog("Not match");
-            Log.i(TAG, "ffffffffffffffffffffonLoginResult: "+result);
             Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
         }

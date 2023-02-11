@@ -107,7 +107,7 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
         googleSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                  //google
             }
         });
         goToLogIn.setOnClickListener(new View.OnClickListener() {

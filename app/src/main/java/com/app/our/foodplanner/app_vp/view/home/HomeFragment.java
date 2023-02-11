@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.tv.TvView;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,7 +49,6 @@ MainActivityContainerInterface mainActivityContainerInterface;
   SearchView searchView;
   CardView randomMeal;
   Meal mealRandom;
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -69,6 +71,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
         super.onViewCreated(view, savedInstanceState);
         this.view=view;
         mainActivityContainerInterface=((MainActivityContainer)getActivity());
+
         randomMealImage=view.findViewById(R.id.imageViewSuggestMeal);
         textViewTitle=view.findViewById(R.id.txtViewTitleHome);
         textViewCountry=view.findViewById(R.id.textViewCountryHome);
@@ -87,8 +90,9 @@ MainActivityContainerInterface mainActivityContainerInterface;
         randomMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mealRandom!=null&&randomMealImage!=null)
-                     mainActivityContainerInterface.showMeal(mealRandom,(((BitmapDrawable)randomMealImage.getDrawable()).getBitmap()));
+
+                if(mealRandom!=null&&randomMealImage!=null&&mainActivityContainerInterface.checkConnectionState())
+                     mainActivityContainerInterface.showMeal(mealRandom,(((BitmapDrawable)randomMealImage.getDrawable()).getBitmap()),0);
                  else{
                     Toast.makeText(getContext(), "Connection Error Please Check Network !", Toast.LENGTH_SHORT).show();
                 }
@@ -103,7 +107,10 @@ MainActivityContainerInterface mainActivityContainerInterface;
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                    mainActivityContainerInterface.getPresenter().searchMealByName(newText);
+                if(mainActivityContainerInterface.checkConnectionState())
+                    if(!newText.isEmpty())
+                        mainActivityContainerInterface.getPresenter().searchMealByName(newText);
+
                 return true;
             }
         });
@@ -118,21 +125,24 @@ MainActivityContainerInterface mainActivityContainerInterface;
 
     @Override
     public void showRandomMeal(ArrayList<Meal> Res) {
-        mainActivityContainerInterface.getPresenter().getRandomMealImage(randomMealImage,view,Res.get(0).getStrMealThumb());
-        textViewTitle.setText(Res.get(0).getStrMeal());
-        textViewCountry.setText(Res.get(0).getStrArea());
-        mealRandom=Res.get(0);
+        if(mainActivityContainerInterface.checkConnectionState()) {
+            mainActivityContainerInterface.getPresenter().getRandomMealImage(randomMealImage, view, Res.get(0).getStrMealThumb());
+            textViewTitle.setText(Res.get(0).getStrMeal());
+            textViewCountry.setText(Res.get(0).getStrArea());
+            mealRandom = Res.get(0);
+        }
     }
 
     @Override
     public void showMeals(ArrayList<Meal> Res) {
-        if(homeMeals==null)
-        {
-            homeMeals=new AdapterHomeMealCategory(getContext(),this,Res);
+        if(mainActivityContainerInterface.checkConnectionState()) {
+            if (homeMeals == null) {
+                homeMeals = new AdapterHomeMealCategory(getContext(), this, Res);
 
-        }else {
-            homeMeals.setData(Res);
-            homeMeals.notifyDataSetChanged();
+            } else {
+                homeMeals.setData(Res);
+                homeMeals.notifyDataSetChanged();
+            }
         }
     }
 

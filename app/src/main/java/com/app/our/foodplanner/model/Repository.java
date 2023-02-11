@@ -38,87 +38,91 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public Single<Meal> getMeal(String id) {
-        return localSource.getMeal(id);
+    public Single<Meal> getMeal(String id,String uId) {
+        return localSource.getMeal(id,uId);
     }
 
     @Override
-    public Single<Integer> isMealExists(String id) {
-        return localSource.isMealExists(id);
+    public Single<List<Meal>> getAllFavLikeMeal(String id,String uId) {
+        return localSource.getAllFavLikeMeal(id,uId);
     }
 
     @Override
-    public Single<List<Meal>> getAllFavLikeMeal(String id) {
-        return localSource.getAllFavLikeMeal(id);
+    public Single<Meal> MealInPlan(String mealId,String uId, String year, String month, String week, String day, String time) {
+        return localSource.MealInPlan(mealId,uId,year,month,week,day,time);
     }
 
     @Override
-    public Single<PlanOfWeek> getPlan(int id) {
-        return localSource.getPlan(id);
+    public Single<Integer> isMealExists(String id,String uId) {
+        return localSource.isMealExists(id,uId);
     }
 
     @Override
-    public List<Meal> getAllFavMeals(boolean isFav) {
-        return localSource.getAllFavMeals(true);
+    public Completable removeMealFromPlan(String mealid, String week,String uId) {
+        return localSource.removeMealFromPlan(mealid,week,uId);
     }
 
     @Override
-    public Single<List<Meal>> getAllMealsInPlan(String week, String month, String year) {
-        return localSource.getAllMealsInPlan(week,month,year);
+    public Single<PlanOfWeek> getPlan(int id,String uId) {
+        return localSource.getPlan(id,uId);
     }
 
     @Override
-    public Single<List<PlanOfWeek>> getPlans() {
-        return localSource.getPlans();
+    public List<Meal> getAllFavMeals(boolean isFav,String uId) {
+        return localSource.getAllFavMeals(isFav,uId);
     }
 
     @Override
-    public LiveData<List<PlanOfWeek>> getPlansLive() {
-        return localSource.getPlansLive();
+    public Single<List<Meal>> getAllMealsInPlan(String week, String month, String year,String uId) {
+        return localSource.getAllMealsInPlan(week,month,year,uId);
     }
 
     @Override
-    public Observable<List<Meal>> getAllFavMealsLive(boolean isFav) {
-        return localSource.getAllFavMealsLive(isFav);
+    public Single<List<PlanOfWeek>> getPlans(String uId) {
+        return localSource.getPlans(uId);
     }
 
     @Override
-    public LiveData<List<Meal>> getAllMealsInPlanLive(String week, String month, String year) {
-        return localSource.getAllMealsInPlanLive(week,month,year);
+    public Single<List<Meal>> getAllMeals(String uId) {
+        return localSource.getAllMeals(uId);
+    }
+
+
+    @Override
+    public Observable<List<Meal>> getAllFavMealsLive(boolean isFav,String uId) {
+
+        return localSource.getAllFavMealsLive(true,uId);
+    }
+
+
+    @Override
+    public Completable updateFavoriteInMeal(boolean isFav, String idMeal,String uId) {
+        return  localSource.updateFavoriteInMeal(isFav,idMeal,uId);
     }
 
     @Override
-    public Completable updateFavoriteInMeal(boolean isFav, String idMeal) {
-        return localSource.updateFavoriteInMeal(isFav,idMeal);
-    }
-
-    @Override
-    public Completable updateDateInMeal(String time, String day, String week, String month, String year, String idMeal) {
-        return localSource.updateDateInMeal(time,day,week,month,year,idMeal);
-    }
-    @Override
-    public Completable removeMealFromPlan(String mealid, String week) {
-        return localSource.removeMealFromPlan(mealid,week);
+    public Completable updateDateInMeal(String time,String uId, String day, String week, String month, String year, String idMeal) {
+        return localSource.updateDateInMeal(time,uId,day,week,month,year,idMeal);
     }
 
     @Override
     public Completable insertMeal(Meal meal) {
-        return localSource.insertMeal(meal);
+        return   localSource.insertMeal(meal);
     }
 
     @Override
     public Completable insertPlan(PlanOfWeek plan) {
-        return localSource.insertPlan(plan);
+        return  localSource.insertPlan(plan);
     }
 
     @Override
-    public Completable deleteMeal(Meal meal) {
-        return localSource.deleteMeal(meal);
+    public Completable deleteMeal(String meal,String uId) {
+        return localSource.deleteMeal(uId,meal);
     }
 
     @Override
-    public Completable deletePlan(PlanOfWeek plan) {
-        return localSource.deletePlan(plan);
+    public Completable deletePlan(int plan,String uId) {
+        return localSource.deletePlan(plan,uId);
     }
 
     @Override
@@ -179,5 +183,10 @@ public class Repository implements RepositoryInterface {
     @Override
     public String[] getUserData() {
         return shared_pref.getUserData();
+    }
+
+    @Override
+    public void deleteUserData() {
+        shared_pref.deleteUserData();
     }
 }
