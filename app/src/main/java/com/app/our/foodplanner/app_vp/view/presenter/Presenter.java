@@ -323,7 +323,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void lookupFullMealDetailsByIdOnSuccessResults(ArrayList<Meal> Res) {
-
+        filterFragmentInterface.showFilterByArea(Res);
     }
 
     @Override
@@ -344,7 +344,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void listAllIngredients_Just_NamesOnSuccessResults(ArrayList< Ingredient > Res) {
-
+        filterFragmentInterface.showFilterByIngradient(Res);
     }
 
     @Override
@@ -378,9 +378,32 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     }
 
     @Override
+    public void searchForIngredient(String search) {
+        Stream<Ingredient> stream= ingredients.stream().filter(i->i.strIngredient.toLowerCase().startsWith(search.toLowerCase()));
+        ArrayList<Ingredient> mealsAfter = new ArrayList<>(stream.collect(Collectors.toList()));
+        filterFragmentInterface.showIngradient(mealsAfter);
+    }
+    @Override
+    public void searchForArea(String search) {
+        Stream<Area> stream= getAreas().stream().filter(i->i.strArea.toLowerCase().startsWith(search.toLowerCase()));
+        ArrayList<Area> mealsAfter = new ArrayList<>(stream.collect(Collectors.toList()));
+        filterFragmentInterface.showArea(mealsAfter);
+    }
+
+    @Override
+    public void getMealByArea(String meal) {
+        repository.enqueueCallFilterByArea(this,context,meal);
+    }
+    @Override
+    public void getMealByIngredient(String ingredient) {
+        repository.enqueueCallFilterByMainIngredient(this,context,ingredient);
+    }
+
+    @Override
     public void getMealByName(String name) {
         repository.enqueueCallGetMealByName(this,context,name);
     }
+
 
     @Override
     public void showFilter() {
@@ -391,6 +414,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void getMealsByCategory(String category) {
         repository.enqueueCallFilterByCategory(this,context,category);
+
     }
 
     @Override

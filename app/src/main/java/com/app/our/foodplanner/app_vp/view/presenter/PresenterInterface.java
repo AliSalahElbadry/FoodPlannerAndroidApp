@@ -64,6 +64,9 @@ public void sendFirstDayInWeekMeals(String week);
  public List<Meal> castListToSet(List<Meal>meals);
 
  public void googleSignIn(String email,String name);
-
+ public void getMealByArea(String meal);
+ public void getMealByIngredient(String ingredient);
+ public void searchForIngredient(String search);
+ public void searchForArea(String search);
 
 }

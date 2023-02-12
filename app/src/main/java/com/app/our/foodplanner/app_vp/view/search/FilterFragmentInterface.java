@@ -22,4 +22,9 @@ public interface FilterFragmentInterface {
     void showArea(ArrayList<Area> res);
 
     void showFilterByArea(ArrayList<Meal> res);
+
+    void showFilterByIngradient(ArrayList<Ingredient> res);
+
+
+    void showIngradient(ArrayList<Ingredient> mealsAfter);
 }
