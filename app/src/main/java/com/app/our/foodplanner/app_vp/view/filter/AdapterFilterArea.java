@@ -51,7 +51,6 @@ public class AdapterFilterArea extends RecyclerView.Adapter<AdapterFilterArea.Vi
     public void onBindViewHolder(@NonNull AdapterFilterArea.ViewHolder holder, int position) {
 
         holder.txtTitle.setText(areas.get(position).strArea);
-        Log.e("","............................."+areas.get(position).strArea);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

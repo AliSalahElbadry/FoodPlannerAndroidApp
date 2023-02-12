@@ -340,7 +340,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void filterByMainIngredientOnSuccessResults(ArrayList<Meal> Res) {
-
+        filterFragmentInterface.showFilterByArea(Res);
     }
 
     @Override

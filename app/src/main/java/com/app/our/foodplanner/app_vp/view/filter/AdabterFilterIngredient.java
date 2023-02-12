@@ -49,7 +49,7 @@ public class AdabterFilterIngredient extends RecyclerView.Adapter<AdabterFilterI
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterFragmentInterface.getConainer().getPresenter().getMealByArea(ingredients.get(holder.getAdapterPosition()).strIngredient);
+                filterFragmentInterface.getConainer().getPresenter().getMealByIngredient(ingredients.get(holder.getAdapterPosition()).strIngredient);
             }
         });
 
