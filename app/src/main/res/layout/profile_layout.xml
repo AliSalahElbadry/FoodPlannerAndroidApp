@@ -45,8 +45,8 @@
 
     <View
         android:id="@+id/viewInformaion"
-        android:layout_width="0dp"
-        android:layout_height="390dp"
+        android:layout_width="357dp"
+        android:layout_height="371dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/information_profile_background"
         app:layout_constraintBottom_toBottomOf="@+id/btnLogOut"
@@ -61,34 +61,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="333dp" />
+        app:layout_constraintGuide_end="49dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineInformationLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="64dp" />
+        app:layout_constraintGuide_begin="47dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogOut"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btnsignup"
         android:text="@string/log_out"
         android:textColor="@color/second_color"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineInformationRieght"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineInformationLeft"
         app:layout_constraintTop_toBottomOf="@+id/btnretriveYourData" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnBackUpYourData"
-        android:layout_width="269dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btnsignup"
         android:text="@string/backup_your_data"
         android:textAllCaps="false"
@@ -102,9 +102,9 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnretriveYourData"
-        android:layout_width="269dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btnsignup"
         android:text="@string/retreve_your_data"
         android:textAllCaps="false"
@@ -118,7 +118,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/textViewEmailProfile"
-        android:layout_width="269dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@drawable/btnsignup"
         android:text="@string/backup_your_data"

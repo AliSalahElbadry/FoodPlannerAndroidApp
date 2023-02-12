@@ -21,7 +21,7 @@
         android:id="@+id/searchView"
         android:layout_width="270dp"
         android:layout_height="51dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/search_view"
         android:iconifiedByDefault="false"
@@ -33,8 +33,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSuggestMeal"
-        android:layout_width="382dp"
+        android:layout_width="0dp"
         android:layout_height="145dp"
+        android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/gray"
         app:cardCornerRadius="25dp"
         app:cardElevation="3dp"
@@ -42,6 +43,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
         app:layout_constraintTop_toBottomOf="@+id/textViewSuggest">
 
@@ -129,7 +131,7 @@
         android:id="@+id/textViewSuggest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="serif"
         android:text="@string/suggestion_meal"
         android:textColor="#130804"
