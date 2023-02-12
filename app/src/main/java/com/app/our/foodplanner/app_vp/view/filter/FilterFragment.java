@@ -38,7 +38,7 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
 
     RecyclerView recyclerViewItems ,recyclerViewFilter;
     MainActivityContainerInterface mainActivityContainerInterface;
-    ImageButton backbtnFilter;
+    ImageView backbtnFilter;
     AdapterFilterArea adapterFilter;
     AdabterFilterIngredient adabterFilterIngredient;
     Button buttonAreaFilter,buttonIngredientFilter;

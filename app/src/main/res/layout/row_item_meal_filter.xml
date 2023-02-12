@@ -5,7 +5,7 @@
     android:id="@+id/rowItemFilterMeal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/green"
+    app:cardBackgroundColor="#F2F6F4F4"
     app:cardCornerRadius="25dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="3dp"
@@ -13,8 +13,8 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="171dp"
-        android:layout_height="212dp">
+        android:layout_width="176dp"
+        android:layout_height="220dp">
 
 
         <TextView
@@ -24,11 +24,12 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-black"
             android:textAlignment="center"
+            android:textColor="#014A44"
+            android:ems="5"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toBottomOf="@+id/imageViewMealFilter"
-            tools:text="@string/title_fav_list"
-            android:textColor="@color/white"/>
+            tools:text="@string/title_fav_list" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewMealFilter"
