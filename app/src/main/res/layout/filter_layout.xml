@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_layout">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFilter"
@@ -30,15 +31,15 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="144dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/meal_back_corners"
+
         android:text="Filter Page"
         android:textAlignment="center"
-        android:textColor="@color/green"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
+        android:textColor="@color/second_color"
+        android:textSize="28sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="parent" />
