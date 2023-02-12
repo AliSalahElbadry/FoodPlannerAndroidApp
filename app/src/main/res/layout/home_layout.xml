@@ -5,12 +5,11 @@
     android:id="@+id/homeConstrain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-   >
+    android:background="@drawable/background_layout"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRandumMeals"
-        android:background="@color/gray"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -39,7 +38,7 @@
         android:layout_height="145dp"
         android:layout_marginTop="8dp"
 
-        app:cardBackgroundColor="@color/green"
+        app:cardBackgroundColor="#F8F6F4F4"
         app:cardCornerRadius="25dp"
         app:cardElevation="3dp"
         app:cardMaxElevation="2dp"
@@ -56,8 +55,8 @@
             android:layout_height="106dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
-            app:civ_border_color="@color/lightGreen"
-            app:civ_border_width="3dp"
+            app:civ_border_color="@color/second_color"
+            app:civ_border_width="2dp"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintTop_toBottomOf="@+id/textViewSuggest"
             app:layout_constraintVertical_bias="0.333"
@@ -69,25 +68,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
 
-            android:textColor="@color/white"
-            android:layout_marginStart="33dp"
+            android:layout_marginStart="35dp"
             android:layout_marginBottom="25dp"
             android:fontFamily="sans-serif-black"
             android:maxWidth="185dp"
             android:textAlignment="center"
+            android:ems="5"
             app:layout_constraintStart_toEndOf="@+id/imageViewSuggestMeal"
             app:layout_constraintTop_toTopOf="@+id/imageViewSuggestMeal"
             tools:text="@string/title_fav_list" />
 
         <TextView
             android:id="@+id/textViewCountryHome"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_marginStart="30dp"
             android:fontFamily="sans-serif-black"
             app:layout_constraintVertical_bias="0.0"
+
             tools:text="@string/des_fav_list" />
 
 
@@ -139,15 +138,15 @@
         android:layout_marginTop="24dp"
         android:fontFamily="serif"
         android:text="@string/suggestion_meal"
-        android:textColor="#130804"
-        android:textSize="16sp"
+        android:textColor="#1D421E"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCategory"
         android:layout_width="0dp"
-        android:background="@color/gray"
+
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:elevation="-5dp"
