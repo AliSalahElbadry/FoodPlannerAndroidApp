@@ -58,4 +58,5 @@
     <string name="done">Done</string>
     <string name="backup_your_data">Backup Your Data</string>
     <string name="retreve_your_data">Retreve Your Data</string>
+    <string name="area_filter">Area</string>
 </resources>

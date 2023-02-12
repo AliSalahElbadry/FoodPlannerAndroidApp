@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.our.foodplanner.R;
+import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
 import com.app.our.foodplanner.model.Meal;
@@ -33,6 +35,7 @@ public class PlanFragment extends Fragment  implements PlanFragmentInterface{
     ArrayList<Meal>mealsLunch;
     ArrayList<Meal>mealsDinner;
     RecyclerView recyclerViewBreak,recyclerViewLunch,recyclerViewDinner;
+    ImageView imageViewBackPlan;
     PlanAdapter abreak,alunch,adinner;
     PlanOfWeek plan;
     int fDay;
@@ -62,6 +65,14 @@ public class PlanFragment extends Fragment  implements PlanFragmentInterface{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        imageViewBackPlan=view.findViewById(R.id.imageViewBackPlan);
+        imageViewBackPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickBack();
+            }
+        });
         recyclerViewBreak = view.findViewById(R.id.recyclerViewBreakFast);
         recyclerViewLunch = view.findViewById(R.id.recyclerViewLunch);
         recyclerViewDinner = view.findViewById(R.id.recyclerViewDinner);
@@ -151,5 +162,10 @@ public class PlanFragment extends Fragment  implements PlanFragmentInterface{
     @Override
     public void deleteMealInPlan(Meal meal) {
         ((MainActivityContainerInterface)getActivity()).getPresenter().deleteMealInPlan(meal.getIdMeal(),meal.getMeal_Day(),meal.getMeal_Time(),plan);
+    }
+
+    @Override
+    public void onClickBack() {
+        ((MainActivityContainer)getActivity()).showPlansPage();
     }
 }
