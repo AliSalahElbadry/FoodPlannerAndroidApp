@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,47 +12,44 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.our.foodplanner.R;
-import com.app.our.foodplanner.app_vp.view.home.AdapterHomeCategory;
-import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.model.Area;
-import com.app.our.foodplanner.model.Category;
+import com.app.our.foodplanner.model.Ingredient;
 import com.app.our.foodplanner.model.Meal;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterFilterArea extends RecyclerView.Adapter<AdapterFilterArea.ViewHolder> {
+public class AdabterFilterIngredient extends RecyclerView.Adapter<AdabterFilterIngredient.ViewHolder> {
 
     private final Context context;
-    private List<Area> areas;
+    private List<Ingredient> ingredients;
     FilterFragmentInterface filterFragmentInterface;
     private static final String TAG = "RecyclerView";
 
 
-    public AdapterFilterArea(Context context, FilterFragmentInterface filterFragmentInterface, List<Meal> values) {
+    public AdabterFilterIngredient(Context context, FilterFragmentInterface filterFragmentInterface, List<Meal> values) {
         this.context = context;
         // this.values = values;
-        this.areas = new ArrayList<>();
+        this.ingredients = new ArrayList<>();
         this.filterFragmentInterface = filterFragmentInterface;
     }
 
     @NonNull
     @Override
-    public AdapterFilterArea.ViewHolder onCreateViewHolder(@NonNull ViewGroup recyclerView, int viewType) {
+    public AdabterFilterIngredient.ViewHolder onCreateViewHolder(@NonNull ViewGroup recyclerView, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(recyclerView.getContext());
         View v = inflater.inflate(R.layout.row_filter, recyclerView, false);
-        return new AdapterFilterArea.ViewHolder(v);
+        return new AdabterFilterIngredient.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterFilterArea.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdabterFilterIngredient.ViewHolder holder, int position) {
 
-        holder.txtTitle.setText(areas.get(position).strArea);
+        holder.txtTitle.setText(ingredients.get(position).strIngredient);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterFragmentInterface.getConainer().getPresenter().getMealByArea(areas.get(holder.getAdapterPosition()).strArea);
+                filterFragmentInterface.getConainer().getPresenter().getMealByIngredient(ingredients.get(holder.getAdapterPosition()).strIngredient);
             }
         });
 
@@ -63,12 +58,12 @@ public class AdapterFilterArea extends RecyclerView.Adapter<AdapterFilterArea.Vi
 
     @Override
     public int getItemCount() {
-        return areas.size();
+        return ingredients.size();
     }
 
-    public void setData(List<Area> values) {
-        this.areas = new ArrayList<>();
-        areas.addAll(values);
+    public void setData(List<Ingredient> values) {
+        this.ingredients = new ArrayList<>();
+        ingredients.addAll(values);
         notifyDataSetChanged();
     }
 

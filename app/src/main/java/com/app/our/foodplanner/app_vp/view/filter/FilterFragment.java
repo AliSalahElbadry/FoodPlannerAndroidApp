@@ -40,6 +40,7 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
     MainActivityContainerInterface mainActivityContainerInterface;
     ImageButton backbtnFilter;
     AdapterFilterArea adapterFilter;
+    AdabterFilterIngredient adabterFilterIngredient;
     Button buttonAreaFilter,buttonIngredientFilter;
 
     AdapterMealsFilter mealsAdapter;
@@ -80,6 +81,7 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
         recyclerViewItems=view.findViewById(R.id.filterMealsContainer);
         recyclerViewItems.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));mealsAdapter=new AdapterMealsFilter(getContext(),this,new ArrayList<>());
         recyclerViewItems.setAdapter(mealsAdapter);
+        adabterFilterIngredient=new AdabterFilterIngredient(getContext(),this,new ArrayList<>());
         backbtnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,16 +91,25 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
         buttonIngredientFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(mainActivityContainerInterface.checkConnectionState()) {
+                    recyclerViewFilter.setAdapter(adabterFilterIngredient);
+                    mainActivityContainerInterface.getPresenter().getAllIngredientsForFilter();
+                }
+                else {
+                    Toast.makeText(getContext(), "OPPS! Connection !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         buttonAreaFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(mainActivityContainerInterface.checkConnectionState())
-                     mainActivityContainerInterface.getPresenter().getAllAreasForFilter();
-               else
+               if(mainActivityContainerInterface.checkConnectionState()) {
+                   recyclerViewFilter.setAdapter(adapterFilter);
+                   mainActivityContainerInterface.getPresenter().getAllAreasForFilter();
+               }
+               else {
                    Toast.makeText(getContext(), "OPPS! Connection !", Toast.LENGTH_SHORT).show();
+               }
             }
         });
 
@@ -133,17 +144,18 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
 
     @Override
     public void showFilterByArea(ArrayList<Meal> res) {
-        if(res!=null)
+        if(res!=null) {
             mealsAdapter.setData(res);
-        else{
-            Log.e("","pllllllllllllllllllllllllllllaaaaaaaaaaaaaaaaaaaaaaaa");
+            mealsAdapter.notifyDataSetChanged();
         }
-        mealsAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showIngradient(ArrayList<Ingredient> ingredients) {
 
-        //adapterFilter.setDataIngredents(ingredients);
+        if(ingredients!=null) {
+            adabterFilterIngredient.setData(ingredients);
+            adabterFilterIngredient.notifyDataSetChanged();
+        }
     }
 }
