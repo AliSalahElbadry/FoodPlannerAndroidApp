@@ -74,7 +74,6 @@ MainActivityContainerInterface mainActivityContainerInterface;
         super.onViewCreated(view, savedInstanceState);
         this.view=view;
         mainActivityContainerInterface=((MainActivityContainer)getActivity());
-
         imageViewFilter=view.findViewById(R.id.imageView3);
         randomMealImage=view.findViewById(R.id.imageViewSuggestMeal);
         textViewTitle=view.findViewById(R.id.txtViewTitleHome);
@@ -122,8 +121,15 @@ MainActivityContainerInterface mainActivityContainerInterface;
         imageViewFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              ((MainActivityContainer) getActivity()).showFilter();
-                Log.i(TAG, "ffffiilllltttttterrrrronClick: ");
+               if(mainActivityContainerInterface.checkConnectionState()) {
+                  PresenterInterface presenterInterface= ((MainActivityContainerInterface)getActivity()).getPresenter();
+                   ((MainActivityContainer) getActivity()).showFilter();
+                   presenterInterface.getAllAreasForFilter();
+                   presenterInterface.getMealByIngredient("chicken_breast");
+
+               }else{
+                   Toast.makeText(getContext(), "Please Check Your Internet", Toast.LENGTH_SHORT).show();
+               }
             }
         });
 

@@ -107,15 +107,22 @@ public class PlanFragment extends Fragment  implements PlanFragmentInterface{
     }
     @Override
     public void setData(ArrayList<Meal> breakfast, ArrayList<Meal> lunch, ArrayList<Meal> dinner) {
-        this.mealsBreak=breakfast;
-        this.mealsLunch=lunch;
-        this.mealsDinner=dinner;
-        abreak.setData(mealsBreak);
-        alunch.setData(mealsLunch);
-        adinner.setData(mealsDinner);
-        abreak.notifyDataSetChanged();
-        alunch.notifyDataSetChanged();
-        adinner.notifyDataSetChanged();
+
+        if(breakfast!=null) {
+            this.mealsBreak = breakfast;
+            abreak.setData(mealsBreak);
+            abreak.notifyDataSetChanged();
+        }
+        if(lunch!=null) {
+            this.mealsLunch = lunch;
+            alunch.setData(mealsLunch);
+            alunch.notifyDataSetChanged();
+        }
+        if(dinner!=null) {
+            this.mealsDinner = dinner;
+            adinner.setData(mealsDinner);
+            adinner.notifyDataSetChanged();
+        }
     }
     public int validateDay(int d,int month)
     {

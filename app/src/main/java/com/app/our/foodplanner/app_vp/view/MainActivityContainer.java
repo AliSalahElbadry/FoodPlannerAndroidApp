@@ -1,60 +1,38 @@
 package com.app.our.foodplanner.app_vp.view;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.favorite.FavoriteFragment;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragment;
-import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragment;
-import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.meal.MealFragment;
 import com.app.our.foodplanner.app_vp.view.plan.PlanFragment;
 import com.app.our.foodplanner.app_vp.view.plans.PlansFragment;
 import com.app.our.foodplanner.app_vp.view.presenter.Presenter;
 import com.app.our.foodplanner.app_vp.view.profile.ProfileFragment;
-import com.app.our.foodplanner.app_vp.view.search.FilterFragment;
-import com.app.our.foodplanner.app_vp.view.search.FilterFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.filter.FilterFragment;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragment;
 import com.app.our.foodplanner.app_vp.view.signup_login.Signup_Login_Fragment;
 import com.app.our.foodplanner.model.Meal;
 import com.app.our.foodplanner.model.PlanOfWeek;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivityContainer extends AppCompatActivity implements MainActivityContainerInterface {
 
@@ -350,7 +328,13 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
         transaction = manager.beginTransaction();
         transaction.replace(R.id.nav_host_fragment, filterFragment)
                 .commit();
+    }
 
+    @Override
+    public void closeFilter() {
+        navigationView.setSelectedItemId(R.id.homeMenu);
+        showHome();
+        filterFragment=null;
     }
 
 

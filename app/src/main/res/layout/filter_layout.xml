@@ -6,14 +6,13 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewFilterArea"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxArea" />
+        android:id="@+id/recyclerViewFilter"
+        android:layout_width="359dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonIngredientFilter" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -29,37 +28,61 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <SearchView
-        android:id="@+id/searchViewFilter"
-        android:layout_width="270dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/search_view"
-        android:iconifiedByDefault="false"
-        android:queryHint="@string/search"
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="144dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/meal_back_corners"
+        android:text="Filter Page"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/checkBoxArea"
+    <ImageButton
+        android:id="@+id/backbtnFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="100dp"
-        android:text="Area"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
-    <CheckBox
-        android:id="@+id/checkBoxIngredient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/filterMealsContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFilter" />
+
+    <Button
+        android:id="@+id/buttonAreaFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Area"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonIngredientFilter"
+        app:layout_constraintEnd_toStartOf="@+id/buttonIngredientFilter"
+        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/buttonIngredientFilter"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/buttonIngredientFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="56dp"
         android:text="Ingredient"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintHorizontal_bias="0.097"
-        app:layout_constraintStart_toEndOf="@+id/checkBoxArea"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewFilter" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,14 @@
 package com.app.our.foodplanner.app_vp.view.presenter;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.app.our.foodplanner.app_vp.view.plan.PlanFragmentInterface;
-import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Meal;
 import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.rxjava3.core.Observable;
 
 public interface PresenterInterface {
 
@@ -62,10 +57,10 @@ public void sendFirstDayInWeekMeals(String week);
 
  public void googleSignIn(String email,String name,String pass);
 
- public void getMealByArea(String meal);
+ public void getMealByArea(String Area);
  public void getMealByIngredient(String ingredient);
  public void searchForIngredient(String search);
  public void searchForArea(String search);
-
-
+ public void getAllAreasForFilter();
+ public  void getAllIngredientsForFilter();
 }

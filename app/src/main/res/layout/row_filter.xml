@@ -1,60 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rowFiter"
-    android:layout_width="match_parent"
+    android:id="@+id/cardItemFilterArea"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/gray"
-    app:cardCornerRadius="35dp"
-    app:cardElevation="5dp"
+    app:cardBackgroundColor="#F6F4F4"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="7dp"
     app:cardMaxElevation="3dp"
     app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true"
-    >
+    app:cardUseCompatPadding="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rowMealHome"
-        android:layout_width="379dp"
-        android:layout_height="105dp">
+    <TextView
+        android:id="@+id/txtViewTitleArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:textColor="@color/green"
 
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="@string/title_fav_list" />
 
-        <TextView
-            android:id="@+id/txtViewNameArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="68dp"
-            android:maxEms="7"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealFilterArea"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="@+id/imageViewMealFilterArea"
-            app:layout_constraintVertical_bias="0.439"
-            tools:text="@string/title_fav_list" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageViewMealFilterArea"
-            android:layout_width="103dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            app:civ_border_color="@color/lightGreen"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.65"
-            app:srcCompat="@drawable/picfood" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="257dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -41,9 +41,7 @@ public class AdapterHomeCategory  extends RecyclerView.Adapter<AdapterHomeCatego
     public AdapterHomeCategory.ViewHolder onCreateViewHolder(@NonNull ViewGroup recyclerView, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(recyclerView.getContext());
         View v=inflater.inflate(R.layout.row_category,recyclerView,false);
-        ViewHolder viewHolder=new ViewHolder(v);
-        Log.i(TAG, "onCreateViewHolder: new row createeeeeeeeee");
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override

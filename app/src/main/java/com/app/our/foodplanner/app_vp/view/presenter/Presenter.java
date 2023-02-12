@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.favorite.FavouriteFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
@@ -19,7 +18,7 @@ import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.plan.PlanFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.plans.PlansFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.profile.ProfileFragmentInterface;
-import com.app.our.foodplanner.app_vp.view.search.FilterFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.filter.FilterFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
@@ -29,16 +28,10 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 import com.app.our.foodplanner.model.Repository;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,7 +54,6 @@ import java.util.stream.Stream;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Presenter implements NetworkDelegate , PresenterInterface {
@@ -343,7 +335,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void lookupFullMealDetailsByIdOnSuccessResults(ArrayList<Meal> Res) {
-        filterFragmentInterface.showFilterByArea(Res);
+
     }
 
     @Override
@@ -354,17 +346,21 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void listAllCategories_Just_NamesOnSuccessResults(ArrayList< Category > Res) {
+        categories=Res;
         homeFragment.showCategories(Res);
     }
 
     @Override
     public void listAllArea_Just_NamesOnSuccessResults(ArrayList< Area > Res) {
+
         filterFragmentInterface.showArea(Res);
     }
 
     @Override
     public void listAllIngredients_Just_NamesOnSuccessResults(ArrayList< Ingredient > Res) {
-        filterFragmentInterface.showFilterByIngradient(Res);
+
+
+        filterFragmentInterface.showIngradient(Res);
     }
 
     @Override
@@ -380,7 +376,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void filterByAreaOnSuccessResults(ArrayList<Meal> Res) {
-            meals=Res;
             filterFragmentInterface.showFilterByArea(Res);
     }
 
@@ -410,6 +405,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         filterFragmentInterface.showArea(mealsAfter);
     }
 
+
+
     @Override
     public void getMealByArea(String meal) {
         repository.enqueueCallFilterByArea(this,context,meal);
@@ -433,13 +430,18 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void getMealsByCategory(String category) {
+
         repository.enqueueCallFilterByCategory(this,context,category);
 
     }
 
     @Override
     public void getAllCategories() {
+        if(categories.size()==0)
             repository.enqueueCallListAllCategories_Just_Names(this,context);
+        else{
+            homeFragment.showCategories(categories);
+        }
             getMealsByCategory("Beef");
     }
 
@@ -1031,4 +1033,14 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         LogInFragmentInterface.onLoginResult(isLogedIn);
         repository.setUserData(name,email,uid);
     }
+    @Override
+    public void getAllAreasForFilter(){
+           repository.enqueueCallListAllArea_Just_Names(this, context);
+    }
+    @Override
+    public  void getAllIngredientsForFilter()
+    {
+        repository.enqueueCallListAllIngredients_Just_Names(this,context);
+    }
+
 }
