@@ -22,7 +22,9 @@ import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -32,7 +34,7 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
 
     TextView textViewEmailProfile;
     ImageView imageViewProfile;
-    Button btnLogOut,btnBackup;
+    Button btnLogOut,btnBackup,btnRetriveData;
 
     PresenterInterface presenterInterface;
 
@@ -63,13 +65,15 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
         if(udata!=null)
         {
             textViewEmailProfile.setText(udata[1]);
+            showUserData(udata);
         }else{
             textViewEmailProfile.setText(presenterInterface.getuId());
         }
         btnBackup=view.findViewById(R.id.btnBackUpYourData);
         imageViewProfile=view.findViewById(R.id.imageViewProfile);
-        btnLogOut=view.findViewById(R.id.btnLogOut);
 
+        btnLogOut=view.findViewById(R.id.btnLogOut);
+        btnRetriveData=view.findViewById(R.id.btnretriveYourData);
         btnBackup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,8 +85,12 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
                 }
             }
         });
-        showUserData(udata);
-
+        btnRetriveData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenterInterface.retriveData();
+            }
+        });
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +131,11 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .build();
+                GoogleSignIn.getClient(getContext(), gso).signOut();
                 presenterInterface.logout();
                 ((MainActivityContainerInterface)getActivity()).ReStart();
             }

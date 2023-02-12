@@ -57,4 +57,5 @@
     <string name="select_the_first_day_in_your_week">Select The First Day In Your Week</string>
     <string name="done">Done</string>
     <string name="backup_your_data">Backup Your Data</string>
+    <string name="retreve_your_data">Retreve Your Data</string>
 </resources>

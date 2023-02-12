@@ -1,5 +1,6 @@
 package com.app.our.foodplanner.app_vp.view.presenter;
 
+
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.app.our.foodplanner.app_vp.view.favorite.FavouriteFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
@@ -30,15 +32,26 @@ import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,6 +61,8 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Presenter implements NetworkDelegate , PresenterInterface {
+
+
     //Data Holders
 
     private LogInFragmentInterface LogInFragmentInterface;
@@ -622,27 +637,147 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void backupYourData() {
-        UserData userData=new UserData();
-       Completable.fromAction(()->{
+
+        Completable.fromAction(()->{
+
+           repository.getAllMeals(uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+               backUpMeals(i);
+           });
 
            repository.getPlans(uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
-               if(i!=null) {
-                   userData.setPlans(i);
-               }
-           });
-           repository.getAllMeals(uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
-              if(i!=null) {
-                userData.setMeals(i);
-              }
-           });
+                backUpPlans(i);
+            });
 
-        }).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(()->{
+        }).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+    }
 
-           FirebaseUser user =FirebaseAuth.getInstance().getCurrentUser();
-           DatabaseReference database=FirebaseDatabase.getInstance().getReference();
-           database.push().setValue(user.getUid());
-           database.push().setValue("ali");
-       }).observeOn(AndroidSchedulers.mainThread()).subscribe();
+    @Override
+    public void retriveData() {
+        String userId=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Users/"+userId);
+        AtomicInteger atomicInteger=new AtomicInteger();
+        ref.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void backUpMeals(List<Meal>i)
+    {
+        Completable.fromAction(()->{
+            if(i!=null) {
+                String userId=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference ref = database.getReference("Users");
+                DatabaseReference usersRef = ref.child(userId).child("meals");
+                for (Meal meal:i) {
+                    DatabaseReference mealref=usersRef.child(""+meal.getId());
+                    Map<String, String> mealdata = new HashMap<>();
+                    mealdata.put("id",""+meal.getId());
+                    mealdata.put("idMeal",meal.getIdMeal());
+                    mealdata.put("strMeal",meal.getStrMeal());
+                    mealdata.put("strCategory",meal.getStrCategory());
+                    mealdata.put("strArea",meal.getStrArea());
+                    mealdata.put("strInstructions",meal.getStrInstructions());
+                    mealdata.put("strMealThumb",meal.getStrMealThumb());
+                    mealdata.put("strYoutube",meal.getStrYoutube());
+                    mealdata.put("strIngredient1",meal.getStrIngredient1());
+                    mealdata.put("strIngredient2",meal.getStrIngredient2());
+                    mealdata.put("strIngredient3",meal.getStrIngredient3());
+                    mealdata.put("strIngredient4",meal.getStrIngredient4());
+                    mealdata.put("strIngredient5",meal.getStrIngredient5());
+                    mealdata.put("strIngredient6",meal.getStrIngredient6());
+                    mealdata.put("strIngredient7",meal.getStrIngredient7());
+                    mealdata.put("strIngredient8",meal.getStrIngredient8());
+                    mealdata.put("strIngredient9",meal.getStrIngredient9());
+                    mealdata.put("strIngredient10",meal.getStrIngredient10());
+                    mealdata.put("strIngredient11",meal.getStrIngredient11());
+                    mealdata.put("strIngredient12",meal.getStrIngredient12());
+                    mealdata.put("strIngredient13",meal.getStrIngredient13());
+                    mealdata.put("strIngredient14",meal.getStrIngredient14());
+                    mealdata.put("strIngredient15",meal.getStrIngredient15());
+                    mealdata.put("strIngredient16",meal.getStrIngredient16());
+                    mealdata.put("strIngredient17",meal.getStrIngredient17());
+                    mealdata.put("strIngredient18",meal.getStrIngredient18());
+                    mealdata.put("strIngredient19",meal.getStrIngredient19());
+                    mealdata.put("strIngredient20",meal.getStrIngredient20());
+                    mealdata.put("strMeasure1",meal.getStrMeasure1());
+                    mealdata.put("strMeasure2",meal.getStrMeasure2());
+                    mealdata.put("strMeasure3",meal.getStrMeasure3());
+                    mealdata.put("strMeasure4",meal.getStrMeasure4());
+                    mealdata.put("strMeasure5",meal.getStrMeasure5());
+                    mealdata.put("strMeasure6",meal.getStrMeasure6());
+                    mealdata.put("strMeasure7",meal.getStrMeasure7());
+                    mealdata.put("strMeasure8",meal.getStrMeasure8());
+                    mealdata.put("strMeasure9",meal.getStrMeasure9());
+                    mealdata.put("strMeasure10",meal.getStrMeasure10());
+                    mealdata.put("strMeasure11",meal.getStrMeasure11());
+                    mealdata.put("strMeasure12",meal.getStrMeasure12());
+                    mealdata.put("strMeasure13",meal.getStrMeasure13());
+                    mealdata.put("strMeasure14",meal.getStrMeasure14());
+                    mealdata.put("strMeasure15",meal.getStrMeasure15());
+                    mealdata.put("strMeasure16",meal.getStrMeasure16());
+                    mealdata.put("strMeasure17",meal.getStrMeasure17());
+                    mealdata.put("strMeasure18",meal.getStrMeasure18());
+                    mealdata.put("strMeasure19",meal.getStrMeasure19());
+                    mealdata.put("strMeasure20",meal.getStrMeasure20());
+                    mealdata.put("isFavorite",""+meal.getIsFavorite());
+                    mealdata.put("meal_Time",meal.getMeal_Time());
+                    mealdata.put("meal_Day",meal.getMeal_Day());
+                    mealdata.put("meal_Week",meal.getMeal_Week());
+                    mealdata.put("meal_Month",meal.getMeal_Month());
+                    mealdata.put("userId",meal.getUserId());
+                    mealdata.put("meal_Year",meal.getMeal_Year());
+                    mealref.setValue(mealdata);
+                }
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+
+    }
+    private void backUpPlans(List<PlanOfWeek>i)
+    {
+        Completable.fromAction(()->{
+            if(i!=null) {
+                String userId=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference ref = database.getReference("Users");
+
+                DatabaseReference usersRef = ref.child(userId).child("plans");
+                for (PlanOfWeek plan:i) {
+                    DatabaseReference refplan=usersRef.child(""+plan.getIdPlan());
+                    Map<String, String> pl = new HashMap<>();
+                    pl.put("planId",""+plan.getIdPlan());
+                    pl.put("planYear",plan.getYear());
+                    pl.put("planMonth",plan.getMonth());
+                    pl.put("planWeek",plan.getWeek());
+                    refplan.setValue(pl);
+                }
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 
     @Override
@@ -735,17 +870,25 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void putUserData(String userName, String email, String password) {
 
-             nameProfile=userName;
-             uData[0]=nameProfile;
-
+               uData[0]=userName;
+               nameProfile=userName;
                firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(s->{
                    isLogedIn=true;
                    checkout=true;
                    uId=email;
-                   signupFragmentInterface.getSignUpStatus(isLogedIn);
+                   signupFragmentInterface.getSignUpStatus(true);
                    repository.setUserData(userName,email,password);
                })
                .addOnFailureListener(f->{isLogedIn=false; checkout=false; Log.e("",f.toString());});
+    }
+    public void SignUpGoogle(String userName, String email, String password)
+    {
+        uId=email;
+        uData[0]=userName;
+        nameProfile=userName;
+        checkout=true;
+        isLogedIn=true;
+        repository.setUserData(userName,email,password);
     }
 
     @Override

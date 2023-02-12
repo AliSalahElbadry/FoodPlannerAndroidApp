@@ -42,6 +42,7 @@ public  void getAllFav();
  public String[]getUserData();
 public ArrayList<String> getIngredinetsInMeal(Meal meal);
 public void backupYourData();
+public void  retriveData();
  public void doLogin(String email, String pass);
 public String getuId();
  public  void logout();
