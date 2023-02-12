@@ -1,5 +1,7 @@
 package com.app.our.foodplanner.app_vp.view.home;
 
+import static android.content.ContentValues.TAG;
+
 import android.accessibilityservice.AccessibilityService;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -49,6 +51,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
   SearchView searchView;
   CardView randomMeal;
   Meal mealRandom;
+  ImageView imageViewFilter;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -72,6 +75,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
         this.view=view;
         mainActivityContainerInterface=((MainActivityContainer)getActivity());
 
+        imageViewFilter=view.findViewById(R.id.imageView3);
         randomMealImage=view.findViewById(R.id.imageViewSuggestMeal);
         textViewTitle=view.findViewById(R.id.txtViewTitleHome);
         textViewCountry=view.findViewById(R.id.textViewCountryHome);
@@ -112,6 +116,14 @@ MainActivityContainerInterface mainActivityContainerInterface;
                         mainActivityContainerInterface.getPresenter().searchMealByName(newText);
 
                 return true;
+            }
+        });
+
+        imageViewFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              ((MainActivityContainer) getActivity()).showFilter();
+                Log.i(TAG, "ffffiilllltttttterrrrronClick: ");
             }
         });
 

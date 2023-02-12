@@ -17,6 +17,7 @@ import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.plan.PlanFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.plans.PlansFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.profile.ProfileFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.search.FilterFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
@@ -50,11 +51,15 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     //Data Holders
 
     private LogInFragmentInterface LogInFragmentInterface;
+    private FilterFragmentInterface filterFragmentInterface;
     private ProfileFragmentInterface profileFragmentInterface;
 
     private FavouriteFragmentInterface favouriteFragmentInterface;
     public void setLogInFragmentInterface(LogInFragmentInterface LogInFragmentInterface) {
         this.LogInFragmentInterface = LogInFragmentInterface;
+    }
+    public void setFilterFragmentInterface(FilterFragmentInterface filterFragmentInterface) {
+        this.filterFragmentInterface = filterFragmentInterface;
     }
     public void setProfileFragmentInterface(ProfileFragmentInterface profileFragmentInterface) {
         this.profileFragmentInterface = profileFragmentInterface;
@@ -334,7 +339,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void listAllArea_Just_NamesOnSuccessResults(ArrayList< Area > Res) {
-
+        filterFragmentInterface.showArea(Res);
     }
 
     @Override
@@ -355,7 +360,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void filterByAreaOnSuccessResults(ArrayList<Meal> Res) {
-
+            meals=Res;
+            filterFragmentInterface.showFilterByArea(Res);
     }
 
     @Override

@@ -2,8 +2,6 @@ package com.app.our.foodplanner.app_vp.view.favorite;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.our.foodplanner.R;
-import com.app.our.foodplanner.app_vp.view.home.AdapterHomeCategory;
-import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
-import com.app.our.foodplanner.model.Category;
 import com.app.our.foodplanner.model.Meal;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteList.ViewHolder>{
@@ -94,7 +86,7 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
             imgViewDeleteFavorite=itemView.findViewById(R.id.imgViewDeleteFavorite);
             txtViewNameFavouriteList=itemView.findViewById(R.id.txtViewNameFavouriteList);
             textViewAreaFavouriteList=itemView.findViewById(R.id.textViewAreaFavouriteList);
-            rowFavouriteList=itemView.findViewById(R.id.rowFavouriteList);
+            rowFavouriteList=itemView.findViewById(R.id.rowFiter);
 
         }
     }

@@ -21,5 +21,6 @@ public interface MainActivityContainerInterface {
     public void ReStart();
     public boolean checkConnectionState();
     public void showPlanPage(PlanOfWeek plan);
+    public void showFilter();
 
 }
