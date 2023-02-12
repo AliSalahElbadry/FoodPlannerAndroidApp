@@ -179,30 +179,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         return areas;
     }
 
-    public void setAreas(ArrayList<Area> areas) {
-        this.areas = areas;
-    }
-
-    public ArrayList<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public ArrayList<PlanOfWeek> getPlans() {
-        return plans;
-    }
-
-    public void setPlans(ArrayList<PlanOfWeek> plans) {
-        this.plans = plans;
-    }
-
-    public String[] getuData() {
-        return uData;
-    }
-
     public void setuData(String[] uData) {
         this.uData = uData;
     }
@@ -359,7 +335,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void listAllIngredients_Just_NamesOnSuccessResults(ArrayList< Ingredient > Res) {
 
-
         filterFragmentInterface.showIngradient(Res);
     }
 
@@ -437,11 +412,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void getAllCategories() {
-        if(categories.size()==0)
+
             repository.enqueueCallListAllCategories_Just_Names(this,context);
-        else{
-            homeFragment.showCategories(categories);
-        }
             getMealsByCategory("Beef");
     }
 
