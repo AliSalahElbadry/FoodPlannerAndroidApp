@@ -5,7 +5,7 @@
     android:id="@+id/cardViewPlansItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/green"
+    app:cardBackgroundColor="#119C98"
     app:cardCornerRadius="35dp"
     app:cardElevation="6dp"
     app:cardMaxElevation="3dp"
@@ -19,12 +19,10 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="20dp"
         android:gravity="center_vertical"
-
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="week"
-        android:textColor="@color/white"
-        />
+        tools:text="week" />
 
     <ImageView
         android:id="@+id/deletePlanPlans"
@@ -37,6 +35,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.875"
         app:layout_constraintVertical_bias="0.407"
-        app:srcCompat="@drawable/deleteicon"
+        app:srcCompat="@drawable/baseline_delete_24"
         tools:ignore="ImageContrastCheck" />
 </androidx.cardview.widget.CardView>

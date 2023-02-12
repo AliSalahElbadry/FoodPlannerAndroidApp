@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_layout"
     >
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,20 +29,10 @@
         android:paddingTop="15dp"
         android:text="@string/my_favourite"
         android:textStyle="bold"
-        android:textSize="30sp"
+        android:textColor="@color/second_color"
+        android:textSize="32sp"
         app:layout_constraintStart_toStartOf="@+id/guidelineFavListL"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imgViewheartstatic"
-        android:layout_width="47dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="32dp"
-        android:elevation="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewFavouriteTitle"
-        app:layout_constraintStart_toEndOf="@+id/textViewFavouriteTitle"
-        app:srcCompat="@drawable/heartfill"
-        tools:ignore="ImageContrastCheck" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineFavListR"

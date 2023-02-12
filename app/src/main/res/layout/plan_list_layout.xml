@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constrainLayoutPlanList"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_layout">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPlansContainer"
@@ -28,10 +29,10 @@
 
 
         android:text="@string/my_plans"
-        android:textColor="#CE626767"
-
         android:textStyle="bold"
-        android:textSize="30sp"
+        android:textColor="@color/second_color"
+        android:textSize="32sp"
+
         app:layout_constraintBottom_toBottomOf="@+id/imageButtonAddPlan"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,16 +40,16 @@
 
     <ImageButton
         android:id="@+id/imageButtonAddPlan"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
 
-        android:background="@drawable/custom_button_stroke"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_add"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toEndOf="@+id/textViewPlanList"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/baseline_add_35" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
