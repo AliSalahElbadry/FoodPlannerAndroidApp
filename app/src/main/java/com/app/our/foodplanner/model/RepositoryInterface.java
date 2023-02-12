@@ -22,7 +22,7 @@ public interface RepositoryInterface {
 
     Completable removeMealFromPlan(String mealid,String week,String uId);
     Observable<List<Meal>> getAllFavMealsLive(boolean isFav,String uId);
-    Single<List<Meal>>getAllFavLikeMeal(String id,String uId);
+    Single<List<Meal>>getAllFavLikeMeal(String id,String uId,boolean isfav);
 
     Single<List<Meal>>getAllMeals(String uId);
 

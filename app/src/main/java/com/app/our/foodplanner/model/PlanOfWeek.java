@@ -9,10 +9,11 @@ import androidx.room.PrimaryKey;
 @Entity(tableName="PlanOfWeek")
 
 public class PlanOfWeek {
-    public PlanOfWeek(String week, String month, String year) {
+    public PlanOfWeek(String week, String month, String year,String userId) {
         this.week = week;
         this.month = month;
         this.year = year;
+        this.userId=userId;
     }
 
     @ColumnInfo(name="idPlan")

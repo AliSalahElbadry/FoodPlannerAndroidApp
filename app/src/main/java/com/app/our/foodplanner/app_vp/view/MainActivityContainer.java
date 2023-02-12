@@ -184,7 +184,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
 
     @Override
     public void showProfilePage() {
-        Log.e("",""+presenter.isLogedIn());
+        Log.e("","..................."+presenter.isLogedIn());
         if(presenter.isLogedIn()){
             if(manager.getFragments().get(manager.getFragments().size()-1)!=profileFragment) {
                 transaction = manager.beginTransaction();

@@ -39,7 +39,6 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
     View view;
     AdapterFavouriteList adapterFavouriteList;
 
-    PresenterInterface presenterInterface;
     public FavoriteFragment() {
         // Required empty public constructor
     }
@@ -63,7 +62,6 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
         super.onViewCreated(view, savedInstanceState);
         this.view=view;
         mainActivityContainerInterface=((MainActivityContainerInterface) getActivity());
-        presenterInterface=((MainActivityContainerInterface)getActivity()).getPresenter();
         recyclerViewFavouriteList=view.findViewById(R.id.recyclerViewFavouriteList);
         adapterFavouriteList=new AdapterFavouriteList(view.getContext(),this,new ArrayList<>());
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(view.getContext());
@@ -74,13 +72,14 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
 
     @Override
     public void showData(List<Meal> meal) {
-        adapterFavouriteList.setData(meal);
+        if(meal!=null)
+            adapterFavouriteList.setData(meal);
         adapterFavouriteList.notifyDataSetChanged();
     }
 
     @Override
     public void onClickDelete(Boolean isFav,String meal) {
-       presenterInterface.UpdateMealOfFavouriteList(false,meal);
+       mainActivityContainerInterface.getPresenter().UpdateMealOfFavouriteList(false,meal);
        adapterFavouriteList.updateRemFromFav(meal);
        adapterFavouriteList.notifyDataSetChanged();
     }

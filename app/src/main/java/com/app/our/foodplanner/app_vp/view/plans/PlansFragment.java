@@ -79,7 +79,7 @@ public class PlansFragment extends Fragment implements PlansFragmentInterface {
             dialog.setCustomTitle(textView);
             CalendarView calendarView=new CalendarView(getContext());
             dialog.setOnDateSetListener((view1, year, month, dayOfMonth) -> {
-                ((MainActivityContainerInterface)getActivity()).getPresenter().addPlan(new PlanOfWeek(""+dayOfMonth,""+(month+1),""+year));
+                ((MainActivityContainerInterface)getActivity()).getPresenter().addPlan(new PlanOfWeek(""+dayOfMonth,""+(month+1),""+year,""));
                 Toast.makeText(getContext(), "Done Adding Plan", Toast.LENGTH_SHORT).show();
               dialog.dismiss();
             });

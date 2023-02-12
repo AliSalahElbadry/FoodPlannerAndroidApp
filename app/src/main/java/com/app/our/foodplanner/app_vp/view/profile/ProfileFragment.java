@@ -3,6 +3,7 @@ package com.app.our.foodplanner.app_vp.view.profile;
 import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +36,7 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
     TextView textViewEmailProfile;
     ImageView imageViewProfile;
     Button btnLogOut,btnBackup,btnRetriveData;
-
+    ProgressDialog progressDialog;
     PresenterInterface presenterInterface;
 
     public ProfileFragment() {
@@ -62,10 +63,11 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
         presenterInterface=((MainActivityContainerInterface)getActivity()).getPresenter();
         String []udata= ((MainActivityContainer)getActivity()).getPresenter().getUserData();
         textViewEmailProfile=view.findViewById(R.id.textViewEmailProfile);
+        progressDialog=new ProgressDialog(getContext());
         if(udata!=null)
         {
             textViewEmailProfile.setText(udata[1]);
-            showUserData(udata);
+            Log.e("","0000000000000bbbbbbbbbbbbbbbb0000000000"+ "  "+udata[1]);
         }else{
             textViewEmailProfile.setText(presenterInterface.getuId());
         }
@@ -79,6 +81,8 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
             public void onClick(View v) {
                 if(presenterInterface.isLogedIn()&&((MainActivityContainerInterface)getActivity()).checkConnectionState())
                 {
+                    progressDialog.setMessage("Please Wait While UpLoading Your Data....");
+                    progressDialog.show();
                     presenterInterface.backupYourData();
                 }else{
                     Toast.makeText(getContext(), "please check your connection", Toast.LENGTH_SHORT).show();
@@ -88,24 +92,27 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
         btnRetriveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenterInterface.retriveData();
+                if(((MainActivityContainerInterface)getActivity()).checkConnectionState()) {
+                    progressDialog.setMessage("Getting Data Please Wait....");
+                    progressDialog.show();
+                    presenterInterface.retriveData();
+                }else{
+                    Toast.makeText(getContext(), "Please Check Your Internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickLogOut();
+                if(((MainActivityContainerInterface)getActivity()).checkConnectionState()) {
+                    onClickLogOut();
+                }else{
+                    Toast.makeText(getContext(), "Please Check Your Internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
     }
-
-    @Override
-    public void showUserData(String[] data) {
-        textViewEmailProfile.setText(data[1]);
-    }
-
-
 
 
     @Override
@@ -115,11 +122,23 @@ public class ProfileFragment extends Fragment implements ProfileFragmentInterfac
 
     @Override
     public void setBackUpRes(boolean res) {
+        progressDialog.dismiss();
         if(res)
         {
             Toast.makeText(getContext(), "Backup Done", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(getContext(), "Backup Failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void setRetriveDataRes(boolean res) {
+        progressDialog.dismiss();
+        if(res)
+        {
+            Toast.makeText(getContext(), "Retrieve Data Done", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getContext(), "Retrieve Data Failed", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -43,8 +43,8 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public Single<List<Meal>> getAllFavLikeMeal(String id,String uId) {
-        return localSource.getAllFavLikeMeal(id,uId);
+    public Single<List<Meal>> getAllFavLikeMeal(String id,String uId,boolean isfav) {
+        return localSource.getAllFavLikeMeal(id,uId,isfav);
     }
 
     @Override

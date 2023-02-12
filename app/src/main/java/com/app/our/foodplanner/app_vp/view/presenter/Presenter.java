@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
+import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.favorite.FavouriteFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
@@ -26,31 +26,35 @@ import com.app.our.foodplanner.model.Ingredient;
 import com.app.our.foodplanner.model.Meal;
 import com.app.our.foodplanner.model.PlanOfWeek;
 import com.app.our.foodplanner.model.Repository;
-import com.app.our.foodplanner.model.UserData;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -100,7 +104,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     private boolean isLogedIn=false;
 
     public String getuId() {
-        uId=firebaseAuth.getCurrentUser().getEmail();
+        String h=firebaseAuth.getCurrentUser().getEmail();
+        if(!h.isEmpty()&&h!=null)
+        {
+            uId=h;
+        }
         return uId;
     }
 
@@ -134,10 +142,10 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         uData=repository.getUserData();
         if(uData!=null)
         {
-            if (!uData[1].isEmpty()&&uData[1].length()>0){
-                logInFirst(uData[1],uData[2]);
+
                 isLogedIn=true;
-            }
+                uId=uData[2];
+
         }
         meals=new ArrayList<>();
         categories=new ArrayList<>();
@@ -152,7 +160,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         }else{
             if(uData!=null)
             {
-                uId=uData[1];
+                uId=uData[2];
             }
          }
     }
@@ -169,9 +177,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         return categories;
     }
 
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
-    }
 
     public ArrayList<Area> getAreas() {
         return areas;
@@ -422,9 +427,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     public boolean isLogedIn() {
         return isLogedIn;
     }
-    //end home functions
-
-    //Meal Page functions
     @Override
     public void addToFav(Meal meal) {
         meal.setIsFavorite(true);
@@ -452,17 +454,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
                 });
     }
-
-    @Override
-    public void addToPlan(Meal meal) {
-
-    }
-
-    @Override
-    public void showVideo(String url) {
-
-    }
-
     @Override
     public void setTargetAddMealToPlan(Meal meal) {
         meal.setUserId(uId);
@@ -570,13 +561,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         firebaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    if(firebaseAuth.getCurrentUser().isEmailVerified())
-                        isLogedIn=true;
-                }
-                else{
-                    isLogedIn=false;
-                }
+                isLogedIn= task.isSuccessful();
             }
         });
     }
@@ -589,13 +574,19 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public String[] getUserData() {
         String[]data=new String[3];
-        if(checkout==true)
+        if(checkout)
         {
 
             data[1]= Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
             data[0]=firebaseAuth.getCurrentUser().getDisplayName();
-            data[0]=nameProfile;
+            nameProfile=data[0];
             data[2]=firebaseAuth.getCurrentUser().getUid();
+            if(data[1]==null)
+            {
+                return  uData;
+            }
+        }else{
+            data=uData;
         }
         return data;
     }
@@ -608,9 +599,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void backupYourData() {
 
-        Completable.fromAction(()->{
-
-           repository.getAllMeals(uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+           repository.getAllMeals(uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                   .subscribe(i->{
                backUpMeals(i);
            });
 
@@ -618,166 +608,246 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 backUpPlans(i);
             });
 
-        }).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 
     @Override
     public void retriveData() {
-        String userId=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Users/"+userId);
-        AtomicInteger atomicInteger=new AtomicInteger();
-        ref.addChildEventListener(new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            if(userId==null)
+            {
+                String []uDa=repository.getUserData();
+                if(uDa!=null)
+                    userId=repository.getUserData()[3];
             }
+            if(userId!=null) {
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference ref = database.getReference("Users/" + userId);
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<Meal> mealsData = new ArrayList<>();
+                        Iterator<DataSnapshot> iterator = snapshot.child("plans").getChildren().iterator();
+                        Iterator<DataSnapshot> mealIterator = snapshot.child("meals").getChildren().iterator();
+                        while (iterator.hasNext()) {
+                            Map<String, String> planData = (Map<String, String>) iterator.next().getValue();
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                            repository.insertPlan(new PlanOfWeek(planData.get("planWeek"), planData.get("planMonth"), planData.get("planYear"), planData.get("userId"))).subscribeOn(Schedulers.io()).onErrorComplete().observeOn(AndroidSchedulers.mainThread()).subscribe();
+                            Log.e("", "Found Data................................");
+                        }
+                        if (!mealIterator.hasNext()) {
+                            profileFragmentInterface.setRetriveDataRes(false);
+                        } else {
+                            Completable.fromAction(()->{
+                            while (mealIterator.hasNext()) {
+                                Map<String, String> mealData = (Map<String, String>) mealIterator.next().getValue();
+                                Meal meal = new Meal(
+                                        mealData.get("idMeal"),
+                                        mealData.get("strMeal"),
+                                        mealData.get("strCategory"),
+                                        mealData.get("strArea"),
+                                        mealData.get("strInstructions"),
+                                        mealData.get("strMealThumb"),
+                                        mealData.get("strYoutube"),
+                                        mealData.get("strIngredient1"),
+                                        mealData.get("strIngredient2"),
+                                        mealData.get("strIngredient3"),
+                                        mealData.get("strIngredient4"),
+                                        mealData.get("strIngredient5"),
+                                        mealData.get("strIngredient6"),
+                                        mealData.get("strIngredient7"),
+                                        mealData.get("strIngredient8"),
+                                        mealData.get("strIngredient9"),
+                                        mealData.get("strIngredient10"),
+                                        mealData.get("strIngredient11"),
+                                        mealData.get("strIngredient12"),
+                                        mealData.get("strIngredient13"),
+                                        mealData.get("strIngredient14"),
+                                        mealData.get("strIngredient15"),
+                                        mealData.get("strIngredient16"),
+                                        mealData.get("strIngredient17"),
+                                        mealData.get("strIngredient18"),
+                                        mealData.get("strIngredient19"),
+                                        mealData.get("strIngredient20"),
+                                        mealData.get("strMeasure1"),
+                                        mealData.get("strMeasure2"),
+                                        mealData.get("strMeasure3"),
+                                        mealData.get("strMeasure4"),
+                                        mealData.get("strMeasure5"),
+                                        mealData.get("strMeasure6"),
+                                        mealData.get("strMeasure7"),
+                                        mealData.get("strMeasure8"),
+                                        mealData.get("strMeasure9"),
+                                        mealData.get("strMeasure10"),
+                                        mealData.get("strMeasure11"),
+                                        mealData.get("strMeasure12"),
+                                        mealData.get("strMeasure13"),
+                                        mealData.get("strMeasure14"),
+                                        mealData.get("strMeasure15"),
+                                        mealData.get("strMeasure16"),
+                                        mealData.get("strMeasure17"),
+                                        mealData.get("strMeasure18"),
+                                        mealData.get("strMeasure19"),
+                                        mealData.get("strMeasure20"),
+                                        mealData.get("isFavorite") == "true",
+                                        mealData.get("meal_Time"),
+                                        mealData.get("meal_Day"),
+                                        mealData.get("meal_Week"),
+                                        mealData.get("meal_Month"),
+                                        mealData.get("meal_Year"),
+                                        mealData.get("userId")
+                                );
+                                   // meal.setImage(getImageHttpConn(mealData.get("strMealThumb")));
+                                    repository.insertMeal(meal).subscribeOn(Schedulers.io()).subscribe();
+                            }}).subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .doOnComplete(()->profileFragmentInterface.setRetriveDataRes(true))
+                                    .subscribe();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }else{
+                logout();
             }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
-
+    private byte[] getImageHttpConn(String url)
+    {
+        try {
+            URL url1=new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
+            connection.connect();
+            InputStream inputStream = connection.getInputStream();
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+            byte[]img=new byte[bufferedInputStream.available()];
+            bufferedInputStream.read(img);
+            bufferedInputStream.close();
+            inputStream.close();
+            connection.disconnect();
+            return img;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+     return null;
+    }
     private void backUpMeals(List<Meal>i)
     {
-        Completable.fromAction(()->{
             if(i!=null) {
-                String userId=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-                final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference ref = database.getReference("Users");
-                DatabaseReference usersRef = ref.child(userId).child("meals");
-                for (Meal meal:i) {
-                    DatabaseReference mealref=usersRef.child(""+meal.getId());
-                    Map<String, String> mealdata = new HashMap<>();
-                    mealdata.put("id",""+meal.getId());
-                    mealdata.put("idMeal",meal.getIdMeal());
-                    mealdata.put("strMeal",meal.getStrMeal());
-                    mealdata.put("strCategory",meal.getStrCategory());
-                    mealdata.put("strArea",meal.getStrArea());
-                    mealdata.put("strInstructions",meal.getStrInstructions());
-                    mealdata.put("strMealThumb",meal.getStrMealThumb());
-                    mealdata.put("strYoutube",meal.getStrYoutube());
-                    mealdata.put("strIngredient1",meal.getStrIngredient1());
-                    mealdata.put("strIngredient2",meal.getStrIngredient2());
-                    mealdata.put("strIngredient3",meal.getStrIngredient3());
-                    mealdata.put("strIngredient4",meal.getStrIngredient4());
-                    mealdata.put("strIngredient5",meal.getStrIngredient5());
-                    mealdata.put("strIngredient6",meal.getStrIngredient6());
-                    mealdata.put("strIngredient7",meal.getStrIngredient7());
-                    mealdata.put("strIngredient8",meal.getStrIngredient8());
-                    mealdata.put("strIngredient9",meal.getStrIngredient9());
-                    mealdata.put("strIngredient10",meal.getStrIngredient10());
-                    mealdata.put("strIngredient11",meal.getStrIngredient11());
-                    mealdata.put("strIngredient12",meal.getStrIngredient12());
-                    mealdata.put("strIngredient13",meal.getStrIngredient13());
-                    mealdata.put("strIngredient14",meal.getStrIngredient14());
-                    mealdata.put("strIngredient15",meal.getStrIngredient15());
-                    mealdata.put("strIngredient16",meal.getStrIngredient16());
-                    mealdata.put("strIngredient17",meal.getStrIngredient17());
-                    mealdata.put("strIngredient18",meal.getStrIngredient18());
-                    mealdata.put("strIngredient19",meal.getStrIngredient19());
-                    mealdata.put("strIngredient20",meal.getStrIngredient20());
-                    mealdata.put("strMeasure1",meal.getStrMeasure1());
-                    mealdata.put("strMeasure2",meal.getStrMeasure2());
-                    mealdata.put("strMeasure3",meal.getStrMeasure3());
-                    mealdata.put("strMeasure4",meal.getStrMeasure4());
-                    mealdata.put("strMeasure5",meal.getStrMeasure5());
-                    mealdata.put("strMeasure6",meal.getStrMeasure6());
-                    mealdata.put("strMeasure7",meal.getStrMeasure7());
-                    mealdata.put("strMeasure8",meal.getStrMeasure8());
-                    mealdata.put("strMeasure9",meal.getStrMeasure9());
-                    mealdata.put("strMeasure10",meal.getStrMeasure10());
-                    mealdata.put("strMeasure11",meal.getStrMeasure11());
-                    mealdata.put("strMeasure12",meal.getStrMeasure12());
-                    mealdata.put("strMeasure13",meal.getStrMeasure13());
-                    mealdata.put("strMeasure14",meal.getStrMeasure14());
-                    mealdata.put("strMeasure15",meal.getStrMeasure15());
-                    mealdata.put("strMeasure16",meal.getStrMeasure16());
-                    mealdata.put("strMeasure17",meal.getStrMeasure17());
-                    mealdata.put("strMeasure18",meal.getStrMeasure18());
-                    mealdata.put("strMeasure19",meal.getStrMeasure19());
-                    mealdata.put("strMeasure20",meal.getStrMeasure20());
-                    mealdata.put("isFavorite",""+meal.getIsFavorite());
-                    mealdata.put("meal_Time",meal.getMeal_Time());
-                    mealdata.put("meal_Day",meal.getMeal_Day());
-                    mealdata.put("meal_Week",meal.getMeal_Week());
-                    mealdata.put("meal_Month",meal.getMeal_Month());
-                    mealdata.put("userId",meal.getUserId());
-                    mealdata.put("meal_Year",meal.getMeal_Year());
-                    mealref.setValue(mealdata);
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                if (isLogedIn) {
+                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = database.getReference("Users");
+                    DatabaseReference usersRef = ref.child(userId).child("meals");
+                    for (Meal meal : i) {
+                        DatabaseReference mealref = usersRef.child("" + meal.getId());
+                        Map<String, String> mealdata = new HashMap<>();
+                        mealdata.put("id", "" + meal.getId());
+                        mealdata.put("idMeal", meal.getIdMeal());
+                        mealdata.put("strMeal", meal.getStrMeal());
+                        mealdata.put("strCategory", meal.getStrCategory());
+                        mealdata.put("strArea", meal.getStrArea());
+                        mealdata.put("strInstructions", meal.getStrInstructions());
+                        mealdata.put("strMealThumb", meal.getStrMealThumb());
+                        mealdata.put("strYoutube", meal.getStrYoutube());
+                        mealdata.put("strIngredient1", meal.getStrIngredient1());
+                        mealdata.put("strIngredient2", meal.getStrIngredient2());
+                        mealdata.put("strIngredient3", meal.getStrIngredient3());
+                        mealdata.put("strIngredient4", meal.getStrIngredient4());
+                        mealdata.put("strIngredient5", meal.getStrIngredient5());
+                        mealdata.put("strIngredient6", meal.getStrIngredient6());
+                        mealdata.put("strIngredient7", meal.getStrIngredient7());
+                        mealdata.put("strIngredient8", meal.getStrIngredient8());
+                        mealdata.put("strIngredient9", meal.getStrIngredient9());
+                        mealdata.put("strIngredient10", meal.getStrIngredient10());
+                        mealdata.put("strIngredient11", meal.getStrIngredient11());
+                        mealdata.put("strIngredient12", meal.getStrIngredient12());
+                        mealdata.put("strIngredient13", meal.getStrIngredient13());
+                        mealdata.put("strIngredient14", meal.getStrIngredient14());
+                        mealdata.put("strIngredient15", meal.getStrIngredient15());
+                        mealdata.put("strIngredient16", meal.getStrIngredient16());
+                        mealdata.put("strIngredient17", meal.getStrIngredient17());
+                        mealdata.put("strIngredient18", meal.getStrIngredient18());
+                        mealdata.put("strIngredient19", meal.getStrIngredient19());
+                        mealdata.put("strIngredient20", meal.getStrIngredient20());
+                        mealdata.put("strMeasure1", meal.getStrMeasure1());
+                        mealdata.put("strMeasure2", meal.getStrMeasure2());
+                        mealdata.put("strMeasure3", meal.getStrMeasure3());
+                        mealdata.put("strMeasure4", meal.getStrMeasure4());
+                        mealdata.put("strMeasure5", meal.getStrMeasure5());
+                        mealdata.put("strMeasure6", meal.getStrMeasure6());
+                        mealdata.put("strMeasure7", meal.getStrMeasure7());
+                        mealdata.put("strMeasure8", meal.getStrMeasure8());
+                        mealdata.put("strMeasure9", meal.getStrMeasure9());
+                        mealdata.put("strMeasure10", meal.getStrMeasure10());
+                        mealdata.put("strMeasure11", meal.getStrMeasure11());
+                        mealdata.put("strMeasure12", meal.getStrMeasure12());
+                        mealdata.put("strMeasure13", meal.getStrMeasure13());
+                        mealdata.put("strMeasure14", meal.getStrMeasure14());
+                        mealdata.put("strMeasure15", meal.getStrMeasure15());
+                        mealdata.put("strMeasure16", meal.getStrMeasure16());
+                        mealdata.put("strMeasure17", meal.getStrMeasure17());
+                        mealdata.put("strMeasure18", meal.getStrMeasure18());
+                        mealdata.put("strMeasure19", meal.getStrMeasure19());
+                        mealdata.put("strMeasure20", meal.getStrMeasure20());
+                        mealdata.put("isFavorite", "" + meal.getIsFavorite());
+                        mealdata.put("meal_Time", meal.getMeal_Time());
+                        mealdata.put("meal_Day", meal.getMeal_Day());
+                        mealdata.put("meal_Week", meal.getMeal_Week());
+                        mealdata.put("meal_Month", meal.getMeal_Month());
+                        mealdata.put("meal_Year", meal.getMeal_Year());
+                        mealdata.put("userId", meal.getUserId());
+                        mealref.setValue(mealdata);
+                    }
                 }
+                profileFragmentInterface.setBackUpRes(true);
+            }else{
+                profileFragmentInterface.setBackUpRes(false);
             }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
 
     }
     private void backUpPlans(List<PlanOfWeek>i)
     {
-        Completable.fromAction(()->{
             if(i!=null) {
-                String userId=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-                final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference ref = database.getReference("Users");
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                if (isLogedIn) {
+                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = database.getReference("Users");
 
-                DatabaseReference usersRef = ref.child(userId).child("plans");
-                for (PlanOfWeek plan:i) {
-                    DatabaseReference refplan=usersRef.child(""+plan.getIdPlan());
-                    Map<String, String> pl = new HashMap<>();
-                    pl.put("planId",""+plan.getIdPlan());
-                    pl.put("planYear",plan.getYear());
-                    pl.put("planMonth",plan.getMonth());
-                    pl.put("planWeek",plan.getWeek());
-                    refplan.setValue(pl);
+                    DatabaseReference usersRef = ref.child(userId).child("plans");
+                    for (PlanOfWeek plan : i) {
+                        DatabaseReference refplan = usersRef.child("" + plan.getIdPlan());
+                        Map<String, String> pl = new HashMap<>();
+                        pl.put("planId", "" + plan.getIdPlan());
+                        pl.put("planYear", plan.getYear());
+                        pl.put("planMonth", plan.getMonth());
+                        pl.put("planWeek", plan.getWeek());
+                        pl.put("userId", plan.getUserId());
+                        refplan.setValue(pl);
+                    }
                 }
-            }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                profileFragmentInterface.setBackUpRes(true);
+             }else {
+                    profileFragmentInterface.setBackUpRes(false);
+                }
     }
 
     @Override
     public void doLogin(String email, String pass) {
 
-        firebaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-
+        firebaseAuth.signInWithEmailAndPassword(email,pass)
+                .addOnSuccessListener(authResult -> {
                     isLogedIn=true;
                     checkout=true;
-                    LogInFragmentInterface.onLoginResult(isLogedIn);
-                    repository.setUserData(email,email,pass);
-                    uId=email;
-                    FirebaseUser user=firebaseAuth.getCurrentUser();
-                    uData=new String[3];
-                    uData[0]=nameProfile;
-                    uData[1]=email;
-                    uData[2]=pass;
-                    repository.setUserData(uData[0],uData[1],uData[2]);
-                  
-                }
-                else{
+                    LogInFragmentInterface.onLoginResult(true);
+                    repository.setUserData(Objects.requireNonNull(authResult.getUser()).getDisplayName(),authResult.getUser().getEmail(),authResult.getUser().getUid());
+                    uId=authResult.getUser().getEmail();
+                }).addOnFailureListener(e -> {
                     isLogedIn=false;
                     checkout=false;
-                    LogInFragmentInterface.onLoginResult(isLogedIn);
-                }
-            }
-        });
+                    repository.setUserData("","","");
+                    LogInFragmentInterface.onLoginResult(false);
+                });
     }
 
     @Override
@@ -785,7 +855,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         this.isLogedIn = false;
         checkout = false;
         uId="";
-        Log.e(TAG, "logout: " + checkout + " " + isLogedIn);
         FirebaseAuth.getInstance().signOut();
         repository.deleteUserData();
     }
@@ -850,20 +919,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         repository.setUserData(userName,email,password);
     }
 
-    @Override
-
-    public void deleteToFav(Meal mealdelete) {
-        repository.deleteMeal(mealdelete.getIdMeal(),uId);
-    }
-
-    @Override
-    public Observable<List<Meal>> getAllFavouriteList() {
-       return repository.getAllFavMealsLive(true,uId);
-    }
 
     @Override
     public void UpdateMealOfFavouriteList(Boolean isFav, String Meal) {
-        repository.getAllFavLikeMeal(Meal,uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+        Log.e("","................"+uId+"...................");
+        repository.getAllFavLikeMeal(Meal,uId,isFav).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
            if(i!=null)
             for (Meal m:i) {
 
@@ -903,7 +963,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         targetMeal.setMeal_Day(day);
         targetMeal.setMeal_Time(time);
         targetMeal.setUserId(uId);
-        repository.getAllFavLikeMeal(targetMeal.getIdMeal(),uId).subscribeOn(Schedulers.io()).onErrorComplete().observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
+        repository.getAllFavLikeMeal(targetMeal.getIdMeal(),uId,true).subscribeOn(Schedulers.io()).onErrorComplete().observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
              int flag=0;
             for (Meal m:i) {
                 if(m.getIsFavorite())
@@ -924,10 +984,10 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
          plansInterface.setTarget("showPlan");
     }
 
-    public void googleSignIn(String email,String name){
+    public void googleSignIn(String email,String name,String uid){
         isLogedIn=true;
         checkout=true;
         LogInFragmentInterface.onLoginResult(isLogedIn);
-        repository.setUserData(name,email,"pass");
+        repository.setUserData(name,email,uid);
     }
 }

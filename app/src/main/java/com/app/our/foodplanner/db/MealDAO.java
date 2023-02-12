@@ -36,8 +36,8 @@ public interface MealDAO {
     Completable removeMealFromPlan(String mealid,String week,String uId);
     @Query("SELECT * From Meals where isFavorite Like:isFav and userId like:uId")
     Observable<List<Meal>> getAllFavMealsLive(boolean isFav,String uId);
-    @Query("select * from meals where idMeal like:id and userId like:uId")
-    Single<List<Meal>>getAllFavLikeMeal(String id,String uId);
+    @Query("select * from meals where idMeal like:id and userId like:uId and isFavorite like:isfav")
+    Single<List<Meal>>getAllFavLikeMeal(String id,String uId,boolean isfav);
 
     @Query("select * from meals where  userId like:uId")
     Single<List<Meal>>getAllMeals(String uId);

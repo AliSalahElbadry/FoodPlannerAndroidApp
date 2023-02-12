@@ -141,8 +141,6 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
 
 
                 mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
-
-
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }

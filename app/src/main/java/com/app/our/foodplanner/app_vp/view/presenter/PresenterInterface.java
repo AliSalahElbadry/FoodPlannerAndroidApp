@@ -33,8 +33,6 @@ public interface PresenterInterface {
  // Meal Page
  public void addToFav(Meal meal);
 public  void getAllFav();
- public void addToPlan(Meal meal);
- public void showVideo(String url);
  public void setTargetAddMealToPlan(Meal meal);
  public void removePlan(PlanOfWeek plan);
  public void getMealsInPlan(PlanOfWeek plan);
@@ -58,12 +56,10 @@ public void sendFirstDayInWeekMeals(String week);
 
  public void setTargetMealDayAndTime(String day,String time);
 
- public void deleteToFav(Meal mealdelete);
 
- public Observable<List<Meal>> getAllFavouriteList();
  public void UpdateMealOfFavouriteList(Boolean isFav,String Meal);
  public List<Meal> castListToSet(List<Meal>meals);
 
- public void googleSignIn(String email,String name);
+ public void googleSignIn(String email,String name,String pass);
 
 }

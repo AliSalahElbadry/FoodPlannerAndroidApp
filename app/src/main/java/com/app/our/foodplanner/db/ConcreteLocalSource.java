@@ -37,8 +37,8 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     }
 
     @Override
-    public Single<List<Meal>> getAllFavLikeMeal(String id,String uId) {
-        return mealDAO.getAllFavLikeMeal(id,uId);
+    public Single<List<Meal>> getAllFavLikeMeal(String id,String uId,boolean isfav) {
+        return mealDAO.getAllFavLikeMeal(id,uId,isfav);
     }
 
     @Override

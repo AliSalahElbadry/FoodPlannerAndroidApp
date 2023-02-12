@@ -143,6 +143,7 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
         if(result){
 
             ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
+            Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
@@ -195,7 +196,7 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                presenterInterface.googleSignIn(account.getEmail(),account.getDisplayName());
+                                presenterInterface.googleSignIn(account.getEmail(),account.getDisplayName(),account.getId());
                                 Log.i(TAG, "//////////onComplete: ");
                                 Log.i(TAG, "dddddddda5al: "+account.getEmail()+account.getDisplayName()+account.getId());
                             }
