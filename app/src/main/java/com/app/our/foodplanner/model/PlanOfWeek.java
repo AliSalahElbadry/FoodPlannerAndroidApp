@@ -48,14 +48,6 @@ public class PlanOfWeek {
         this.idPlan = idPlan;
     }
 
-    public String getweek() {
-        return week;
-    }
-
-    public void setweek(String week) {
-        this.week = week;
-    }
-
     public String getWeek() {
         return week;
     }

@@ -169,12 +169,9 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
 
     private void signIn() {
 
-        Log.i(TAG, "///////signIn: "+mGoogleSignInClient+"?????????///"+mGoogleSignInClient.getApplicationContext().toString());
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        Log.i(TAG, "signInIntent*********signIn: "+signInIntent+"848484");
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
-        Log.i(TAG, "*****startActivity****: ");
 
     }
 
@@ -198,8 +195,6 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
-                                // Toast.makeText(context, "sussesfulllll", Toast.LENGTH_SHORT).show();
                                 presenterInterface.googleSignIn(account.getEmail(),account.getDisplayName());
                                 Log.i(TAG, "//////////onComplete: ");
                                 Log.i(TAG, "dddddddda5al: "+account.getEmail()+account.getDisplayName()+account.getId());

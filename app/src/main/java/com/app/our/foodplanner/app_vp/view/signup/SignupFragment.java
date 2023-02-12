@@ -32,8 +32,10 @@ import androidx.fragment.app.FragmentManager;
 import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,8 +52,8 @@ import java.util.regex.Pattern;
 
 public class SignupFragment extends Fragment  implements SignupFragmentInterface{
 
-
-    private static final int RC_SIGN_IN =0 ;
+    GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN =1000 ;
     EditText nameProfile;
    EditText emailSignup;
    EditText passSignup;
@@ -131,21 +133,18 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
         googleSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestEmail()
                         .requestIdToken(getString(R.string.default_web_client_id))
                         .build();
-                Intent signInIntent = GoogleSignIn.getClient(SignupFragment.this.getActivity().getApplicationContext(), gso).getSignInIntent();
 
-                getActivity().startActivityForResult(signInIntent, 1);
-                Log.e(TAG, "onClick: Fuuckkkkkkk" );
-                ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                        new ActivityResultCallback<Uri>() {
-                            @Override
-                            public void onActivityResult(Uri uri) {
 
-                            }
-                        });
+                mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+
+
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
 
@@ -185,18 +184,6 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
         return matcher.matches();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
-    }
 
     @Override
     public void getSignUpStatus(boolean status) {
@@ -211,31 +198,42 @@ public class SignupFragment extends Fragment  implements SignupFragmentInterface
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            progressDialog.show();
+            handleSignInResult(task);
+
+          }
+    }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             AuthCredential credential= GoogleAuthProvider.getCredential(account.getIdToken(),null);
             FirebaseAuth.getInstance().signInWithCredential(credential)
-                   .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                         Log.e(".........................",",,,,,,,,,,,,,,,,,,,,,,,,,");
+                                 progressDialog.dismiss();
                                 ((MainActivityContainer)getActivity()).navigationView.setSelectedItemId(R.id.homeMenu);
-                                Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                ((MainActivityContainerInterface)getActivity()).getPresenter().googleSignIn(account.getEmail(),account.getDisplayName());
+                                Toast.makeText(getContext(), "SignUp Successful", Toast.LENGTH_SHORT).show();
+                                ((MainActivityContainerInterface)getActivity()).getPresenter().SignUpGoogle(account.getEmail(),account.getDisplayName(),account.getId());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(), "Login Fail", Toast.LENGTH_SHORT).show();
-                            Log.e( "","***********************" );
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), "SignUp Fail", Toast.LENGTH_SHORT).show();
                         }
                     });
 
 
         } catch (ApiException e) {
 
-            Log.w("Error", "signInResult:failed code " + e.getStatusCode());
+            Log.e("Error", "signInResult:failed code " + e.getCause()+e.fillInStackTrace()+e.toString()+e.getStatusCode());
+            Log.e("","------------------------------------------------fail------------------");
         }
     }
 }
