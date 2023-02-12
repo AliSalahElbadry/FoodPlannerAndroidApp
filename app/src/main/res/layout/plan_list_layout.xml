@@ -29,9 +29,9 @@
 
         android:text="@string/my_plans"
         android:textColor="#CE626767"
-        android:textSize="30sp"
 
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageButtonAddPlan"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toTopOf="parent"

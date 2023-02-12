@@ -5,7 +5,7 @@
     android:id="@+id/cardViewPlansItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/gray"
+    app:cardBackgroundColor="@color/green"
     app:cardCornerRadius="35dp"
     app:cardElevation="6dp"
     app:cardMaxElevation="3dp"
@@ -19,10 +19,12 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="20dp"
         android:gravity="center_vertical"
-        android:textColor="@color/black"
+
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="week" />
+        tools:text="week"
+        android:textColor="@color/white"
+        />
 
     <ImageView
         android:id="@+id/deletePlanPlans"
