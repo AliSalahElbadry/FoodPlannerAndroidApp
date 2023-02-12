@@ -5,10 +5,12 @@
     android:id="@+id/homeConstrain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="ifContentScrolls">
+
+   >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRandumMeals"
+        android:background="@color/gray"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -21,7 +23,7 @@
         android:id="@+id/searchView"
         android:layout_width="270dp"
         android:layout_height="51dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/search_view"
         android:iconifiedByDefault="false"
@@ -33,15 +35,18 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSuggestMeal"
-        android:layout_width="382dp"
+        android:layout_width="0dp"
         android:layout_height="145dp"
-        app:cardBackgroundColor="@color/gray"
+        android:layout_marginTop="8dp"
+
+        app:cardBackgroundColor="@color/green"
         app:cardCornerRadius="25dp"
         app:cardElevation="3dp"
         app:cardMaxElevation="2dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineProfileLeft"
         app:layout_constraintTop_toBottomOf="@+id/textViewSuggest">
 
@@ -64,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
 
+            android:textColor="@color/white"
             android:layout_marginStart="33dp"
             android:layout_marginBottom="25dp"
             android:fontFamily="sans-serif-black"
@@ -75,6 +81,7 @@
 
         <TextView
             android:id="@+id/textViewCountryHome"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
@@ -129,7 +136,7 @@
         android:id="@+id/textViewSuggest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="serif"
         android:text="@string/suggestion_meal"
         android:textColor="#130804"
@@ -140,7 +147,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCategory"
         android:layout_width="0dp"
-
+        android:background="@color/gray"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:elevation="-5dp"

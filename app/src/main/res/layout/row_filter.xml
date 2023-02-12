@@ -5,7 +5,7 @@
     android:id="@+id/rowFiter"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/green"
+    app:cardBackgroundColor="@color/gray"
     app:cardCornerRadius="35dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="3dp"
@@ -20,48 +20,19 @@
 
 
         <TextView
-            android:id="@+id/txtViewNameFavouriteList"
+            android:id="@+id/txtViewNameArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
             android:maxEms="7"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealFavouriteList"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealFilterArea"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="@+id/imageViewMealFavouriteList"
-            app:layout_constraintVertical_bias="0.378"
-            tools:text="@string/title_fav_list"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:id="@+id/textViewAreaFavouriteList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxEms="7"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewMealFavouriteList"
-            app:layout_constraintEnd_toStartOf="@+id/imgViewDeleteFavorite"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewNameFavouriteList"
-            app:layout_constraintVertical_bias="0.545"
-            tools:text="@string/des_fav_list"
-            android:textColor="@color/white"/>
-
-        <ImageView
-            android:id="@+id/imgViewDeleteFavorite"
-            android:layout_width="35dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="164dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/user_name"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewAreaFavouriteList"
-            app:layout_constraintStart_toEndOf="@+id/imageViewMealFavouriteList"
-            app:layout_constraintTop_toTopOf="@+id/txtViewNameFavouriteList"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/deleteicon"
-            tools:ignore="ImageContrastCheck" />
+            app:layout_constraintTop_toTopOf="@+id/imageViewMealFilterArea"
+            app:layout_constraintVertical_bias="0.439"
+            tools:text="@string/title_fav_list" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageViewMealFavouriteList"
+            android:id="@+id/imageViewMealFilterArea"
             android:layout_width="103dp"
             android:layout_height="85dp"
             android:layout_marginStart="4dp"

@@ -62,4 +62,10 @@ public void sendFirstDayInWeekMeals(String week);
 
  public void googleSignIn(String email,String name,String pass);
 
+ public void getMealByArea(String meal);
+ public void getMealByIngredient(String ingredient);
+ public void searchForIngredient(String search);
+ public void searchForArea(String search);
+
+
 }

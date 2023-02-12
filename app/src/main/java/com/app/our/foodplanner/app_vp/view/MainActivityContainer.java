@@ -44,6 +44,8 @@ import com.app.our.foodplanner.app_vp.view.plan.PlanFragment;
 import com.app.our.foodplanner.app_vp.view.plans.PlansFragment;
 import com.app.our.foodplanner.app_vp.view.presenter.Presenter;
 import com.app.our.foodplanner.app_vp.view.profile.ProfileFragment;
+import com.app.our.foodplanner.app_vp.view.search.FilterFragment;
+import com.app.our.foodplanner.app_vp.view.search.FilterFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragment;
 import com.app.our.foodplanner.app_vp.view.signup_login.Signup_Login_Fragment;
 import com.app.our.foodplanner.model.Meal;
@@ -65,6 +67,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     FragmentManager manager;
     FragmentTransaction transaction;
    public BottomNavigationView navigationView;
+    FilterFragment filterFragment;
    int index=0;String planTarget="showPlan";
 
 
@@ -339,5 +342,16 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     {
 
     }
+
+    @Override
+    public void showFilter() {
+        filterFragment = new FilterFragment();
+        presenter.setFilterFragmentInterface(filterFragment);
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.nav_host_fragment, filterFragment)
+                .commit();
+
+    }
+
 
 }

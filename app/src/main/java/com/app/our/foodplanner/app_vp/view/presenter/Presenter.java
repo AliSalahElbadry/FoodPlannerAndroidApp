@@ -19,6 +19,7 @@ import com.app.our.foodplanner.app_vp.view.meal.MealFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.plan.PlanFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.plans.PlansFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.profile.ProfileFragmentInterface;
+import com.app.our.foodplanner.app_vp.view.search.FilterFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.signup.SignupFragmentInterface;
 import com.app.our.foodplanner.model.Area;
 import com.app.our.foodplanner.model.Category;
@@ -69,11 +70,15 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     //Data Holders
 
     private LogInFragmentInterface LogInFragmentInterface;
+    private FilterFragmentInterface filterFragmentInterface;
     private ProfileFragmentInterface profileFragmentInterface;
 
     private FavouriteFragmentInterface favouriteFragmentInterface;
     public void setLogInFragmentInterface(LogInFragmentInterface LogInFragmentInterface) {
         this.LogInFragmentInterface = LogInFragmentInterface;
+    }
+    public void setFilterFragmentInterface(FilterFragmentInterface filterFragmentInterface) {
+        this.filterFragmentInterface = filterFragmentInterface;
     }
     public void setProfileFragmentInterface(ProfileFragmentInterface profileFragmentInterface) {
         this.profileFragmentInterface = profileFragmentInterface;
@@ -338,7 +343,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void lookupFullMealDetailsByIdOnSuccessResults(ArrayList<Meal> Res) {
-
+        filterFragmentInterface.showFilterByArea(Res);
     }
 
     @Override
@@ -354,12 +359,12 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void listAllArea_Just_NamesOnSuccessResults(ArrayList< Area > Res) {
-
+        filterFragmentInterface.showArea(Res);
     }
 
     @Override
     public void listAllIngredients_Just_NamesOnSuccessResults(ArrayList< Ingredient > Res) {
-
+        filterFragmentInterface.showFilterByIngradient(Res);
     }
 
     @Override
@@ -375,7 +380,8 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void filterByAreaOnSuccessResults(ArrayList<Meal> Res) {
-
+            meals=Res;
+            filterFragmentInterface.showFilterByArea(Res);
     }
 
     @Override
@@ -392,9 +398,32 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     }
 
     @Override
+    public void searchForIngredient(String search) {
+        Stream<Ingredient> stream= ingredients.stream().filter(i->i.strIngredient.toLowerCase().startsWith(search.toLowerCase()));
+        ArrayList<Ingredient> mealsAfter = new ArrayList<>(stream.collect(Collectors.toList()));
+        filterFragmentInterface.showIngradient(mealsAfter);
+    }
+    @Override
+    public void searchForArea(String search) {
+        Stream<Area> stream= getAreas().stream().filter(i->i.strArea.toLowerCase().startsWith(search.toLowerCase()));
+        ArrayList<Area> mealsAfter = new ArrayList<>(stream.collect(Collectors.toList()));
+        filterFragmentInterface.showArea(mealsAfter);
+    }
+
+    @Override
+    public void getMealByArea(String meal) {
+        repository.enqueueCallFilterByArea(this,context,meal);
+    }
+    @Override
+    public void getMealByIngredient(String ingredient) {
+        repository.enqueueCallFilterByMainIngredient(this,context,ingredient);
+    }
+
+    @Override
     public void getMealByName(String name) {
         repository.enqueueCallGetMealByName(this,context,name);
     }
+
 
     @Override
     public void showFilter() {
@@ -405,6 +434,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     @Override
     public void getMealsByCategory(String category) {
         repository.enqueueCallFilterByCategory(this,context,category);
+
     }
 
     @Override
@@ -854,6 +884,16 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     public void logout() {
         this.isLogedIn = false;
         checkout = false;
+
+        repository.setUserData("","","");
+        Log.i(TAG, "logout: " + checkout + " " + isLogedIn);
+        firebaseAuth.signOut();
+        try {
+            finalize();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+
         uId="";
         FirebaseAuth.getInstance().signOut();
         repository.deleteUserData();
@@ -889,6 +929,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                }
            }
         });
+
     }
 
     public void setPlanInterface(PlanFragmentInterface planInterface) {
