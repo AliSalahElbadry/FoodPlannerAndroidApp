@@ -116,6 +116,11 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
+    public Completable removeUnneeded() {
+        return localSource.removeUnneeded();
+    }
+
+    @Override
     public Completable deleteMeal(String meal,String uId) {
         return localSource.deleteMeal(uId,meal);
     }

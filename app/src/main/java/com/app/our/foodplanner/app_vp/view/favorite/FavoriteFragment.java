@@ -78,7 +78,7 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
     }
 
     @Override
-    public void onClickDelete(Boolean isFav,String meal) {
+    public void onClickDelete(boolean isFav,String meal) {
        mainActivityContainerInterface.getPresenter().UpdateMealOfFavouriteList(false,meal);
        adapterFavouriteList.updateRemFromFav(meal);
        adapterFavouriteList.notifyDataSetChanged();

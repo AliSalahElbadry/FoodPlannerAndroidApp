@@ -10,7 +10,7 @@ public interface FavouriteFragmentInterface {
 
 
     public void showData(List<Meal> meal);
-    public void onClickDelete(Boolean isFav,String meal);
+    public void onClickDelete(boolean isFav,String meal);
     public MainActivityContainerInterface getConainer();
 
 }

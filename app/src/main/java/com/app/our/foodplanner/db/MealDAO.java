@@ -38,6 +38,8 @@ public interface MealDAO {
     Observable<List<Meal>> getAllFavMealsLive(boolean isFav,String uId);
     @Query("select * from meals where idMeal like:id and userId like:uId and isFavorite like:isfav")
     Single<List<Meal>>getAllFavLikeMeal(String id,String uId,boolean isfav);
+    @Query("Delete from Meals Where Meals.meal_Day=NULL and meal_Time=NULL and meal_Week=NULL and meal_Month=NULL and meal_Year=NULL and isFavorite=0")
+    Completable removeUnneeded();
 
     @Query("select * from meals where  userId like:uId")
     Single<List<Meal>>getAllMeals(String uId);

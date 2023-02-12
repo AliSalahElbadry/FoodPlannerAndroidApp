@@ -33,6 +33,7 @@ public interface RepositoryInterface {
     Single<Meal> MealInPlan(String mealId,String year,String month,String week,String day,String time,String uId);
     Completable insertMeal(Meal meal);
     Completable insertPlan(PlanOfWeek plan);
+    Completable removeUnneeded();
     Completable deleteMeal(String mealId,String uId);
 
     Completable deletePlan(int planid,String uId);

@@ -30,7 +30,7 @@ public interface ConcreteLocalSourceInterface {
 
     Single<Integer> isMealExists(String id,String uId);
     Completable updateFavoriteInMeal(boolean isFav, String idMeal,String uId);
-
+    Completable removeUnneeded();
     Completable updateDateInMeal(String time,String day,String week,String month,String year,String idMeal,String uId);
     Single<Meal> MealInPlan(String mealId,String year,String month,String week,String day,String time,String uId);
     Completable insertMeal(Meal meal);

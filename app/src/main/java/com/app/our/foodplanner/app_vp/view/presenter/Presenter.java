@@ -887,25 +887,20 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 if(m.getIdMeal().equals(mealId)&&m.getMeal_Day().equals(mealDay)&&m.getMeal_Time().equals(mealTime)
                 &&m.getMeal_Month().equals(plan.getMonth())&&m.getMeal_Year().equals(plan.getYear())&&m.getMeal_Week().equals(plan.getWeek()))
                 {
+
+                    repository.updateDateInMeal(null,null,null,null,null,targetShowPlanMeals.get(i).getIdMeal(),uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(this::removeUnneeded).subscribe();
                     targetShowPlanMeals.remove(i);
-                     break;
+                    break;
                 }
             }
         }
-        repository.MealInPlan(mealId, plan.getYear(), plan.getMonth(), plan.getWeek(),mealDay,mealTime,uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
-           if(i!=null)
-           {
-               if(i.getIsFavorite())
-               {
-                   repository.updateDateInMeal(null,null,null,null,null,i.getIdMeal(),uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
-               }else{
-                   repository.deleteMeal(i.getIdMeal(),uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
-               }
-           }
-        });
+
 
     }
-
+public  void removeUnneeded()
+{
+    repository.removeUnneeded().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+}
     public void setPlanInterface(PlanFragmentInterface planInterface) {
         planFragmentInterface=planInterface;
     }
@@ -937,24 +932,9 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void UpdateMealOfFavouriteList(Boolean isFav, String Meal) {
-        Log.e("","................"+uId+"...................");
-        repository.getAllFavLikeMeal(Meal,uId,isFav).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
-           if(i!=null)
-            for (Meal m:i) {
 
-                    if (m.getMeal_Time() != null)
-                        repository.updateFavoriteInMeal(isFav, Meal,uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
-                    else {
-                        repository.deleteMeal(m.getIdMeal(),uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
-                    }
-            }
-           else{
-               repository.getMeal(Meal,uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(m->{
-                   repository.deleteMeal(m.getIdMeal(),uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
-               }) ;
-           }
+       repository.updateFavoriteInMeal(isFav, Meal,uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(this::removeUnneeded).subscribe();
 
-        });
       }
 
     public void getAllPlans() {
@@ -997,6 +977,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
             }
         });
          plansInterface.setTarget("showPlan");
+
     }
 
     public void googleSignIn(String email,String name,String uid){

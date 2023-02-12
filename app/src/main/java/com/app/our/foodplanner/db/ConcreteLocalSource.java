@@ -3,6 +3,7 @@ package com.app.our.foodplanner.db;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.app.our.foodplanner.model.Meal;
@@ -92,6 +93,11 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
     @Override
     public Completable updateFavoriteInMeal(boolean isFav, String idMeal,String uId) {
       return  mealDAO.updateFavoriteInMeal(isFav,idMeal,uId);
+    }
+
+    @Override
+    public Completable removeUnneeded() {
+        return mealDAO.removeUnneeded();
     }
 
     @Override
