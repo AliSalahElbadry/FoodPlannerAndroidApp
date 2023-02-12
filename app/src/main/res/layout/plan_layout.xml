@@ -5,24 +5,25 @@
     android:id="@+id/constrainLayoutPlan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:layoutDirection="ltr">
+    android:background="@drawable/background_layout"
+    >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutDaysContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="17dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewPlanTime">
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewPlanTime"
+        app:tabSelectedTextColor="@color/goald"
+        app:tabTextColor="@color/teal_700">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItemSunDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="@string/sunday" />
 
         <com.google.android.material.tabs.TabItem
@@ -72,7 +73,7 @@
         android:layout_marginBottom="18dp"
         android:text="@string/plan_date"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="#014A44"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tabLayoutDaysContainer"
@@ -83,16 +84,18 @@
 
     <TextView
         android:id="@+id/txtViewPlanName"
+
         android:layout_width="205dp"
         android:layout_height="45dp"
         android:layout_marginStart="143dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="130dp"
+        android:fontFamily="sans-serif"
         android:text="@string/plan_name"
         android:textAlignment="center"
-        android:textColor="#257359"
+        android:textColor="@color/second_color"
         android:textSize="34sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.597"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,83 +105,70 @@
         android:id="@+id/textViewdinnershow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
         android:layout_marginBottom="14dp"
-        android:background="#ECEAEA"
+        android:background="#B0ECEAEA"
         android:text="@string/dinner_text"
-        android:textColor="#000000"
+        android:textColor="#014A44"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewDinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewLunch" />
 
     <TextView
         android:id="@+id/textViewlunchshow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
         android:layout_marginBottom="14dp"
-        android:background="#ECEAEA"
+        android:background="#B2ECEAEA"
         android:text="@string/lunch_text"
-        android:textColor="#000000"
+        android:textColor="#014A44"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewLunch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.277"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewBreakFast" />
 
     <TextView
         android:id="@+id/textViewbreakfastShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="4dp"
         android:layout_marginBottom="14dp"
         android:background="#ECEAEA"
         android:text="@string/breakfast_text"
-        android:textColor="#000000"
+        android:textColor="#014A44"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewBreakFast"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/tabLayoutDaysContainer" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBreakFast"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="1dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewlunchshow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/textViewbreakfastShow" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLunch"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="1dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewdinnershow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/textViewlunchshow" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -188,9 +178,22 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/textViewdinnershow" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="10dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

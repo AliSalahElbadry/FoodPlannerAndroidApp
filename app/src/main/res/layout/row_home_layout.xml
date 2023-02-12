@@ -5,7 +5,7 @@
     android:id="@+id/rowMealHome"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/green"
+    app:cardBackgroundColor="#F2F6F4F4"
     app:cardCornerRadius="25dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="3dp"
@@ -23,12 +23,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-black"
+            android:textColor="#014A44"
             android:textAlignment="center"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toBottomOf="@+id/imageViewMealHome"
-            tools:text="@string/title_fav_list"
-            android:textColor="@color/white"/>
+            tools:text="@string/title_fav_list" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewMealHome"
