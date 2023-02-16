@@ -19,6 +19,8 @@ public interface FilterFragmentInterface {
     public void showData(List<Meal> meal);
     public void onClickDelete(Boolean isFav,String meal);
     public MainActivityContainerInterface getConainer();
+    public boolean getShowFirst();
+    public  void setShowFirst(boolean first);
 
     void showArea(ArrayList<Area> res);
 

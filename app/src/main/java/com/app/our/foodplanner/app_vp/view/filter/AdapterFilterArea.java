@@ -1,6 +1,7 @@
 package com.app.our.foodplanner.app_vp.view.filter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import java.util.List;
 public class AdapterFilterArea extends RecyclerView.Adapter<AdapterFilterArea.ViewHolder> {
 
     private final Context context;
+    private static int lastClicked=-1;
     private List<Area> areas;
     FilterFragmentInterface filterFragmentInterface;
     private static final String TAG = "RecyclerView";
@@ -36,6 +38,8 @@ public class AdapterFilterArea extends RecyclerView.Adapter<AdapterFilterArea.Vi
         this.context = context;
         // this.values = values;
         this.areas = new ArrayList<>();
+
+        lastClicked =-1;
         this.filterFragmentInterface = filterFragmentInterface;
     }
 
@@ -51,10 +55,25 @@ public class AdapterFilterArea extends RecyclerView.Adapter<AdapterFilterArea.Vi
     public void onBindViewHolder(@NonNull AdapterFilterArea.ViewHolder holder, int position) {
 
         holder.txtTitle.setText(areas.get(position).strArea);
+        if(lastClicked==holder.getLayoutPosition())
+        {
+
+            holder.cardView.setCardBackgroundColor(holder.itemView.getContext().getColor(R.color.teal_200));
+
+        }else{
+            holder.cardView.setCardBackgroundColor(holder.itemView.getContext().getColor(R.color.white));
+
+        }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterFragmentInterface.getConainer().getPresenter().getMealByArea(areas.get(holder.getAdapterPosition()).strArea);
+
+                if(lastClicked!=-1)
+                    notifyItemChanged(lastClicked);
+                lastClicked=holder.getLayoutPosition();
+                notifyItemChanged(lastClicked);
+
             }
         });
 

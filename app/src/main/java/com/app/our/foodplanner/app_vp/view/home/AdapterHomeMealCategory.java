@@ -60,7 +60,9 @@ public class AdapterHomeMealCategory extends RecyclerView.Adapter<AdapterHomeMea
 
         holder.cardView.setOnClickListener(l->{
             if(homeFragmentInterface.getConainer().checkConnectionState()) {
-                homeFragmentInterface.getConainer().showMeal(categoriesMeles.get(holder.getAdapterPosition()), ((BitmapDrawable) holder.imageView.getDrawable()).getBitmap(), 0);
+                Bitmap bitmap=((BitmapDrawable) holder.imageView.getDrawable()).getBitmap();
+                if(bitmap!=null)
+                    homeFragmentInterface.getConainer().showMeal(categoriesMeles.get(holder.getAdapterPosition()),bitmap, 0);
             }else{
                 Toast.makeText(context, "Please Check Your Connection", Toast.LENGTH_SHORT).show();
             }

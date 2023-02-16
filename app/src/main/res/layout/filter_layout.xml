@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_layout">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFilter"
         android:layout_width="359dp"
         android:layout_height="94dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonIngredientFilter" />
@@ -30,27 +31,27 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="144dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/meal_back_corners"
+
         android:text="Filter Page"
         android:textAlignment="center"
-        android:textColor="@color/green"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
+        android:textColor="@color/second_color"
+        android:textSize="28sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/backbtnFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView6"
         app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -60,29 +61,55 @@
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFilter" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFilter"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonAreaFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Area"
+        android:background="@drawable/btn_filter_layout"
+        android:text="@string/area_filter"
+        android:textColor="#102311"
         app:layout_constraintBottom_toBottomOf="@+id/buttonIngredientFilter"
         app:layout_constraintEnd_toStartOf="@+id/buttonIngredientFilter"
-        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/buttonIngredientFilter"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttonIngredientFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/btn_filter_layout"
         android:text="Ingredient"
+        android:textColor="#102311"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonAreaFilter"
+        app:layout_constraintStart_toEndOf="@+id/buttonAreaFilter"
+        app:layout_constraintTop_toTopOf="@+id/buttonAreaFilter"
+        app:layout_constraintVertical_bias="0.526"
+        app:srcCompat="@drawable/area_icon2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="44dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonIngredientFilter"
+        app:layout_constraintStart_toEndOf="@+id/buttonIngredientFilter"
+        app:layout_constraintTop_toTopOf="@+id/buttonIngredientFilter"
+        app:layout_constraintVertical_bias="0.25"
+        app:srcCompat="@drawable/ingredient_icon_4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

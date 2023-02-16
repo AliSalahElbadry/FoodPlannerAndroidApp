@@ -121,6 +121,12 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
+    public Completable DeleteMeal(int id) {
+        return localSource.DeleteMeal(id);
+    }
+
+
+    @Override
     public Completable deleteMeal(String meal,String uId) {
         return localSource.deleteMeal(uId,meal);
     }

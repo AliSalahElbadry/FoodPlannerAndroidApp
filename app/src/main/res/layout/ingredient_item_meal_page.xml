@@ -4,8 +4,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
+    android:background="#46EDA6"
     android:elevation="7dp"
-    app:cardBackgroundColor="#E3E0E0"
+    app:cardBackgroundColor="#258525"
     app:cardCornerRadius="25dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="12dp">
@@ -15,10 +16,11 @@
         android:layout_width="110dp"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
+        android:background="#0C2218"
         android:gravity="center_horizontal|center_vertical"
         android:text="TextView"
         android:textAlignment="gravity"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -28,10 +30,11 @@
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
+        android:background="#0C2218"
         android:gravity="center_horizontal"
         android:text="TextView"
         android:textAlignment="gravity"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
 </androidx.cardview.widget.CardView>

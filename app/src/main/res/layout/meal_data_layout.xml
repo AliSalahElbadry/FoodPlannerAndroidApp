@@ -3,174 +3,207 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center|center_horizontal|center_vertical">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/meal_back_corners"
-    android:fontFamily="Arial"
-    android:layoutDirection="ltr">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageViewMealMeal"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="16dp"
-        android:elevation="8dp"
-        android:src="@drawable/picfood"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealCategoryCountry" />
-
-    <TextView
-        android:id="@+id/textViewMealName"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="#12D5D0D0"
-        android:elevation="12dp"
-        android:text="Salad Shrimp"
-        android:textAlignment="center"
-        android:textColor="@color/text_color_primary"
-        android:textDirection="ltr"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/meal__simiback_down"
+        android:fontFamily="Arial"
+        android:layoutDirection="ltr">
 
-    <TextView
-        android:id="@+id/textViewMealCategoryCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="#12D5D0D0"
-        android:elevation="12dp"
-        android:text="Green ,Italian"
-        android:textDirection="ltr"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewMealName"
-        app:layout_constraintStart_toStartOf="@+id/textViewMealName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealName" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageViewMealMeal"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_marginTop="16dp"
+            app:circularflow_defaultRadius="20dp"
+            android:elevation="10dp"
+            android:src="@drawable/picfood"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMealCategoryCountry" />
 
-    <TextView
-        android:id="@+id/textViewMealIngredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#12D5D0D0"
-        android:elevation="12dp"
-        android:text="Ingredients"
-        android:textColor="@color/text_color_primary"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewMealMeal" />
+        <TextView
+            android:id="@+id/textViewMealName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#12D5D0D0"
+            android:elevation="12dp"
+            android:text="Salad Shrimp"
+            android:textAlignment="center"
+            android:textColor="@color/text_color_primary"
+            android:textDirection="ltr"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline18"
+            app:layout_constraintStart_toStartOf="@+id/guideline17"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMealIngredents"
-        android:layout_width="0dp"
-        android:layout_height="68dp"
-        android:textDirection="ltr"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealIngredients" />
+        <TextView
+            android:id="@+id/textViewMealCategoryCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#12D5D0D0"
+            android:elevation="12dp"
+            android:text="Green ,Italian"
+            android:textColor="@color/black"
+            android:textDirection="ltr"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewMealName"
+            app:layout_constraintStart_toStartOf="@+id/textViewMealName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMealName" />
 
-    <TextView
-        android:id="@+id/textViewMealStepsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#12D5D0D0"
-        android:elevation="12dp"
-        android:text="Steps"
-        android:textColor="@color/text_color_primary"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMealIngredents" />
+        <TextView
+            android:id="@+id/textViewMealIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#12D5D0D0"
+            android:elevation="12dp"
+            android:fontFamily="casual"
+            android:text="Ingredients"
+            android:textColor="@color/darkGreen"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnAddToFav" />
 
-    <ImageButton
-        android:id="@+id/btnAddToFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:background="@android:drawable/screen_background_light_transparent"
-        android:elevation="10dp"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMealCategoryCountry"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMealCategoryCountry"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealName"
-        app:srcCompat="@drawable/baseline_favorite_border_24" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMealIngredents"
+            android:layout_width="0dp"
+            android:layout_height="68dp"
+            android:textDirection="ltr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMealIngredients" />
 
-    <ImageButton
-        android:id="@+id/btnAddToPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:background="@android:drawable/screen_background_light_transparent"
-        android:elevation="10dp"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMealCategoryCountry"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewMealCategoryCountry"
-        app:layout_constraintTop_toTopOf="@+id/btnAddToFav"
-        app:srcCompat="@drawable/baseline_edit_calendar_24" />
+        <TextView
+            android:id="@+id/textViewMealStepsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#12D5D0D0"
+            android:elevation="12dp"
+            android:fontFamily="casual"
+            android:text="Steps"
+            android:textColor="@color/darkGreen"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMealIngredents" />
 
-    <EditText
-        android:id="@+id/textViewMealSteps"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:background="#FFFFFF"
-        android:editable="false"
-        android:gravity="clip_vertical"
-        android:nestedScrollingEnabled="true"
-        android:text="TextView"
-        android:textAlignment="gravity"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealStepsTitle"
-        app:layout_constraintVertical_bias="0.0" />
+        <ImageButton
+            android:id="@+id/btnAddToFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="86dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/filteritemclicked"
+            android:elevation="10dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonaddToCalender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMealMeal"
+            app:srcCompat="@drawable/baseline_favorite_border_24" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        app:barrierDirection="top"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/btnAddToPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="85dp"
+            android:background="@drawable/filteritemclicked"
+            android:elevation="10dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonaddToCalender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMealMeal"
+            app:srcCompat="@drawable/baseline_add_35" />
 
-    <ImageButton
-        android:id="@+id/imageButtonVideoShow"
-        android:layout_width="49dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:drawable/screen_background_light_transparent"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMealStepsTitle"
-        app:layout_constraintStart_toEndOf="@+id/textViewMealStepsTitle"
-        app:layout_constraintTop_toTopOf="@+id/textViewMealStepsTitle"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/video_818" />
+        <EditText
+            android:id="@+id/textViewMealSteps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:layout_marginBottom="156dp"
+            android:background="@drawable/meal__simiback_down"
+            android:editable="false"
+            android:fontFamily="serif"
+            android:gravity="clip_vertical"
+            android:lineSpacingExtra="10sp"
+            android:nestedScrollingEnabled="true"
+            android:padding="10dp"
+            android:text="Text View"
+            android:textAlignment="gravity"
+            android:textColor="@color/darkGreen"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMealStepsTitle" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_begin="796dp" />
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:barrierDirection="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_begin="807dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonaddToCalender"
+            android:layout_width="50dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/filteritemclicked"
+            app:layout_constraintEnd_toStartOf="@+id/btnAddToPlan"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toEndOf="@+id/btnAddToFav"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMealMeal"
+            app:srcCompat="@drawable/baseline_edit_calendar_24" />
+
+        <ImageButton
+            android:id="@+id/imageButtonbackBtn"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/filteritemclicked"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="67dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="356dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

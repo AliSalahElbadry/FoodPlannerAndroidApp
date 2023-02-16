@@ -1,5 +1,7 @@
 package com.app.our.foodplanner.app_vp.view.favorite;
 
+import android.util.Log;
+
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.model.Meal;
 
@@ -10,7 +12,7 @@ public interface FavouriteFragmentInterface {
 
 
     public void showData(List<Meal> meal);
-    public void onClickDelete(boolean isFav,String meal);
     public MainActivityContainerInterface getConainer();
+    public void delete(Meal meal);
 
 }

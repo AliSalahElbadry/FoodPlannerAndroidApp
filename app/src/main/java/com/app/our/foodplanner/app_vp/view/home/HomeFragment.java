@@ -41,6 +41,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment  implements HomeFragmentInterface{
 MainActivityContainerInterface mainActivityContainerInterface;
   RecyclerView recyclerViewCtegory;
+
   AdapterHomeCategory adapterHomeCategory;
   RecyclerView recyclerViewMeals;
   AdapterHomeMealCategory homeMeals;
@@ -52,6 +53,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
   CardView randomMeal;
   Meal mealRandom;
   ImageView imageViewFilter;
+  boolean isShowFirst=false;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -72,7 +74,7 @@ MainActivityContainerInterface mainActivityContainerInterface;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.view=view;
+        this.view=view;isShowFirst=false;
         mainActivityContainerInterface=((MainActivityContainer)getActivity());
         imageViewFilter=view.findViewById(R.id.imageView3);
         randomMealImage=view.findViewById(R.id.imageViewSuggestMeal);
@@ -139,6 +141,16 @@ MainActivityContainerInterface mainActivityContainerInterface;
     public void showCategories(ArrayList<Category> Res) {
         adapterHomeCategory.setData(Res);
         adapterHomeCategory.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean getshowFirst() {
+        return isShowFirst;
+    }
+
+    @Override
+    public void setShowFirst(boolean f) {
+        isShowFirst=f;
     }
 
     @Override
