@@ -4,7 +4,7 @@
 * In addition to have the ability of viewing categories, suggesting meals and searching for a specific meal using many options.
 * User can save favorite meals to browse it later on even without network connectivity.
 
-### these applications are developed by students of ITI intake#43, Native Mobile Application Development track.
+### these Application are developed by students of ITI intake#43, Native Mobile Application Development track.
 
 ### project is useful :
 * beacouse it helps people to save time thinking in the best meal for today.
