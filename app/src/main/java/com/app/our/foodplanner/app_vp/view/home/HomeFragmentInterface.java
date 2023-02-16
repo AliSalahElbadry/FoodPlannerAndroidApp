@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public interface HomeFragmentInterface {
 
     public void showCategories(ArrayList<Category> Res);
+    public boolean getshowFirst();
+    public void setShowFirst(boolean f);
 
     public void showRandomMeal(ArrayList<Meal> Res);
 

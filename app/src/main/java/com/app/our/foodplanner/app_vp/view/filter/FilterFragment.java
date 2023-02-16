@@ -37,6 +37,7 @@ import java.util.List;
 public class FilterFragment extends Fragment implements FilterFragmentInterface{
 
     RecyclerView recyclerViewItems ,recyclerViewFilter;
+    public boolean firstShow=false;
     MainActivityContainerInterface mainActivityContainerInterface;
     ImageView backbtnFilter;
     AdapterFilterArea adapterFilter;
@@ -92,6 +93,7 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
             @Override
             public void onClick(View v) {
                 if(mainActivityContainerInterface.checkConnectionState()) {
+                    firstShow=false;
                     recyclerViewFilter.setAdapter(adabterFilterIngredient);
                     mainActivityContainerInterface.getPresenter().getAllIngredientsForFilter();
                 }
@@ -103,7 +105,9 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
         buttonAreaFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                if(mainActivityContainerInterface.checkConnectionState()) {
+                   firstShow=false;
                    recyclerViewFilter.setAdapter(adapterFilter);
                    mainActivityContainerInterface.getPresenter().getAllAreasForFilter();
                }
@@ -133,6 +137,16 @@ public class FilterFragment extends Fragment implements FilterFragmentInterface{
     @Override
     public MainActivityContainerInterface getConainer() {
         return mainActivityContainerInterface;
+    }
+
+    @Override
+    public boolean getShowFirst() {
+        return firstShow;
+    }
+
+    @Override
+    public void setShowFirst(boolean first) {
+     firstShow=first;
     }
 
     @Override

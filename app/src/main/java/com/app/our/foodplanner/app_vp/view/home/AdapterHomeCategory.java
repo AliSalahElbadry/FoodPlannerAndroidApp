@@ -1,6 +1,7 @@
 package com.app.our.foodplanner.app_vp.view.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +27,15 @@ public class AdapterHomeCategory  extends RecyclerView.Adapter<AdapterHomeCatego
     private final Context context;
     private List<Category> categories;
     HomeFragmentInterface homeFragment;
-    private static final String TAG="RecyclerView";
+    private static int lastClicked=-1;
 
 
     public AdapterHomeCategory(Context context, HomeFragmentInterface home, List<Meal> values) {
         this.context = context;
-        // this.values = values;
         this.categories =new ArrayList<>();
         this.homeFragment=home;
+        lastClicked =-1;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -48,15 +50,29 @@ public class AdapterHomeCategory  extends RecyclerView.Adapter<AdapterHomeCatego
     public void onBindViewHolder(@NonNull AdapterHomeCategory.ViewHolder holder, int position) {
 
         holder.txtTitle.setText(categories.get(position).strCategory);
+        if(lastClicked==holder.getLayoutPosition())
+        {
+
+            holder.cardView.setCardBackgroundColor(holder.itemView.getContext().getColor(R.color.teal_200));
+
+        }else{
+            holder.cardView.setCardBackgroundColor(holder.itemView.getContext().getColor(R.color.white));
+
+        }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 homeFragment.getConainer().getPresenter().getMealsByCategory(categories.get(holder.getAdapterPosition()).strCategory);
+                if(lastClicked!=-1)
+                  notifyItemChanged(lastClicked);
+                lastClicked=holder.getLayoutPosition();
+                notifyItemChanged(lastClicked);
+
             }
         });
-
-
     }
+
 
     @Override
     public int getItemCount() {

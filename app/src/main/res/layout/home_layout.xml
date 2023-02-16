@@ -70,10 +70,10 @@
 
             android:layout_marginStart="35dp"
             android:layout_marginBottom="25dp"
+            android:ems="12"
             android:fontFamily="sans-serif-black"
             android:maxWidth="185dp"
             android:textAlignment="center"
-            android:ems="12"
             app:layout_constraintStart_toEndOf="@+id/imageViewSuggestMeal"
             app:layout_constraintTop_toTopOf="@+id/imageViewSuggestMeal"
             tools:text="@string/title_fav_list" />

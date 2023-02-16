@@ -34,6 +34,7 @@ public interface RepositoryInterface {
     Completable insertMeal(Meal meal);
     Completable insertPlan(PlanOfWeek plan);
     Completable removeUnneeded();
+    Completable DeleteMeal(int id);
     Completable deleteMeal(String mealId,String uId);
 
     Completable deletePlan(int planid,String uId);

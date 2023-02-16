@@ -34,15 +34,17 @@ public interface MealDAO {
 
     @Query("delete from Meals where idMeal like:mealid and meal_Week like:week and userId like:uId")
     Completable removeMealFromPlan(String mealid,String week,String uId);
-    @Query("SELECT * From Meals where isFavorite Like:isFav and userId like:uId")
+    @Query("SELECT * From Meals where isFavorite Like:isFav and userId like:uId order by idMeal")
     Observable<List<Meal>> getAllFavMealsLive(boolean isFav,String uId);
     @Query("select * from meals where idMeal like:id and userId like:uId and isFavorite like:isfav")
     Single<List<Meal>>getAllFavLikeMeal(String id,String uId,boolean isfav);
-    @Query("Delete from Meals Where Meals.meal_Day=NULL and meal_Time=NULL and meal_Week=NULL and meal_Month=NULL and meal_Year=NULL and isFavorite=0")
-    Completable removeUnneeded();
-
+    @Query("DELETE from Meals Where meal_Day = :m and isFavorite = :isfav")
+    Completable removeUnneeded(String m,boolean isfav);
     @Query("select * from meals where  userId like:uId")
     Single<List<Meal>>getAllMeals(String uId);
+
+    @Query("DELETE FROM MEALS WHERE id like:idd")
+    Completable DeleteMeal(int idd);
 
     @Query("select count(idMeal) from Meals where idMeal like:id and userId like:uId")
     Single<Integer> isMealExists(String id,String uId);

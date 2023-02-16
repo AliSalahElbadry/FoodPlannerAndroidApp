@@ -120,16 +120,22 @@ public class PlanFragment extends Fragment  implements PlanFragmentInterface{
     public void setData(ArrayList<Meal> breakfast, ArrayList<Meal> lunch, ArrayList<Meal> dinner) {
 
         if(breakfast!=null) {
+            this.mealsBreak=new ArrayList<>();
+            abreak.notifyDataSetChanged();
             this.mealsBreak = breakfast;
             abreak.setData(mealsBreak);
             abreak.notifyDataSetChanged();
         }
         if(lunch!=null) {
+            mealsLunch=new ArrayList<>();
+            alunch.notifyDataSetChanged();
             this.mealsLunch = lunch;
             alunch.setData(mealsLunch);
             alunch.notifyDataSetChanged();
         }
         if(dinner!=null) {
+            mealsDinner=new ArrayList<>();
+            adinner.notifyDataSetChanged();
             this.mealsDinner = dinner;
             adinner.setData(mealsDinner);
             adinner.notifyDataSetChanged();

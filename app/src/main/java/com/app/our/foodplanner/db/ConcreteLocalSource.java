@@ -1,6 +1,7 @@
 package com.app.our.foodplanner.db;
 
 import android.content.Context;
+import android.service.autofill.SaveInfo;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -9,6 +10,7 @@ import androidx.room.Query;
 import com.app.our.foodplanner.model.Meal;
 import com.app.our.foodplanner.model.PlanOfWeek;
 
+import java.sql.SQLData;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -97,7 +99,12 @@ public class ConcreteLocalSource implements ConcreteLocalSourceInterface{
 
     @Override
     public Completable removeUnneeded() {
-        return mealDAO.removeUnneeded();
+        return mealDAO.removeUnneeded("",false);
+    }
+
+    @Override
+    public Completable DeleteMeal(int id) {
+        return mealDAO.DeleteMeal(id);
     }
 
     @Override

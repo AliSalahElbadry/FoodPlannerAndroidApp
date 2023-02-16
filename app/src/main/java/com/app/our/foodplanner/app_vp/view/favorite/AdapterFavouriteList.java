@@ -1,27 +1,47 @@
 package com.app.our.foodplanner.app_vp.view.favorite;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.our.foodplanner.R;
+import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
+import com.app.our.foodplanner.app_vp.view.add_meal_to_plan.AddMealToPlanFragment;
+import com.app.our.foodplanner.app_vp.view.plans.PlansAdapter;
+import com.app.our.foodplanner.app_vp.view.plans.PlansFragmentInterface;
 import com.app.our.foodplanner.model.Meal;
+import com.app.our.foodplanner.model.PlanOfWeek;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteList.ViewHolder>{
 
     private final Context context;
-    private List<Meal> favorite;
+    public List<Meal> favorite;
     FavouriteFragmentInterface favouriteFragmentInterface;
 
     private static final String TAG="RecyclerView";
@@ -37,8 +57,7 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
     public AdapterFavouriteList.ViewHolder onCreateViewHolder(@NonNull ViewGroup recyclerView, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(recyclerView.getContext());
         View v=inflater.inflate(R.layout.row_favourite_list,recyclerView,false);
-        AdapterFavouriteList.ViewHolder viewHolder=new AdapterFavouriteList.ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -56,8 +75,7 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
         holder.imgViewDeleteFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Removed From Favorite", Toast.LENGTH_SHORT).show();
-                favouriteFragmentInterface.onClickDelete(false,favorite.get(holder.getAdapterPosition()).getIdMeal());
+                favouriteFragmentInterface.delete(favorite.get(holder.getAdapterPosition()));
             }
         });
 
@@ -67,10 +85,9 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
     public int getItemCount() {
         return favorite.size();
     }
-
-    public void setData(List<Meal> values){
-        this.favorite = values;
-        notifyDataSetChanged();
+    public void setData(List<Meal> newList) {
+        favorite=new ArrayList<>();
+        favorite.addAll(newList);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -87,17 +104,8 @@ public class AdapterFavouriteList extends RecyclerView.Adapter<AdapterFavouriteL
             txtViewNameFavouriteList=itemView.findViewById(R.id.txtViewNameFavouriteList);
             textViewAreaFavouriteList=itemView.findViewById(R.id.textViewAreaFavouriteList);
             rowFavouriteList=itemView.findViewById(R.id.rowFiter);
+        }
+    }
 
-        }
-    }
-    public void updateRemFromFav(String meal)
-    {
-        for (Meal m:favorite) {
-            if(m.getIdMeal().equals(meal))
-            {
-                favorite.remove(m);
-                break;
-            }
-        }
-    }
 }
+

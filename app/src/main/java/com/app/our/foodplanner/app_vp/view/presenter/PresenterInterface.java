@@ -53,14 +53,11 @@ public void sendFirstDayInWeekMeals(String week);
 
 
  public void UpdateMealOfFavouriteList(Boolean isFav,String Meal);
- public List<Meal> castListToSet(List<Meal>meals);
 
  public void googleSignIn(String email,String name,String pass);
 
  public void getMealByArea(String Area);
  public void getMealByIngredient(String ingredient);
- public void searchForIngredient(String search);
- public void searchForArea(String search);
  public void getAllAreasForFilter();
  public  void getAllIngredientsForFilter();
 }

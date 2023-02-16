@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -299,7 +300,6 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
         transaction.replace(R.id.nav_host_fragment,planFragment);
         transaction.commit();
     }
-
     @Override
     public void onBackPressed() {
         if(index==0)
@@ -318,6 +318,7 @@ public class MainActivityContainer extends AppCompatActivity implements MainActi
     }
     public void showVideo(String url)
     {
+
 
     }
 

@@ -2,11 +2,17 @@ package com.app.our.foodplanner.app_vp.view.favorite;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,10 +23,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.our.foodplanner.R;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
+import com.app.our.foodplanner.app_vp.view.add_meal_to_plan.AddMealToPlanFragment;
 import com.app.our.foodplanner.app_vp.view.home.AdapterHomeCategory;
 import com.app.our.foodplanner.app_vp.view.home.AdapterHomeMealCategory;
+import com.app.our.foodplanner.app_vp.view.plans.PlansAdapter;
+import com.app.our.foodplanner.app_vp.view.plans.PlansFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
 import com.app.our.foodplanner.model.Meal;
+import com.app.our.foodplanner.model.PlanOfWeek;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,21 +48,26 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
     RecyclerView recyclerViewFavouriteList;
     View view;
     AdapterFavouriteList adapterFavouriteList;
+    ArrayList<String>exists;
+   List<Meal> favs;
 
     public FavoriteFragment() {
         // Required empty public constructor
+        favs=new ArrayList<>();
+        adapterFavouriteList=new AdapterFavouriteList(getContext(),this,new ArrayList<>());
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.favourite_list_layout, container, false);
     }
@@ -63,31 +78,51 @@ public class FavoriteFragment extends Fragment implements FavouriteFragmentInter
         this.view=view;
         mainActivityContainerInterface=((MainActivityContainerInterface) getActivity());
         recyclerViewFavouriteList=view.findViewById(R.id.recyclerViewFavouriteList);
-        adapterFavouriteList=new AdapterFavouriteList(view.getContext(),this,new ArrayList<>());
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(view.getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerViewFavouriteList.setLayoutManager(linearLayoutManager);
+        recyclerViewFavouriteList.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewFavouriteList.setAdapter(adapterFavouriteList);
     }
 
     @Override
     public void showData(List<Meal> meal) {
-        if(meal!=null)
-            adapterFavouriteList.setData(meal);
-        adapterFavouriteList.notifyDataSetChanged();
+        exists=new ArrayList<>();
+        favs=new ArrayList<>();
+        if(meal!=null) {
+            for (Meal m:meal) {
+                if(isExists(m.getIdMeal()))
+                {
+                    exists.add(m.getIdMeal());
+                    favs.add(m);
+                }
+            }
+            adapterFavouriteList.setData(favs);
+            adapterFavouriteList.notifyDataSetChanged();
+        }
     }
 
-    @Override
-    public void onClickDelete(boolean isFav,String meal) {
-       mainActivityContainerInterface.getPresenter().UpdateMealOfFavouriteList(false,meal);
-       adapterFavouriteList.updateRemFromFav(meal);
-       adapterFavouriteList.notifyDataSetChanged();
-    }
-
+  private boolean isExists(String id)
+  {
+      for (String i:exists) {
+          if(i.equals(id))
+          {
+              return  false;
+          }
+      }
+      return  true;
+  }
     @Override
     public MainActivityContainerInterface getConainer() {
             return mainActivityContainerInterface;
     }
-
-
+    public void delete(Meal meal)
+    {
+        adapterFavouriteList.favorite.remove(meal);
+        mainActivityContainerInterface.getPresenter().UpdateMealOfFavouriteList(false, meal.getIdMeal());
+        adapterFavouriteList.notifyDataSetChanged();
+        Toast.makeText(getContext(), "Removed From Favorite", Toast.LENGTH_SHORT).show();
+    }
+    public void addItem(Meal m)
+    {
+        adapterFavouriteList.favorite.add(m);
+        adapterFavouriteList.notifyDataSetChanged();
+    }
 }

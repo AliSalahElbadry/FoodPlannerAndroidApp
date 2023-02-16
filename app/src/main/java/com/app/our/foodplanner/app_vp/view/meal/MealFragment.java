@@ -1,13 +1,22 @@
 package com.app.our.foodplanner.app_vp.view.meal;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.CalendarContract;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +25,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +33,6 @@ import com.app.our.foodplanner.app_vp.view.MainActivityContainer;
 import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.app_vp.view.presenter.PresenterInterface;
 import com.app.our.foodplanner.model.Meal;
-
 import java.util.ArrayList;
 
 public class MealFragment extends DialogFragment implements MealFragmentInterface{
@@ -40,9 +47,9 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
     View view;
     ImageButton btnAddFav;
     ImageButton btnAddToPlan;
-    ImageButton imageButtonVideoShow;
     PresenterInterface presenterInterface;
     ArrayList<String>ingHolder;
+    ImageButton backBtn,addToCalBtn;
     int mode=0;
     public MealFragment() {
         // Required empty public constructor
@@ -61,7 +68,20 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.meal_data_layout, container, false);
+       return inflater.inflate(R.layout.meal_data_layout, container, false);
+
+    }
+
+    @Override
+    public void onResume() {
+        Window window = getDialog().getWindow();
+        Point size = new Point();
+        Display display = window.getWindowManager().getDefaultDisplay();
+        display.getSize(size);
+        window.setLayout((int)(size.x*0.959),(int)(size.y*0.9));
+        window.setGravity(Gravity.CENTER);
+        window.setBackgroundDrawableResource(R.drawable.cat_bcak_item);
+        super.onResume();
     }
 
     @Override
@@ -73,12 +93,13 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
         imageViewMealMeal.setImageBitmap(bitmap);
         btnAddFav=view.findViewById(R.id.btnAddToFav);
         btnAddToPlan=view.findViewById(R.id.btnAddToPlan);
-        imageButtonVideoShow=view.findViewById(R.id.imageButtonVideoShow);
+        backBtn=view.findViewById(R.id.imageButtonbackBtn);
+        addToCalBtn=view.findViewById(R.id.imageButtonaddToCalender);
         if(presenterInterface.isLogedIn()&&mode>0)
         {
             btnAddFav.setVisibility(View.GONE);
             btnAddToPlan.setVisibility(View.GONE);
-            imageButtonVideoShow.setVisibility(View.GONE);
+            addToCalBtn.setVisibility(View.GONE);
             textViewMealName=view.findViewById(R.id.textViewMealName);
             textViewMealCategoryCountry=view.findViewById(R.id.textViewMealCategoryCountry);
             mealSteps=view.findViewById(R.id.textViewMealSteps);
@@ -91,7 +112,7 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
             mealIngredients.setAdapter(adapter);
             textViewMealName.setText(meal.getStrMeal());
             textViewMealCategoryCountry.setText(meal.getStrCategory()+" , "+meal.getStrArea());
-            mealSteps.setText("\n"+meal.getStrInstructions()+"\n\n\n");
+            mealSteps.setText(meal.getStrInstructions());
         }else {
             btnAddFav.setOnClickListener(l -> {
                 meal.setImageBitmap(bitmap);
@@ -103,11 +124,29 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
                 ((MainActivityContainer) getActivity()).showPlansAddMeal();
                 dismiss();
             });
-            imageButtonVideoShow.setOnClickListener(l -> {
-                ((MainActivityContainer) getActivity()).showVideo(meal.getStrYoutube());
+            addToCalBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(Intent.ACTION_INSERT);
+                    intent.setData(CalendarContract.Events.CONTENT_URI);
+                    intent.putExtra(CalendarContract.Events.TITLE,"Meal "+meal.getStrMeal());
+                    intent.putExtra(CalendarContract.Events.DESCRIPTION,"Food Planner Meal");
+                    intent.putExtra(CalendarContract.Events.DISPLAY_COLOR, Color.GREEN);
+                    intent.putExtra(CalendarContract.Events.ALL_DAY,true);
+                    try {
+                        startActivity(intent);
+                        Toast.makeText(getContext(), "Moving You To Calender", Toast.LENGTH_SHORT).show();
+                    } catch (ActivityNotFoundException ex) {
+                        Toast.makeText(getContext(), " Cannot found Calender", Toast.LENGTH_SHORT).show();
+                    }
+                }
             });
         }
+        backBtn.setOnClickListener(l->{
+            dismiss();
+        });
     }
+
     public void setMode(int mode)
     {
         this.mode=mode;

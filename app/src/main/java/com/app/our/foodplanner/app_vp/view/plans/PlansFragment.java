@@ -73,7 +73,7 @@ public class PlansFragment extends Fragment implements PlansFragmentInterface {
             TextView textView=new TextView(dialog.getContext());
             textView.setText("Please Select First Day In Your Week");
             textView.setTextSize(24);
-            textView.setTextColor(Color.WHITE);
+            textView.setTextColor(Color.BLACK);
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             textView.setBackgroundColor(Color.CYAN);
             dialog.setCustomTitle(textView);

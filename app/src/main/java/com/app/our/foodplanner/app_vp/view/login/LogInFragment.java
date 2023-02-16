@@ -181,11 +181,10 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-            Log.i(TAG, "**225//*6 onActivityResult: "+resultCode);
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-            Log.i(TAG, "**********onActivityResult: "+task+" task.getResult();"+GoogleSignIn.getSignedInAccountFromIntent(data));
-        }
+
+            }
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
@@ -197,9 +196,8 @@ public class LogInFragment extends Fragment implements LogInFragmentInterface {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 presenterInterface.googleSignIn(account.getEmail(),account.getDisplayName(),account.getId());
-                                Log.i(TAG, "//////////onComplete: ");
-                                Log.i(TAG, "dddddddda5al: "+account.getEmail()+account.getDisplayName()+account.getId());
-                            }
+
+                              }
                             else{
                                 Toast.makeText(context, "fffffAIL", Toast.LENGTH_SHORT).show();
                             }

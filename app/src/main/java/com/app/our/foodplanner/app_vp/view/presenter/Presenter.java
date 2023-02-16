@@ -4,13 +4,18 @@ package com.app.our.foodplanner.app_vp.view.presenter;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.app.our.foodplanner.app_vp.view.MainActivityContainerInterface;
 import com.app.our.foodplanner.app_vp.view.favorite.FavouriteFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.home.HomeFragmentInterface;
 import com.app.our.foodplanner.app_vp.view.login.LogInFragmentInterface;
@@ -28,6 +33,8 @@ import com.app.our.foodplanner.model.PlanOfWeek;
 import com.app.our.foodplanner.model.Repository;
 import com.app.our.foodplanner.network.NetworkDelegate;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,6 +46,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -129,7 +138,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         this.homeFragment = homeFragment;
     }
 
-    //end Data Holders
 
     public Presenter(Context context)
     {
@@ -367,19 +375,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
         homeFragment.showMeals(mealsAfter);
     }
 
-    @Override
-    public void searchForIngredient(String search) {
-        Stream<Ingredient> stream= ingredients.stream().filter(i->i.strIngredient.toLowerCase().startsWith(search.toLowerCase()));
-        ArrayList<Ingredient> mealsAfter = new ArrayList<>(stream.collect(Collectors.toList()));
-        filterFragmentInterface.showIngradient(mealsAfter);
-    }
-    @Override
-    public void searchForArea(String search) {
-        Stream<Area> stream= getAreas().stream().filter(i->i.strArea.toLowerCase().startsWith(search.toLowerCase()));
-        ArrayList<Area> mealsAfter = new ArrayList<>(stream.collect(Collectors.toList()));
-        filterFragmentInterface.showArea(mealsAfter);
-    }
-
 
 
     @Override
@@ -453,9 +448,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     public void getAllFav() {
         repository.getAllFavMealsLive(true,uId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
-                    i=castListToSet(i);
                     favouriteFragmentInterface.showData(i);
-
                 });
     }
     @Override
@@ -483,54 +476,11 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
         repository.getAllMealsInPlan(plan.getWeek(),plan.getMonth(),plan.getYear(),uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(i->{
             if(i!=null) {
+                targetShowPlanMeals=new ArrayList<>();
                 targetShowPlanMeals.addAll(i);
                 sendFirstDayInWeekMeals(plan.getWeek());
             }
         });
-    }
-    public List<Meal> castListToSet(List<Meal>meals)
-    {
-        List<Meal>res=new ArrayList<>();boolean flag=false;
-        for(int i=0;i<meals.size();i++)
-        {
-            flag=false;
-            for(int j=i+1;j<meals.size();j++)
-            {
-                if(meals.get(i).getIdMeal().equals(meals.get(j).getIdMeal()))
-                {
-                    flag=true;
-                }
-            }
-            if(!flag)
-            {
-                res.add(meals.get(i));
-            }
-        }
-        return  res;
-    }
-
-    public ArrayList<Meal> checkMealRedInPlan(List<Meal>meals)
-    {
-        ArrayList<Meal>res=new ArrayList<>();boolean flag=false;
-        for(int i=0;i<meals.size();i++)
-        {
-            flag=false;
-            for(int j=i+1;j<meals.size();j++)
-            {
-                if(meals.get(i).getMeal_Day().equals(meals.get(j).getMeal_Day())&&
-                        meals.get(i).getMeal_Time().equals(meals.get(j).getMeal_Time())&&
-                        meals.get(i).getMeal_Week().equals(meals.get(j).getMeal_Week())&&
-                        meals.get(i).getMeal_Month().equals(meals.get(j).getMeal_Month()))
-                {
-                    flag=true;
-                }
-            }
-            if(!flag)
-            {
-                res.add(meals.get(i));
-            }
-        }
-        return  res;
     }
 
     public void sendFirstDayInWeekMeals(String day){
@@ -553,22 +503,9 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 }
             }
         }
-        breakfast=checkMealRedInPlan(breakfast);
-        lunch=checkMealRedInPlan(lunch);
-        dinner=checkMealRedInPlan(dinner);
         planFragmentInterface.setData(breakfast,lunch,dinner);
     }
-    public void logInFirst(String email,String pass)
-    {
-        firebaseAuth=FirebaseAuth.getInstance();
-        FirebaseAuth.getInstance().signOut();
-        firebaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                isLogedIn= task.isSuccessful();
-            }
-        });
-    }
+
     @Override
     public void addPlan(PlanOfWeek plan) {
         plan.setUserId(uId);
@@ -692,7 +629,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                                         mealData.get("strMeasure18"),
                                         mealData.get("strMeasure19"),
                                         mealData.get("strMeasure20"),
-                                        mealData.get("isFavorite") == "true",
+                                        mealData.get("isFavorite").equals("1"),
                                         mealData.get("meal_Time"),
                                         mealData.get("meal_Day"),
                                         mealData.get("meal_Week"),
@@ -700,9 +637,20 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                                         mealData.get("meal_Year"),
                                         mealData.get("userId")
                                 );
-                                   // meal.setImage(getImageHttpConn(mealData.get("strMealThumb")));
-                                    repository.insertMeal(meal).subscribeOn(Schedulers.io()).subscribe();
+
+                                Glide.with(context).asBitmap().load(mealData.get("strMealThumb")).into(new CustomTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                        meal.setImageBitmap(resource);
+                                        repository.insertMeal(meal).subscribeOn(Schedulers.io()).subscribe();
+                                    }
+                                    @Override
+                                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                                    }
+                                });
+
                             }}).subscribeOn(Schedulers.io())
+                                   // .onErrorComplete()
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .doOnComplete(()->profileFragmentInterface.setRetriveDataRes(true))
                                     .subscribe();
@@ -716,25 +664,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 logout();
             }
     }
-    private byte[] getImageHttpConn(String url)
-    {
-        try {
-            URL url1=new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
-            connection.connect();
-            InputStream inputStream = connection.getInputStream();
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            byte[]img=new byte[bufferedInputStream.available()];
-            bufferedInputStream.read(img);
-            bufferedInputStream.close();
-            inputStream.close();
-            connection.disconnect();
-            return img;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-     return null;
-    }
+
     private void backUpMeals(List<Meal>i)
     {
             if(i!=null) {
@@ -794,7 +724,7 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                         mealdata.put("strMeasure18", meal.getStrMeasure18());
                         mealdata.put("strMeasure19", meal.getStrMeasure19());
                         mealdata.put("strMeasure20", meal.getStrMeasure20());
-                        mealdata.put("isFavorite", "" + meal.getIsFavorite());
+                        mealdata.put("isFavorite", "" + (meal.getIsFavorite()?"1":"0"));
                         mealdata.put("meal_Time", meal.getMeal_Time());
                         mealdata.put("meal_Day", meal.getMeal_Day());
                         mealdata.put("meal_Week", meal.getMeal_Week());
@@ -843,9 +773,10 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
                 .addOnSuccessListener(authResult -> {
                     isLogedIn=true;
                     checkout=true;
+                    uId=email;
                     LogInFragmentInterface.onLoginResult(true);
                     repository.setUserData(Objects.requireNonNull(authResult.getUser()).getDisplayName(),authResult.getUser().getEmail(),authResult.getUser().getUid());
-                    uId=authResult.getUser().getEmail();
+
                 }).addOnFailureListener(e -> {
                     isLogedIn=false;
                     checkout=false;
@@ -858,16 +789,6 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
     public void logout() {
         this.isLogedIn = false;
         checkout = false;
-
-        repository.setUserData("","","");
-        Log.i(TAG, "logout: " + checkout + " " + isLogedIn);
-        firebaseAuth.signOut();
-        try {
-            finalize();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
-
         uId="";
         FirebaseAuth.getInstance().signOut();
         repository.deleteUserData();
@@ -880,26 +801,16 @@ public class Presenter implements NetworkDelegate , PresenterInterface {
 
     @Override
     public void deleteMealInPlan(String mealId,String mealDay,String mealTime, PlanOfWeek plan) {
-        if(targetShowPlanMeals!=null)
-        {
-            for (int i=0;i<targetShowPlanMeals.size();i++) {
-                Meal m=targetShowPlanMeals.get(i);
-                if(m.getIdMeal().equals(mealId)&&m.getMeal_Day().equals(mealDay)&&m.getMeal_Time().equals(mealTime)
-                &&m.getMeal_Month().equals(plan.getMonth())&&m.getMeal_Year().equals(plan.getYear())&&m.getMeal_Week().equals(plan.getWeek()))
-                {
-
-                    repository.updateDateInMeal(null,null,null,null,null,targetShowPlanMeals.get(i).getIdMeal(),uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(this::removeUnneeded).subscribe();
-                    targetShowPlanMeals.remove(i);
-                    break;
-                }
-            }
-        }
-
+                    repository.updateDateInMeal(null,null,null,null,null,mealId,uId)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnComplete(this::removeUnneeded).subscribe();
 
     }
 public  void removeUnneeded()
 {
     repository.removeUnneeded().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+
 }
     public void setPlanInterface(PlanFragmentInterface planInterface) {
         planFragmentInterface=planInterface;
@@ -933,7 +844,7 @@ public  void removeUnneeded()
     @Override
     public void UpdateMealOfFavouriteList(Boolean isFav, String Meal) {
 
-       repository.updateFavoriteInMeal(isFav, Meal,uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(this::removeUnneeded).subscribe();
+       repository.updateFavoriteInMeal(isFav, Meal,uId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(()->removeUnneeded());
 
       }
 
@@ -983,7 +894,8 @@ public  void removeUnneeded()
     public void googleSignIn(String email,String name,String uid){
         isLogedIn=true;
         checkout=true;
-        LogInFragmentInterface.onLoginResult(isLogedIn);
+        this.uId=email;
+        LogInFragmentInterface.onLoginResult(true);
         repository.setUserData(name,email,uid);
     }
     @Override
@@ -995,5 +907,6 @@ public  void removeUnneeded()
     {
         repository.enqueueCallListAllIngredients_Just_Names(this,context);
     }
+
 
 }
