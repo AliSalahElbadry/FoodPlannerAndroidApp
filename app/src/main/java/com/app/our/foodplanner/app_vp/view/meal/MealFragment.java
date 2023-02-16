@@ -115,8 +115,14 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
             mealSteps.setText(meal.getStrInstructions());
         }else {
             btnAddFav.setOnClickListener(l -> {
-                meal.setImageBitmap(bitmap);
-                presenterInterface.addToFav(meal);
+                if(presenterInterface.isLogedIn()) {
+                    meal.setImageBitmap(bitmap);
+                    presenterInterface.addToFav(meal);
+                }else
+                {
+
+                    Toast.makeText(getContext(),"Please Login First ",Toast.LENGTH_SHORT).show();
+                }
             });
             btnAddToPlan.setOnClickListener(l -> {
                 meal.setImageBitmap(bitmap);
@@ -189,6 +195,7 @@ public class MealFragment extends DialogFragment implements MealFragmentInterfac
     @Override
     public void setAddFavRes(boolean isSet) {
         if(isSet) {
+
             btnAddFav.setBackgroundResource(R.drawable.baseline_favorite_24);
             Toast.makeText(getContext(), "Added To Favorite", Toast.LENGTH_SHORT).show();
         }

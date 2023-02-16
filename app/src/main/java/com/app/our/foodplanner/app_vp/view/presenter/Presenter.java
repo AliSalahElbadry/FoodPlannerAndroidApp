@@ -818,7 +818,7 @@ public  void removeUnneeded()
 
     @Override
     public void putUserData(String userName, String email, String password) {
-
+               uData=new String[3];
                uData[0]=userName;
                nameProfile=userName;
                firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(s->{

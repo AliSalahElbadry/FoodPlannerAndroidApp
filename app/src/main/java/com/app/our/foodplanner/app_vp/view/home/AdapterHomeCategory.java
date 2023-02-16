@@ -64,10 +64,12 @@ public class AdapterHomeCategory  extends RecyclerView.Adapter<AdapterHomeCatego
             public void onClick(View v) {
 
                 homeFragment.getConainer().getPresenter().getMealsByCategory(categories.get(holder.getAdapterPosition()).strCategory);
-                if(lastClicked!=-1)
+              if(homeFragment.getConainer().checkConnectionState()) {
+                  if (lastClicked != -1)
+                      notifyItemChanged(lastClicked);
+                  lastClicked = holder.getLayoutPosition();
                   notifyItemChanged(lastClicked);
-                lastClicked=holder.getLayoutPosition();
-                notifyItemChanged(lastClicked);
+              }
 
             }
         });
