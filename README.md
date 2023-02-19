@@ -10,6 +10,20 @@
 * beacouse it helps people to save time thinking in the best meal for today.
 * helps people to manage and save there health.
 
+### used In Project :
+
+ * MVP design Pattren
+ * Single Activity Pattren 
+ * Repository pattern 
+ * Singleton 
+ * JavaRX
+ * Retrofit
+ * Room
+ * Firebase Auth
+ * Firebase Realtime Database
+ * Google Material Design 3
+  
+
 ## Installation :
 ```bash
 git clone https://github.com/AliSalahElbadry/FoodPlannerAndroidApp.git
